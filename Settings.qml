@@ -115,7 +115,6 @@ Rectangle{
                 font.pixelSize: 20
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                minimumPixelSize: 12
             }
         }
     }
@@ -194,7 +193,7 @@ Rectangle{
             width: parent.width
             height: parent.height
 
-            contentHeight: 2000
+            contentHeight: (settingsData.getSizeAnswerSettings() + 12) * 60
             contentWidth: parent.width
             clip: true
 
@@ -202,10 +201,16 @@ Rectangle{
                 id: columnSettings
                 anchors.fill: parent
 
+                //переделать нахер все!!!!!!! Полностью файл PointUniversalSettings.qml
+
                 Repeater{
                     id: repeaterSettings
                     anchors.fill: parent
-                    model: 4
+                    model: settingsData.getSizeArrayPointSettings()
+
+                    Component.onCompleted: {
+                        console.log("settingsData.getSizeArrayPointSettings()", settingsData.getSizeArrayPointSettings())
+                    }
 
                     PointUniversalSettings {
                         id: pointUniversalSettings

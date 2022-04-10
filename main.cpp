@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include "test.h"
 #include "contactslist.h"
+#include "settingsdata.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,10 +17,13 @@ int main(int argc, char *argv[])
 
     Test testMap;
     ContactsList contacts;
+    SettingsData settingsData;
+
     contacts.getVectorSize(0);
 
     engine.rootContext()->setContextProperty("testMap", &testMap);
     engine.rootContext()->setContextProperty("contactsss", &contacts);
+    engine.rootContext()->setContextProperty("settingsData",&settingsData);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));

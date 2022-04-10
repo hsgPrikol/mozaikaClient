@@ -54,5 +54,6 @@
         <file>resourses/nastroiki/plashka_s_imenem.tif</file>
         <file>HatMask.qml</file>
         <file>PointUniversalSettings.qml</file>
+        <file>ForTest.qml</file>
     </qresource>
 </RCC>
