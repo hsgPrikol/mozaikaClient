@@ -311,7 +311,7 @@ void HandlerCommand::AnswerMyDialogs(QJsonObject *qObj, QWebSocket *socket)
             QString user_name = m[ProtocolTrade::___USER_NAME].toString();
             QString birthdate = m[ProtocolTrade::___BIRTH_DATE].toString();
             User user(-1, login, user_name, user_avatar, birthdate);
-            dialog.addMember(user);
+            dialog.addMember(&user);
         }
         dialogs.append(dialog);
     }

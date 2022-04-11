@@ -23,17 +23,24 @@ Window {
     {
         if (status)
         {
-            loader.setSource("Settings.qml");
+            loader.setSource("ListDialogs.qml");
             currentUser.setAvatarFile(avatar)
             currentUser.setName(name)
             currentUser.setLogin(textField.text)
             currentUser.setBirthDate(birthDay)
+            client.getMyDialogs()
             console.log("Авторизация - И");
         }
         else
         {
             console.log("Авторизация - Иди в жопу");
         }
+    }
+
+    function getdialogs(nenuzhno){
+//        currentDialogs.setDialogs(nenuzhno)
+//        spisok_dialogov = currentDialogs.getMyDialogs()
+        a = 1000 * 555;
     }
 
     //autorization
@@ -123,6 +130,8 @@ Window {
                 hoverEnabled: false
                 placeholderTextColor: "#ffffff"
                 placeholderText: qsTr("5NR_Operator_27")
+                text: "maksim"
+                color: "white"
 
                 background: Image {
 
@@ -174,7 +183,8 @@ Window {
                 y: 0
                 width: 231
                 height: 51
-                text: ""
+                text: "123"
+                color: "white"
                 placeholderText: "********"
                 placeholderTextColor: "#ffffff"
                 background: Image {
@@ -258,7 +268,7 @@ Window {
 //                    console.log("Contacts.qml")
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    //Contacts.qml
+                    //ContactsChar.qml
 //                    loader.setSource("ContactsChar.qml")
 //                    console.log("ContactsChar.qml")
 
@@ -281,6 +291,7 @@ Window {
             console.log("Авторизация загружена");
 
             client.onAutorization.connect(autorization);
+//            client.onGetDialogsCompletted.connect(getdialogs);
         }
     }
 

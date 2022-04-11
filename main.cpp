@@ -6,6 +6,7 @@
 #include "settingsdata.h"
 #include "Client/clientgeneral.h"
 #include "Client/super_server/user.h"
+#include "Client/super_server/dialogsvector.h"
 
 
 int main(int argc, char *argv[])
@@ -27,6 +28,8 @@ int main(int argc, char *argv[])
     ClientGeneral client;
 
 
+    DialogsVector* vectorDialogov = new DialogsVector();
+    vectorDialogov->connect(&client, SIGNAL(onGetDialogs(MyVector<UserDialog>)), vectorDialogov, SLOT());
 
     contacts.getVectorSize(0);
 
@@ -36,6 +39,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("client", &client);
 
     engine.rootContext()->setContextProperty("currentUser", currentUser);
+
+    engine.rootContext()->setContextProperty("currentDialogs", vectorDialogov);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));

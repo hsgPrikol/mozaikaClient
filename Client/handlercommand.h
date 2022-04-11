@@ -11,6 +11,7 @@
 #include "protocoltrade.h"
 #include "fix.h"
 #include "super_server/userdialog.h"
+#include "super_server/user.h"
 
 class HandlerCommand : public QObject
 {

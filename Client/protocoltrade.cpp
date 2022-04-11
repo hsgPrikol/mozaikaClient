@@ -74,6 +74,8 @@ void ProtocolTrade::SaveBinaryFile(QString binary, QString name, QString type, Q
 {
     QFile file(path + name + "." + type);
 
+    file.open(QIODevice::WriteOnly);
+
     QByteArray byteArray(binary.size(), (char)255);
 
     for(int i = 0; i < byteArray.size(); i++)

@@ -16,13 +16,13 @@ void ClientGeneral::onTextMessageReceived(QString message)
 {
     QWebSocket *socket = qobject_cast<QWebSocket *>(sender());
 
-    qDebug() << message;
+//    qDebug() << /*message*/;
 
     QJsonObject object = ProtocolTrade::StringToJsonObject(message);
 
     if(ProtocolTrade::CompareSocket(socket, &socketServer))
     {
-        ClientGeneral::processingEventFromServer(&object, &socketServer);
+        ClientGeneral::processingEventFromServer(&object);
     }
     else
     {
@@ -51,29 +51,15 @@ ClientGeneral::ClientGeneral(QObject *parent) : QObject(parent)
     socketServer.open(URL_SERVER);
 }
 
-void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths)
-{
-    ClientGeneral::sendMessage(idChat, tmpIdMsg, textMsg, paths, &socketServer);
-}
+//void ClientGeneral::authorization(QString login, QString password)
+//{
+//    ClientGeneral::authorization(login, password, &socketServer);
+//}
 
-void ClientGeneral::authorization(QString login, QString password)
-{
-    ClientGeneral::authorization(login, password, &socketServer);
-}
-
-void ClientGeneral::sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths)
-{
-    ClientGeneral::sendPrivateMessage(tmpIdMsg, textMsg, paths, &socketServer);
-}
-
-void ClientGeneral::createPrivateChat(QString login)
-{
-    ClientGeneral::createPrivateChat(login, &socketServer);
-}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-void ClientGeneral::handlerCmdAuthorization(QJsonObject *object, QWebSocket *client)
+void ClientGeneral::handlerCmdAuthorization(QJsonObject *object)
 {
     QString status = ((*object)[ProtocolTrade::___STATUS]).toString();
 
@@ -92,9 +78,9 @@ void ClientGeneral::handlerCmdAuthorization(QJsonObject *object, QWebSocket *cli
                 jObj[ProtocolTrade::___NAME_FILE].toString(),
                 jObj[ProtocolTrade::___TYPE_FILE].toString(),
                 "idMessage",
-                "idChat", "../");
+                "idChat", "");
 
-        QString filePath = "../" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
+        QString filePath = "" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
 
         Fix::isAuthorized = true;
         emit onAutorization(userName, filePath, birthDate, true);
@@ -106,7 +92,7 @@ void ClientGeneral::handlerCmdAuthorization(QJsonObject *object, QWebSocket *cli
     }
 }
 
-void ClientGeneral::handlerCmdSendMessage(QJsonObject *object, QWebSocket *socket)
+void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
 {
     // Обработка входных данных
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
@@ -148,11 +134,11 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object, QWebSocket *socke
                                               {ProtocolTrade::___STATUS_MESSAGE, QJsonValue(ProtocolTrade::___STS_TAKEN)}
                                           });
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(answer), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(answer), &socketServer);
 }
 
 //ЖОПиСАТЬ
-void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object, QWebSocket *client)
+void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object)
 {
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
     QString idMessage = ((*object)[ProtocolTrade::___ID_MESSAGE]).toString();
@@ -160,7 +146,7 @@ void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object, QWebS
     QString statusMessage = ((*object)[ProtocolTrade::___TMP_ID_MESSAGE]).toString();
 }
 
-void ClientGeneral::processingEventFromServer(QJsonObject *object, QWebSocket *socket)
+void ClientGeneral::processingEventFromServer(QJsonObject *object)
 {
     QString commandFromClient = ((*object)[ProtocolTrade::___COMMAND]).toString();
 
@@ -169,12 +155,12 @@ void ClientGeneral::processingEventFromServer(QJsonObject *object, QWebSocket *s
         if(!object->find(ProtocolTrade::___TMP_ID_MESSAGE)->isUndefined())
         {
             // обработка ответа с сервера после отправки сообщения
-            handlerCmdSendMessageAnswerServer(object, socket);
+            handlerCmdSendMessageAnswerServer(object);
         }
         else
         {
             // обработка входящего сообщения
-            handlerCmdSendMessage(object, socket);
+            handlerCmdSendMessage(object);
         }
     }
     else if(commandFromClient == ProtocolTrade::___CMD_CREATE_PRIVATE_CHAT)
@@ -182,35 +168,35 @@ void ClientGeneral::processingEventFromServer(QJsonObject *object, QWebSocket *s
         if(!object->find(ProtocolTrade::___STATUS)->isUndefined())
         {
             // Обработка полученного запроса на создание приватного чата от сервера
-            getAnswerCreatePrivateChat(object, socket);
+            getAnswerCreatePrivateChat(object);
         }
         else
         {
             // Обработка ответа на создание приватног чата
-            getReqPrivateChat(object, socket);
+            getReqPrivateChat(object);
         }
     }
     else if(commandFromClient == ProtocolTrade::___CMD_AUTHORIZATION)
     {
         // Обработка ответа от сервера на авторизацию
-        handlerCmdAuthorization(object, socket);
+        handlerCmdAuthorization(object);
     }
     else if(commandFromClient == ProtocolTrade::___CMD_GET_MESSAGES){
         // Обработка ответа от сервера на запрос сообщений из конкретного чата
-        getAnswerMessagesInDialog(object, socket);
+        getAnswerMessagesInDialog(object);
     }
     else if(commandFromClient == ProtocolTrade::___CMD_GET_DATE_USER){
         // Обработка ответа от сервера на запрос информации об котнтакте
-        getAnswerContact(object, socket);
+        getAnswerContact(object);
     }
     else if(commandFromClient == ProtocolTrade::___CMD_GET_CHATS){
         // Обработка ответа от сервера на запрос всех диалогов
-        answerMyDialogs(object, socket);
+        answerMyDialogs(object);
     }
 
 }
 
-void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths, QWebSocket* socket)
+void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_SEND_MESSAGE)},
@@ -242,10 +228,10 @@ void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMs
         jObj->insert(ProtocolTrade::___ARR_ATTACHMENT, arrAttachment);
     }
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::authorization(QString login, QString password, QWebSocket *socket)
+void ClientGeneral::authorization(QString login, QString password)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_AUTHORIZATION)},
@@ -253,10 +239,10 @@ void ClientGeneral::authorization(QString login, QString password, QWebSocket *s
                                             {ProtocolTrade::___PASSWORD, QJsonValue(password)}
                                         });
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths, QWebSocket *socket)
+void ClientGeneral::sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_SEND_PRIVATE_MESSAGE)},
@@ -287,20 +273,20 @@ void ClientGeneral::sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVecto
         jObj->insert(ProtocolTrade::___ARR_ATTACHMENT, arrAttachment);
     }
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::getMessagesInDialog(QString idChat, QWebSocket *socket)
+void ClientGeneral::getMessagesInDialog(QString idChat)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_GET_MESSAGES)},
                                             {ProtocolTrade::___ID_CHAT, QJsonValue(idChat)}
                                         });
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object, QWebSocket *socket)
+void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object)
 {
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
 
@@ -333,20 +319,21 @@ void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object, QWebSocket *s
         dialog.addMessage(msg);
     }
 
+
     qDebug() <<dialog.getID();
     // ОТДАТЬ ИГОРЮ ПОЛУЧЕННЫЙ ДИАЛОГ
 }
 
-void ClientGeneral::getContact(QString login, QWebSocket *socket)
+void ClientGeneral::getContact(QString login)
 {
     QJsonObject * object = new QJsonObject({
                                                {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_GET_DATE_USER)},
                                                {ProtocolTrade::___LOGIN, QJsonValue(login)}
                                            });
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(object), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(object), &socketServer);
 }
 
-void ClientGeneral::getAnswerContact(QJsonObject *qObj, QWebSocket *socket)
+void ClientGeneral::getAnswerContact(QJsonObject *qObj)
 {
     bool status = ((*qObj)[ProtocolTrade::___STATUS]) == ProtocolTrade::___STS_DONE;
     if(status){
@@ -363,13 +350,13 @@ void ClientGeneral::getAnswerContact(QJsonObject *qObj, QWebSocket *socket)
     }
 }
 
-void ClientGeneral::getMyDialogs(QWebSocket *socket)
+void ClientGeneral::getMyDialogs()
 {
     QJsonObject* object = new QJsonObject({{ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_GET_CHATS)}});
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(object), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(object), &socketServer);
 }
 
-void ClientGeneral::answerMyDialogs(QJsonObject *qObj, QWebSocket *socket)
+void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
 {
     QJsonArray chats = (*qObj)[ProtocolTrade::___ARR_CHATS].toArray();
     QVector<UserDialog> dialogs;
@@ -385,15 +372,16 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj, QWebSocket *socket)
             QString user_name = m[ProtocolTrade::___USER_NAME].toString();
             QString birthdate = m[ProtocolTrade::___BIRTH_DATE].toString();
             User user(-1, login, user_name, user_avatar, birthdate);
-            dialog.addMember(user);
+            dialog.addMember(&user);
         }
         dialogs.append(dialog);
     }
 
+//    emit onGetDialogs(dialogs);
     // СДЕЛАЙ ЧТО ТО С ДИАЛОГС
 }
 
-void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray avatar, QWebSocket *socket)
+void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray avatar)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_CREATE_CHAT)},
@@ -410,20 +398,20 @@ void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray
     }
     jObj->insert(ProtocolTrade::___ARR_USERS, *jlogins);
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::createPrivateChat(QString receiver_login, QWebSocket *socket)
+void ClientGeneral::createPrivateChat(QString receiver_login)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_CREATE_PRIVATE_CHAT)},
                                             {ProtocolTrade::___LOGIN, QJsonValue(receiver_login)}
                                         });
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::getReqPrivateChat(QJsonObject *qObj, QWebSocket *socket)
+void ClientGeneral::getReqPrivateChat(QJsonObject *qObj)
 {
     QString requester_login = ((*qObj)[ProtocolTrade::___LOGIN]).toString();
     bool isAccepted;// НУЖНО СПРОСИТЬ У ПОЛЬЗОВАТЕЛЯ ХОЧЕТ ЛИ ОН СОЗДАТЬ ДИАЛОГ
@@ -455,10 +443,10 @@ void ClientGeneral::getReqPrivateChat(QJsonObject *qObj, QWebSocket *socket)
                                  });
     }
 
-    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(answer), socket);
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(answer), &socketServer);
 }
 
-void ClientGeneral::getAnswerCreatePrivateChat(QJsonObject *qObj, QWebSocket *socket)
+void ClientGeneral::getAnswerCreatePrivateChat(QJsonObject *qObj)
 {
     QString status = ((*qObj)[ProtocolTrade::___STATUS]).toString();
     if(status == ProtocolTrade::___STS_DONE){

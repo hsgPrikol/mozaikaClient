@@ -171,6 +171,8 @@ Rectangle {
                     Dialogs {
                         id: dialogs
                         anchors.horizontalCenter: parent.horizontalCenter
+
+
                     }
                 }
             }

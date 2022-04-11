@@ -16,6 +16,8 @@ SOURCES += \
         Client/handlercommand.cpp \
         Client/protocoltrade.cpp \
         Client/srcprivatechat.cpp \
+        Client/super_server/dialogclient.cpp \
+        Client/super_server/dialogsvector.cpp \
         Client/super_server/message.cpp \
         Client/super_server/myfile.cpp \
         Client/super_server/myvector.cpp \
@@ -49,6 +51,8 @@ HEADERS += \
     Client/handlercommand.h \
     Client/protocoltrade.h \
     Client/srcprivatechat.h \
+    Client/super_server/dialogclient.h \
+    Client/super_server/dialogsvector.h \
     Client/super_server/message.h \
     Client/super_server/myfile.h \
     Client/super_server/myvector.h \

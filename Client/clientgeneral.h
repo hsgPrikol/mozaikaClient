@@ -6,6 +6,7 @@
 #include <QtWebSockets/QWebSocket>
 #include "handlercommand.h"
 #include <QThread>
+//#include "super_server/user.h"
 
 class ClientGeneral : public QObject
 {
@@ -25,60 +26,60 @@ public:
 
     QWebSocket socketServer;
 public slots:
-    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths);
-    void authorization(QString login, QString password);
-    void sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths);
-    void createPrivateChat(QString login);
+//    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths);
+//    void authorization(QString login, QString password);
+//    void sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths);
 
 
     //HandlerController
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ///Обработчик ответа от сервера на авторизацию
-    void handlerCmdAuthorization(QJsonObject* object, QWebSocket* client);
+    void handlerCmdAuthorization(QJsonObject* object);
 
     ///Обработчик получения нового сообщения
-    void handlerCmdSendMessage(QJsonObject* object, QWebSocket* client);
+    void handlerCmdSendMessage(QJsonObject* object);
 
     ///Обработчик ответа после отправки сообщения
-    void handlerCmdSendMessageAnswerServer(QJsonObject* object, QWebSocket* client);
+    void handlerCmdSendMessageAnswerServer(QJsonObject* object);
 
-    void processingEventFromServer(QJsonObject* object, QWebSocket* socket);
+    void processingEventFromServer(QJsonObject* object);
 
     /// Отправка запроса на создание приватного чата
-    void createPrivateChat(QString receiver_login, QWebSocket *socket);
+    void createPrivateChat(QString receiver_login);
 
     /// Обработка разрешения на создание приватного чата
-    void getReqPrivateChat(QJsonObject* qObj, QWebSocket *socket);
+    void getReqPrivateChat(QJsonObject* qObj);
 
     /// Получение ответа на создание приватного чата
-    void getAnswerCreatePrivateChat(QJsonObject* qObj, QWebSocket *socket);
+    void getAnswerCreatePrivateChat(QJsonObject* qObj);
 
-    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths, QWebSocket* socket);
-    void authorization(QString login, QString password, QWebSocket* socket);
-    void sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths, QWebSocket* socket);
+    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths);
+    void authorization(QString login, QString password);
+    void sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths);
     /// Запрос клиента на получение сообщений из конкретного диалога
-    void getMessagesInDialog(QString idChat, QWebSocket *socket);
+    void getMessagesInDialog(QString idChat);
 
     /// Получение ответа от сервера на запрос сообщений из конкретного чата
-    void getAnswerMessagesInDialog(QJsonObject* qObj, QWebSocket *socket);
+    void getAnswerMessagesInDialog(QJsonObject* qObj);
 
     /// Запрос на получение контакта
-    void getContact(QString login, QWebSocket *socket);
+    void getContact(QString login);
 
     /// Ответ на запрос на получение контакта
-    void getAnswerContact(QJsonObject* qObj, QWebSocket *socket);
+    void getAnswerContact(QJsonObject* qObj);
 
     /// Запрос на получение списка всех диалогов
-    void getMyDialogs(QWebSocket *socket);
+    void getMyDialogs();
 
     /// Ответ на запрос получения списка всех диалогов
-    void answerMyDialogs(QJsonObject* qObj, QWebSocket *socket);
+    void answerMyDialogs(QJsonObject* qObj);
 
     /// Отправка запроса на создание чата
-    void createChat(QVector<QString> logins, QString name, QByteArray avatar, QWebSocket *socket);
+    void createChat(QVector<QString> logins, QString name, QByteArray avatar);
 
 signals:
     void onAutorization(QString, QString, QString, bool);
+    void onGetDialogs(QVector<UserDialog>);
 };
 
 #endif // CLIENTGENERAL_H
