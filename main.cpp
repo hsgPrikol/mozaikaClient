@@ -8,6 +8,7 @@
 #include "Client/super_server/user.h"
 #include "Client/super_server/dialogsvector.h"
 #include "clientdata.h"
+#include "qdir.h"
 //#include "userdialog.h"
 
 
@@ -17,10 +18,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    QDateTime finalDate(QDate::currentDate(), QTime(10, 59,0));
-    QDateTime currentDate = QDateTime::currentDateTime();
-    auto d= currentDate.secsTo(finalDate);
-    qDebug() <<d;
+    QString* currentDir=new QString(QDir::currentPath().toStdString().c_str());
+    QDir dir(*currentDir);
+    dir.mkdir(*currentDir+"/client_garbarge");
 
 
     QGuiApplication app(argc, argv);
@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
 
     contacts.getVectorSize(0);
 
+    engine.rootContext()->setContextProperty("currentDir", *currentDir);
     engine.rootContext()->setContextProperty("testMap", &testMap);
     engine.rootContext()->setContextProperty("contactsss", &contacts);
     engine.rootContext()->setContextProperty("settingsData",&settingsData);

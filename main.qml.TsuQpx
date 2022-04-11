@@ -73,8 +73,8 @@ Window {
         Image {
             id: mainPhone
             anchors.fill: parent
-            source: "qrc:/picture/phone.tif"
-//            source: "file:///C:/Users/Tihon/Desktop/HackathonApril/build-SuperDesign-3_Desktop_Qt_5_15_2_MinGW_64_bit-Debug/client_garbarge/userAvatar_просто_картинкаMaksim Sergeevich.png"
+//            source: "qrc:/picture/phone.tif"
+            source: "file:///C:/Users/Tihon/Desktop/HackathonApril/build-SuperDesign-3_Desktop_Qt_5_15_2_MinGW_64_bit-Debug/client_garbarge/userAvatar_просто_картинкаMaksim Sergeevich.png"
             opacity: 0.7
 
             Component.onCompleted: {

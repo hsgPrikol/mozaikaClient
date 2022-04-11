@@ -73,14 +73,14 @@ void ClientGeneral::handlerCmdAuthorization(QJsonObject *object)
 
         QJsonObject jObj = ((*object)[ProtocolTrade::___AVATAR]).toObject();
 
-        ProtocolTrade::SaveBinaryFile(// PATH GDE
+        QString filePath =ProtocolTrade::SaveBinaryFile(// PATH GDE
                                       jObj[ProtocolTrade::___BINARY_FILE].toString(),
-                jObj[ProtocolTrade::___NAME_FILE].toString() +userName,
+                "userAvatar_"+jObj[ProtocolTrade::___NAME_FILE].toString() +userName,
                 jObj[ProtocolTrade::___TYPE_FILE].toString(),
                 "idMessage",
                 "idChat");
 
-        QString filePath = "" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
+//        QString filePath = "" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
 
         Fix::isAuthorized = true;
         emit onAutorization(userName, filePath, birthDate, true);
@@ -367,7 +367,7 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
         QString dialog_name = c[ProtocolTrade::___USER_NAME].toString();
         QString dialog_avatar = c[ProtocolTrade::___AVATAR].toString();
         int id = c[ProtocolTrade::___ID_CHAT].toInt();
-        QString avatarPath = ProtocolTrade::SaveBinaryFile(dialog_avatar,dialog_name,c.toString(),"","");
+        QString avatarPath = ProtocolTrade::SaveBinaryFile(dialog_avatar,"dialogAvatar_"+QString::number(id)+"_"+dialog_name,c.toString(),"","");
         QJsonArray members = c[ProtocolTrade::___ARR_USERS].toArray();
         bool isGroup = c[ProtocolTrade::___CHAT_GROUP].toBool();
         UserDialog dialog(id, isGroup, dialog_name,ProtocolTrade::StringToByteArray(dialog_avatar), avatarPath);

@@ -156,7 +156,8 @@ Rectangle{
             y: 0
             width: 506
             height: 220
-            source: "qrc:/resourses/avatar/lobkov.tif"
+            source: lientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/lobkov.tif"
+//            source: "qrc:/resourses/avatar/lobkov.tif"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -171,13 +172,13 @@ Rectangle{
         }
 
         Text {
-            id: nameText
+            id: tbName
             x: 0
             y: 180
             width: 415
             height: 40
             color: "#ffffff"
-            text: "Рядовой Ефрейтор"
+            text: currentUser.getName()
             font.pixelSize: 16
             verticalAlignment: Text.AlignVCenter
             minimumPixelSize: 16
