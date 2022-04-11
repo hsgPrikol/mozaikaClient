@@ -15,9 +15,24 @@ Rectangle {
     property real customOpacity: 0.7
     property color biruzoviu: "#068d9d"
 
+    property var tmpNewDialog
+
     color: noColor
 
+    function addNewDialog()
+    {
+        var tmpDialog = tmpNewDialog.createObject(columnDialogs,
+                                                  {
+
+
+
+                                                  });
+
+    }
+
+
     Rectangle{
+        id: root
         anchors.fill: parent
         width: parent.width
         height: parent.height
@@ -96,8 +111,18 @@ Rectangle {
                     y: 0
                     width: 40
                     height: 60
-                    source: "qrc:/picture/threeLines.tif"
+                    source: "qrc:/resourses/resourses v4/ri_tochki.tif"
                     fillMode: Image.PreserveAspectFit
+
+
+                }
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        navDrawer.showNavDrawer()
+                        console.log("navDrawer.showNavDrawer()")
+                    }
                 }
             }
 
@@ -147,8 +172,8 @@ Rectangle {
 
         ScrollView {
             id: scrollView
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
+            anchors.topMargin: 6
+            anchors.bottomMargin: 0
             anchors.top: rectangle.bottom
             anchors.right: rectangle.right
             anchors.left: rectangle.left
@@ -172,8 +197,16 @@ Rectangle {
                         id: dialogs
                         anchors.horizontalCenter: parent.horizontalCenter
 
+                        MouseArea{
+                            anchors.fill: parent
+
+                            onClicked: {
+                                loader.sourceComponent  = userChat
+                            }
+                        }
+
                         nameFamilia: clientData.getNameDialog(index)
-                        avatarClients: "file:///C:/Users/Tihon/Desktop/HackathonApril/build-SuperDesign-3_Desktop_Qt_5_15_2_MinGW_64_bit-Debug/" + clientData.getPathAvatar(index)
+                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
 
                         lastMessageUser: clientData.getTextLastMessage(index)
                         timeMessage: clientData.getDateLastMessage(index)
@@ -185,11 +218,56 @@ Rectangle {
                 }
             }
         }
+
+        Rectangle {
+            id: addNewDialogMask
+            x: 434
+            y: 828
+            width: 72
+            height: 72
+
+            anchors.right: root.right
+            anchors.rightMargin: 15
+
+            anchors.bottom: root.bottom
+            anchors.bottomMargin: 15
+
+            radius: addNewDialogMask.width / 7
+
+            opacity: customOpacity
+
+            color: addNewDialogMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
+
+            Image {
+                id: addNewDialog
+                x: 11
+                y: 11
+                width: 50
+                height: 50
+                source: "qrc:/resourses/create chat_2.tif"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            MouseArea{
+                id: addNewDialogMouse
+                anchors.fill: parent
+
+                onClicked: {
+                    loader.sourceComponent = contactsList
+
+                    console.log("loader.source = contactsList")
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        testMap.onCreateNewDialog.connect()
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}
+    D{i:0;formeditorZoom:1.33}
 }
 ##^##*/

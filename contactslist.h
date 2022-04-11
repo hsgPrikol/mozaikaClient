@@ -18,8 +18,15 @@ public:
 
     int countIndexMessage;
 
+    QVector<int> sds = {1,2,3,4};
+
+
 
 public slots:
+
+    QVector<int> getSds(){
+        return sds;
+    }
     void setMulti(QString symbol, QVector<QString> tmp);
 
     QString getSymbol(int index);

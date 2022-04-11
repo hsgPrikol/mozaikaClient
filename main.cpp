@@ -8,6 +8,7 @@
 #include "Client/super_server/user.h"
 #include "Client/super_server/dialogsvector.h"
 #include "clientdata.h"
+//#include "userdialog.h"
 
 
 int main(int argc, char *argv[])
@@ -45,6 +46,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("clientData", &clientData);
     engine.rootContext()->setContextProperty("currentUser", currentUser);
 
+
+//    engine.rootContext()->setContextProperty("userDialog",&userDialog);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));

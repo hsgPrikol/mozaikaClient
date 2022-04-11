@@ -3,6 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
+import QtQuick.Dialogs 1.2
 
 Rectangle{
     id: root
@@ -62,6 +63,19 @@ Rectangle{
 
     property int heightToolSettings: 60
 
+
+    FileDialog {
+            id: fileOpenDialog
+            title: "Select an image file"
+            folder: shortcuts.documents
+            nameFilters: [
+                "Image files (*.png *.jpeg *.jpg)",
+            ]
+            onAccepted: {
+                console.log(fileOpenDialog.fileUrl)
+            }
+        }
+
     Rectangle {
         id: separatorLine
         x: 0
@@ -92,7 +106,16 @@ Rectangle{
                 width: 50
                 height: 50
                 source: "qrc:/picture/arrow.tif"
+
                 fillMode: Image.PreserveAspectFit
+            }
+
+            MouseArea{
+                anchors.fill: parent
+
+                onClicked: {
+                    loader.sourceComponent = listDialog
+                }
             }
         }
 
@@ -176,6 +199,14 @@ Rectangle{
                 anchors.leftMargin: 0
                 anchors.topMargin: 0
                 fillMode: Image.PreserveAspectFit
+            }
+
+            MouseArea{
+                anchors.fill: parent
+
+                onClicked: {
+                    fileOpenDialog.open()
+                }
             }
         }
     }

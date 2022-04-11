@@ -16,6 +16,16 @@ Rectangle {
     property color biruzoviu: "#068d9d"
     property int fontSize: 20
 
+    function closeNavDrawer()
+    {
+        closeNavDrower.start()
+    }
+
+    function showNavDrawer()
+    {
+        openNavDrawer.start()
+        console.log("showNavDrawer()")
+    }
 
 
     color: noColor
@@ -29,7 +39,7 @@ Rectangle {
         id: openNavDrawer
         target: navigationDrawer
         property: "x"
-        from: -500
+        from: -dfltWidth
         to: 0
         loops: 1
         duration: 300
@@ -41,7 +51,7 @@ Rectangle {
         target: navigationDrawer
         property: "x"
         from: 0
-        to: -500
+        to: -dfltWidth
         loops: 1
         duration: 300
         easing.type: Easing.InOutQuad
@@ -97,7 +107,7 @@ Rectangle {
             }
 
             Rectangle {
-                id: rectangle2
+                id: buttonSettings
                 x: 277
                 y: 0
                 width: 60
@@ -112,6 +122,15 @@ Rectangle {
 
                     source: "qrc:/resourses/shtorka/nastroiki.tif"
                     //                fillMode: Image.PreserveAspectFit
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+
+                    onClicked: {
+                        loader.sourceComponent = settingsNav;
+                        navDrawer.closeNavDrawer()
+                    }
                 }
             }
 
@@ -247,9 +266,9 @@ Rectangle {
         }
     }
 
-    Component.onCompleted: {
-        openNavDrawer.start()
-    }
+//    Component.onCompleted: {
+//        openNavDrawer.start()
+//    }
 }
 
 

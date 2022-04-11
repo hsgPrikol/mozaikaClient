@@ -68,6 +68,9 @@ Rectangle {
                 width: 448
                 height: 84
                 color: noColor
+//                opacity: 0.7
+                border.color: mouseContacts.containsPress ? "white" : noColor
+                border.width: 1
 
                 Rectangle {
                     id: contactPageAvatar
@@ -117,6 +120,14 @@ Rectangle {
                             leftPadding: 10
                         }
                     }
+                }
+
+                MouseArea {
+                    id: mouseContacts
+
+                    anchors.fill: parent
+                    hoverEnabled: true
+
                 }
             }
 

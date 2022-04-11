@@ -3,6 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
+import QtQuick.Dialogs 1.2
 
 Rectangle {
     id: downBar
@@ -15,6 +16,30 @@ Rectangle {
     property color noColor: "#00000000"
     property real customOpacity: 0.7
     property int fontSize: 12
+
+    function sendMesage()
+    {
+
+        testMap.createNewMessage(writeMessage.text, true);
+        contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
+        writeMessage.clear();
+//                    testMap.createNewMessage("My answer", false);
+//                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
+        console.log("Сообщение отправлено")
+    }
+
+
+    FileDialog {
+            id: fileOpenDialog
+            title: "Select an image file"
+            folder: shortcuts.documents
+            nameFilters: [
+                "Image files (*.png *.jpeg *.jpg)",
+            ]
+            onAccepted: {
+                image.source = fileOpenDialog.fileUrl
+            }
+        }
 
 
     width: dfltWidth
@@ -60,7 +85,7 @@ Rectangle {
         y: 4
         width: 49
         height: 48
-        color: biruzoviu
+        color: mouseScrepka.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
         radius: 5
 
         Image {
@@ -72,11 +97,15 @@ Rectangle {
             //            anchors.fill: parent
             source: "qrc:/resourses/chat/prikrepit`.tif"
             fillMode: Image.PreserveAspectFit
-
+            scale: mouseScrepka.containsPress ? 1.2 : 1
             MouseArea{
+                id: mouseScrepka
                 anchors.fill: parent
 
                 onClicked: {
+
+                    fileOpenDialog.open()
+
                     console.log("Выберите файл")
                 }
             }
@@ -84,7 +113,7 @@ Rectangle {
     }
 
     TextField {
-        id: textField
+        id: writeMessage
         x: 124
         y: 4
         width: 319
@@ -132,9 +161,9 @@ Rectangle {
         y: 4
         width: 49
         height: 48
-        color: biruzoviu
+        color: sendMessageMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
         radius: 5
-
+        focus: true
         Image {
             id: image2
             x: 5
@@ -144,23 +173,21 @@ Rectangle {
             source: "qrc:/resourses/chat/otpravit`.tif"
             fillMode: Image.PreserveAspectFit
             opacity: 1
+            scale: sendMessageMouse.containsPress ? 1.2 : 1
 
             MouseArea{
-                id: sendMessage
+                id: sendMessageMouse
                 anchors.fill: parent
 
                 onClicked: {
-
-                    testMap.createNewMessage(textField.text, true);
-                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
-                    textField.clear();
-                    testMap.createNewMessage("My answer", false);
-                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
-
-
-                    console.log("Сообщение отправлено")
+                    downBar.sendMesage()
                 }
             }
+        }
+
+        Keys.onEnterPressed: {
+
+            downBar.sendMesage()
         }
     }
 }

@@ -23,6 +23,8 @@ Rectangle {
     property var newMassege
 
 
+
+
     function creareNewMessage()
     {
         var countIndex = contactsss.getCountIndexMessage();
@@ -153,7 +155,7 @@ Rectangle {
                     y: 0
                     width: 40
                     height: heightToolBar
-                    source: "qrc:/picture/threeLines.tif"
+                    source: "qrc:/resourses/resourses v4/ri_tochki.tif"
                     fillMode: Image.PreserveAspectFit
 
                     MouseArea {
@@ -161,7 +163,8 @@ Rectangle {
                         anchors.fill: parent
 
                         onClicked: {
-
+                              navDrawer.showNavDrawer()
+//                            loader.sourceComponent = navigationDrawer
                         }
                     }
                 }
@@ -189,7 +192,8 @@ Rectangle {
                         anchors.fill: parent
 
                         onClicked: {
-                            loader1.source = "ListDialogs.qml"
+                            loader.sourceComponent = listDialog
+//                            loader1.source = "ListDialogs.qml"
                         }
                     }
                 }
@@ -260,6 +264,7 @@ Rectangle {
 
 
 
+
                                 Component.onCompleted: {
                                     console.log(repeaterChat.model)
                                     console.log(index)
@@ -309,10 +314,6 @@ Rectangle {
 
 
         testMap.onCreateNewMassage.connect(creareNewMessage);
-    }
-
-    Loader{
-        id: loader1
     }
 }
 

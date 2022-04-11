@@ -205,11 +205,18 @@ Rectangle {
         anchors.fill: parent
 
         onClicked: {
+
             console.log("Открыть диалог с данным юзером" + index)
         }
     }
 
+    Component{
+        id: componen
 
+        UserChat{
+
+        }
+    }
 }
 
 

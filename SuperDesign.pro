@@ -71,3 +71,4 @@ SUBDIRS += \
 DISTFILES += \
     Client/localhost.cert \
     Client/localhost.key
+    test.h \
