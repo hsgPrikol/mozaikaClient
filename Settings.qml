@@ -196,7 +196,7 @@ Rectangle{
             contentWidth: parent.width
             clip: true
 
-            ForTest{
+            SettingsScrollView{
 
             }
 

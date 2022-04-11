@@ -180,7 +180,8 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-                    downBar.sendMesage()
+//                    downBar.sendMesage()
+                    testMap.getMediaMessage()
                 }
             }
         }

@@ -22,6 +22,16 @@ Rectangle {
 
     property var newMassege
 
+    property var newMediaMessage
+
+
+    function createMediaMessage()
+    {
+        var tmp = newMediaMessage.createObject(columnChat,
+                                               {
+                                                    flagWhenMessage: false
+                                               });
+    }
 
 
 
@@ -310,10 +320,12 @@ Rectangle {
         console.log("UserChar open");
         newMassege = Qt.createComponent("Massage.qml");
 
-
+        newMediaMessage = Qt.createComponent("ForTest.qml");
 
 
         testMap.onCreateNewMassage.connect(creareNewMessage);
+
+        testMap.onMediaMessage.connect(createMediaMessage)
     }
 }
 

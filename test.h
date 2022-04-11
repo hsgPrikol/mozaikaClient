@@ -27,10 +27,14 @@ public slots:
 
     void createNewDialog(QString login);
 
+    void getMediaMessage();
+
 signals:
     void onCreateNewMassage();
 
     void onCreateNewDialog();
+
+    void onMediaMessage();
 
 };
 

@@ -78,3 +78,8 @@ void Test::createNewDialog(QString login)
     }
 }
 
+void Test::getMediaMessage()
+{
+    emit onMediaMessage();
+}
+
