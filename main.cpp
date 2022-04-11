@@ -7,6 +7,7 @@
 #include "Client/clientgeneral.h"
 #include "Client/super_server/user.h"
 #include "Client/super_server/dialogsvector.h"
+#include "clientdata.h"
 
 
 int main(int argc, char *argv[])
@@ -14,6 +15,12 @@ int main(int argc, char *argv[])
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
+
+    QDateTime finalDate(QDate::currentDate(), QTime(10, 59,0));
+    QDateTime currentDate = QDateTime::currentDateTime();
+    auto d= currentDate.secsTo(finalDate);
+    qDebug() <<d;
+
 
     QGuiApplication app(argc, argv);
 
@@ -26,10 +33,8 @@ int main(int argc, char *argv[])
     User *currentUser = new User();
 
     ClientGeneral client;
+    ClientData clientData;
 
-
-    DialogsVector* vectorDialogov = new DialogsVector();
-    vectorDialogov->connect(&client, SIGNAL(onGetDialogs(MyVector<UserDialog>)), vectorDialogov, SLOT());
 
     contacts.getVectorSize(0);
 
@@ -37,10 +42,9 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("contactsss", &contacts);
     engine.rootContext()->setContextProperty("settingsData",&settingsData);
     engine.rootContext()->setContextProperty("client", &client);
-
+    engine.rootContext()->setContextProperty("clientData", &clientData);
     engine.rootContext()->setContextProperty("currentUser", currentUser);
 
-    engine.rootContext()->setContextProperty("currentDialogs", vectorDialogov);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));

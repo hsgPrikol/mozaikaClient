@@ -23,7 +23,7 @@ Window {
     {
         if (status)
         {
-            loader.setSource("ListDialogs.qml");
+
             currentUser.setAvatarFile(avatar)
             currentUser.setName(name)
             currentUser.setLogin(textField.text)
@@ -37,10 +37,14 @@ Window {
         }
     }
 
-    function getdialogs(nenuzhno){
+    function getdialogs(){
 //        currentDialogs.setDialogs(nenuzhno)
 //        spisok_dialogov = currentDialogs.getMyDialogs()
-        a = 1000 * 555;
+        //a = 1000 * 555;
+        //console.log("------------------------------------");
+        //console.log(clientData.getTnps()[0].getName());
+        console.log("------------------------------------");
+        loader.setSource("ListDialogs.qml");
     }
 
     //autorization
@@ -54,7 +58,12 @@ Window {
             id: mainPhone
             anchors.fill: parent
             source: "qrc:/picture/phone.tif"
+//            source: "file:///C:/Users/Tihon/Desktop/HackathonApril/SuperDesign/ava.png"
             opacity: 0.7
+
+            Component.onCompleted: {
+                console.log(source)
+            }
         }
 
         Rectangle {
@@ -230,7 +239,7 @@ Window {
                     var password = textField1.text;
                     var login = textField.text;
 
-                   client.authorization(login, password);
+                   client.authorization(login, password, clientData);
 
 
 
@@ -291,7 +300,7 @@ Window {
             console.log("Авторизация загружена");
 
             client.onAutorization.connect(autorization);
-//            client.onGetDialogsCompletted.connect(getdialogs);
+            client.onGetDialogs.connect(getdialogs);
         }
     }
 

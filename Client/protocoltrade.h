@@ -76,7 +76,7 @@ public:
     const static QString ___STS_OFFLINE;
     //~~~~~status user end~~~~~~~
 
-    static void SaveBinaryFile(QString binary, QString name, QString type, QString idMsg, QString idChat, QString path = "C:\\Users\\test\\Desktop\\HackathonApril\\Client\\BufferAttachment");
+    static QString SaveBinaryFile(QString binary, QString name, QString type, QString idMsg, QString idChat);
     static QByteArray LoadBinaryFile(QString path);
     static void SendTextMessage(QString message, QWebSocket *client);
     static void SendBinaryMessage(QByteArray message, QWebSocket *client);

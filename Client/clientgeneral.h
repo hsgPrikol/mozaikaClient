@@ -6,6 +6,7 @@
 #include <QtWebSockets/QWebSocket>
 #include "handlercommand.h"
 #include <QThread>
+#include "clientdata.h"
 //#include "super_server/user.h"
 
 class ClientGeneral : public QObject
@@ -24,6 +25,7 @@ private:
 public:
     explicit ClientGeneral(QObject *parent = nullptr);
 
+    ClientData* clientData;
     QWebSocket socketServer;
 public slots:
 //    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths);
@@ -54,7 +56,7 @@ public slots:
     void getAnswerCreatePrivateChat(QJsonObject* qObj);
 
     void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths);
-    void authorization(QString login, QString password);
+    void authorization(QString login, QString password, ClientData* clientData);
     void sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths);
     /// Запрос клиента на получение сообщений из конкретного диалога
     void getMessagesInDialog(QString idChat);
@@ -79,7 +81,7 @@ public slots:
 
 signals:
     void onAutorization(QString, QString, QString, bool);
-    void onGetDialogs(QVector<UserDialog>);
+    void onGetDialogs();
 };
 
 #endif // CLIENTGENERAL_H

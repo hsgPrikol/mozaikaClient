@@ -70,9 +70,12 @@ QByteArray ProtocolTrade::StringToByteArray(QString string)
     return byteArray;
 }
 
-void ProtocolTrade::SaveBinaryFile(QString binary, QString name, QString type, QString idMsg, QString idChat, QString path)
+QString ProtocolTrade::SaveBinaryFile(QString binary, QString name, QString type, QString idMsg, QString idChat)
 {
-    QFile file(path + name + "." + type);
+    if(binary.length()==0) return "";
+
+    QString path = "client_garbarge/";
+    QFile file(path + name + "." + "png");
 
     file.open(QIODevice::WriteOnly);
 
@@ -85,6 +88,8 @@ void ProtocolTrade::SaveBinaryFile(QString binary, QString name, QString type, Q
 
     file.write(byteArray);
     file.close();
+
+    return file.fileName();
 }
 
 QByteArray ProtocolTrade::LoadBinaryFile(QString path)

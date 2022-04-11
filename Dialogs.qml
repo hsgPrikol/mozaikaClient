@@ -17,6 +17,14 @@ Rectangle {
     color: rootDialog.noColor
 
 
+    property var nameFamilia
+
+    property var avatarClients:"qrc:/resourses/avatar/cop.tif"
+
+    property var timeMessage: "Когда-то"
+
+    property var lastMessageUser
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //много проверти для забирания данных с класса user и message
@@ -59,7 +67,7 @@ Rectangle {
                 y: 0
                 width: 280
                 height: 50
-                text: qsTr("Капитан Капитанов")
+                text: nameFamilia
                 font.pixelSize: 12
                 verticalAlignment: Text.AlignVCenter
             }
@@ -79,7 +87,7 @@ Rectangle {
                 y: 0
                 width: 280
                 height: 50
-                text: qsTr("Здравствуйте, товарищи!")
+                text: lastMessageUser
                 font.pixelSize: 12
                 font.bold: true
                 verticalAlignment: Text.AlignTop
@@ -97,7 +105,7 @@ Rectangle {
             Text {
                 id: text3
                 anchors.fill: parent
-                text: qsTr("9:15")
+                text: timeMessage
                 font.pixelSize: 12
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -127,7 +135,7 @@ Rectangle {
                     id: image1
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectCrop
-                    source: "qrc:/resourses/avatar/cop.tif"
+                    source: avatarClients
                     anchors.rightMargin: 8
                     anchors.bottomMargin: 7
                     anchors.leftMargin: 8

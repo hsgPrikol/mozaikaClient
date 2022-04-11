@@ -16,7 +16,7 @@ void ClientGeneral::onTextMessageReceived(QString message)
 {
     QWebSocket *socket = qobject_cast<QWebSocket *>(sender());
 
-//    qDebug() << /*message*/;
+    //    qDebug() << /*message*/;
 
     QJsonObject object = ProtocolTrade::StringToJsonObject(message);
 
@@ -74,11 +74,11 @@ void ClientGeneral::handlerCmdAuthorization(QJsonObject *object)
         QJsonObject jObj = ((*object)[ProtocolTrade::___AVATAR]).toObject();
 
         ProtocolTrade::SaveBinaryFile(// PATH GDE
-                    jObj[ProtocolTrade::___BINARY_FILE].toString(),
-                jObj[ProtocolTrade::___NAME_FILE].toString(),
+                                      jObj[ProtocolTrade::___BINARY_FILE].toString(),
+                jObj[ProtocolTrade::___NAME_FILE].toString() +userName,
                 jObj[ProtocolTrade::___TYPE_FILE].toString(),
                 "idMessage",
-                "idChat", "");
+                "idChat");
 
         QString filePath = "" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
 
@@ -231,13 +231,15 @@ void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMs
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::authorization(QString login, QString password)
+void ClientGeneral::authorization(QString login, QString password, ClientData *clientData)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_AUTHORIZATION)},
                                             {ProtocolTrade::___LOGIN, QJsonValue(login)},
                                             {ProtocolTrade::___PASSWORD, QJsonValue(password)}
                                         });
+
+    this->clientData=clientData;
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
@@ -362,10 +364,11 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
     QVector<UserDialog> dialogs;
     foreach(QJsonValue c, chats){
         QString dialog_name = c[ProtocolTrade::___USER_NAME].toString();
-        QByteArray dialog_avatar = ProtocolTrade::StringToByteArray(c[ProtocolTrade::___AVATAR].toString());
+        QString dialog_avatar = c[ProtocolTrade::___AVATAR].toString();
         int id = c[ProtocolTrade::___ID_CHAT].toInt();
+        QString avatarPath = ProtocolTrade::SaveBinaryFile(dialog_avatar,dialog_name,c.toString(),"","");
         QJsonArray members = c[ProtocolTrade::___ARR_USERS].toArray();
-        UserDialog dialog(id, dialog_name, dialog_avatar);
+        UserDialog dialog(id, dialog_name,ProtocolTrade::StringToByteArray(dialog_avatar), avatarPath);
         foreach(QJsonValue m, members){
             QString login = m[ProtocolTrade::___LOGIN].toString();
             QByteArray user_avatar = ProtocolTrade::StringToByteArray(m[ProtocolTrade::___AVATAR].toString());
@@ -374,10 +377,19 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
             User user(-1, login, user_name, user_avatar, birthdate);
             dialog.addMember(&user);
         }
+
+        QJsonValue jlastMsg= c[ProtocolTrade::___ARR_MESSAGES];
+        Message last(jlastMsg[ProtocolTrade::___ID_MESSAGE].toInt(),
+                id,
+                jlastMsg[ProtocolTrade::___USER_NAME].toString(),
+                jlastMsg[ProtocolTrade::___TEXT_MESSAGE].toString(),
+                QDateTime::fromString(jlastMsg[ProtocolTrade::___BIRTH_DATE].toString()),
+                1);
+        dialog.addMessage(last);
         dialogs.append(dialog);
     }
-
-//    emit onGetDialogs(dialogs);
+    clientData->setDialogs(dialogs);
+    emit onGetDialogs();
     // СДЕЛАЙ ЧТО ТО С ДИАЛОГС
 }
 
@@ -457,7 +469,7 @@ void ClientGeneral::getAnswerCreatePrivateChat(QJsonObject *qObj)
         //чувак согласился на првиатный чат надо с этим что-то делать
 
         SrcPrivateChat* tmpSrc = new SrcPrivateChat(login, Fix::loginUser, port.toUInt(), ip);
-                Fix::privateChatsSrc.push_back(tmpSrc);
+        Fix::privateChatsSrc.push_back(tmpSrc);
     }
     else {
         // чувак не согласился на првиатный чат ну и ладно

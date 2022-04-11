@@ -3,7 +3,13 @@
 void UserDialog::addMessage(Message msg)
 {
     messages.append(msg);
-//    messages.append(msg);
+    //    messages.append(msg);
+}
+
+Message UserDialog::getLastMessage()
+{
+    if(messages.count()!=0)
+        return messages.first();
 }
 
 int UserDialog::addMember(User *user)
@@ -24,4 +30,22 @@ int UserDialog::addMember(User *user)
 QVector<QString> UserDialog::getMemberLogins()
 {
     return members;
+}
+
+bool UserDialog::operator<(const UserDialog &d1) const
+{
+
+    Message m1=messages.first();
+    Message m2=d1.messages.first();
+
+    return m1.getTime()<m2.getTime();
+}
+
+bool UserDialog::operator>(const UserDialog &d1) const
+{
+
+    Message m1=messages.first();
+    Message m2=d1.messages.first();
+
+    return m1.getTime()>m2.getTime();
 }

@@ -23,6 +23,7 @@ SOURCES += \
         Client/super_server/myvector.cpp \
         Client/super_server/user.cpp \
         Client/super_server/userdialog.cpp \
+        clientdata.cpp \
         contactslist.cpp \
         main.cpp \
         massagetest.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     Client/super_server/myvector.h \
     Client/super_server/user.h \
     Client/super_server/userdialog.h \
+    clientdata.h \
     contactslist.h \
     massagetest.h \
     settingsdata.h \
