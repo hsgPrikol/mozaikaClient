@@ -4,13 +4,24 @@
 #include "test.h"
 #include "contactslist.h"
 #include "settingsdata.h"
+#include "Client/clientgeneral.h"
+#include "Client/super_server/user.h"
+#include "Client/super_server/dialogsvector.h"
+#include "clientdata.h"
 //#include "userdialog.h"
+
 
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
+
+    QDateTime finalDate(QDate::currentDate(), QTime(10, 59,0));
+    QDateTime currentDate = QDateTime::currentDateTime();
+    auto d= currentDate.secsTo(finalDate);
+    qDebug() <<d;
+
 
     QGuiApplication app(argc, argv);
 
@@ -20,12 +31,21 @@ int main(int argc, char *argv[])
     ContactsList contacts;
     SettingsData settingsData;
 
-//    UserDialog userDialog;
+    User *currentUser = new User();
+
+    ClientGeneral client;
+    ClientData clientData;
+
+
     contacts.getVectorSize(0);
 
     engine.rootContext()->setContextProperty("testMap", &testMap);
     engine.rootContext()->setContextProperty("contactsss", &contacts);
     engine.rootContext()->setContextProperty("settingsData",&settingsData);
+    engine.rootContext()->setContextProperty("client", &client);
+    engine.rootContext()->setContextProperty("clientData", &clientData);
+    engine.rootContext()->setContextProperty("currentUser", currentUser);
+
 
 //    engine.rootContext()->setContextProperty("userDialog",&userDialog);
 

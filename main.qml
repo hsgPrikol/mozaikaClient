@@ -21,6 +21,38 @@ Window {
     property int dfltWidth: 506
     property int dfltHeight: 900
 
+
+
+
+
+    function autorization(name, avatar, birthDay, status)
+    {
+        if (status)
+        {
+
+            currentUser.setAvatarFile(avatar)
+            currentUser.setName(name)
+            currentUser.setLogin(textField.text)
+            currentUser.setBirthDate(birthDay)
+            client.getMyDialogs()
+            console.log("Авторизация - И");
+        }
+        else
+        {
+            console.log("Авторизация - Иди в жопу");
+        }
+    }
+
+    function getdialogs(){
+//        currentDialogs.setDialogs(nenuzhno)
+//        spisok_dialogov = currentDialogs.getMyDialogs()
+        //a = 1000 * 555;
+        //console.log("------------------------------------");
+        //console.log(clientData.getTnps()[0].getName());
+        console.log("------------------------------------");
+        loader.setSource("ListDialogs.qml");
+    }
+
     //autorization
     Rectangle{
         anchors.fill: parent
@@ -32,7 +64,12 @@ Window {
             id: mainPhone
             anchors.fill: parent
             source: "qrc:/picture/phone.tif"
+//            source: "file:///C:/Users/Tihon/Desktop/HackathonApril/SuperDesign/ava.png"
             opacity: 0.7
+
+            Component.onCompleted: {
+                console.log(source)
+            }
         }
 
         Rectangle {
@@ -110,6 +147,8 @@ Window {
                 hoverEnabled: false
                 placeholderTextColor: "#404040"
                 placeholderText: qsTr("5NR_Operator_27")
+                text: "maksim"
+                color: "white"
 
                 background: Image {
 
@@ -213,7 +252,15 @@ Window {
                 onClicked: {
                     //вызываем сравнение логина и пароля
                     console.log("Вход")
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                    var password = textField1.text;
+                    var login = textField.text;
+
+                   client.authorization(login, password, clientData);
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Dialogs.qml
                     //                    loader.setSource("Dialogs.qml")
                     //                    console.log("open new dialog")
@@ -320,6 +367,12 @@ Window {
     Component {
         id: fileDialog
 
+        Component.onCompleted: {
+            console.log("Авторизация загружена");
+
+            client.onAutorization.connect(autorization);
+            client.onGetDialogs.connect(getdialogs);
+        }
         FileDialog {
                 id: fileOpenDialog
                 title: "Select an image file"

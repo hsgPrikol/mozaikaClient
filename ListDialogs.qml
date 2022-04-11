@@ -176,7 +176,7 @@ Rectangle {
                 Repeater {
                     id: repDialogs
                     anchors.fill: parent
-                    model: 10
+                    model: clientData.getCountDialogs()
 
                     Dialogs {
                         id: dialogs
@@ -196,6 +196,12 @@ Rectangle {
 //                            anchors.fill: parent
 
 //                        }
+
+                        nameFamilia: clientData.getNameDialog(index)
+                        avatarClients: "file:///C:/Users/Tihon/Desktop/HackathonApril/build-SuperDesign-3_Desktop_Qt_5_15_2_MinGW_64_bit-Debug/" + clientData.getPathAvatar(index)
+
+                        lastMessageUser: clientData.getTextLastMessage(index)
+                        timeMessage: clientData.getDateLastMessage(index)
                     }
                 }
             }
