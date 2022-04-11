@@ -45,6 +45,35 @@ QString ClientData::getDateLastMessage(int index)
     return getLastActiveDateTime(msg.getTime());
 }
 
+bool ClientData::getIsCheckedLastMessage(int index)
+{
+    if(dialogs.count()<=index) return false;
+    Message msg=dialogs[index].getLastMessage();
+
+    return msg.getStatus()==3;
+}
+
+bool ClientData::getDialogIsGroup(int index)
+{
+    if(dialogs.count()<=index) return false;
+
+    return dialogs[index].getIsGroup();
+}
+
+int ClientData::getDialogCountUnChecked(int index)
+{
+    if(dialogs.count()<=index) return false;
+
+    return dialogs[index].getCountUnChecked();
+}
+
+bool ClientData::getDialogIsOnline(int index)
+{
+    if(dialogs.count()<=index) return false;
+
+    return dialogs[index].getIsOnline();
+}
+
 QString ClientData::getLastActiveDateTime(QDateTime date)
 {
     QDateTime current=QDateTime::currentDateTime();
@@ -55,17 +84,23 @@ QString ClientData::getLastActiveDateTime(QDateTime date)
     double mounth = days/30;
     double years = mounth/12;
 
+    QString str;
     if(mins<=1){
-        return "Несколько секунд назад";
+        str = "Несколько секунд назад";
     }
-    else if(mins <=20)
-        return QString(qRound(mins))+ " минут назад";
+    else if(mins <=20){
+        int ddd=qRound(mins);
+    str = QString::number(ddd)+ " минут назад";
+    }
+
     else if(hours <= 1.5)
-        return "Час назад";
+        str = "Час назад";
     else if(days <= 1 && current.date()==date.date())
-        return date.time().toString();
+        str = date.time().toString();
     else
-        return date.toString();
+        str = date.toString();
+
+    return str;
 }
 
 

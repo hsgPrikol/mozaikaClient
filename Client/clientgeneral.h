@@ -77,7 +77,7 @@ public slots:
     void answerMyDialogs(QJsonObject* qObj);
 
     /// Отправка запроса на создание чата
-    void createChat(QVector<QString> logins, QString name, QByteArray avatar);
+    void createChat(QVector<QString> logins, QString name, QByteArray avatar, bool isGroup);
 
 signals:
     void onAutorization(QString, QString, QString, bool);

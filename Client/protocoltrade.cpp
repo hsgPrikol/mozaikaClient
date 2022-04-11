@@ -24,6 +24,7 @@ const QString ProtocolTrade::___TYPE_FILE = QString("typefile");
 const QString ProtocolTrade::___BIRTH_DATE = QString("birthdate");
 const QString ProtocolTrade::___ARR_CHATS = QString("arrchats");
 const QString ProtocolTrade::___ID_CHAT = QString("idchat");
+const QString ProtocolTrade::___CHAT_GROUP = QString("chatgroup");
 const QString ProtocolTrade::___ARR_USERS = QString("arrusers");
 const QString ProtocolTrade::___ARR_MESSAGES = QString("arrmessages");
 const QString ProtocolTrade::___ID_MESSAGE = QString("idmessage");
@@ -40,6 +41,7 @@ const QString ProtocolTrade::___TMP_ID_CHAT = QString("tmpidchat");
 const QString ProtocolTrade::___STATUS_USER = QString("statususer");
 const QString ProtocolTrade::___STS_ONLINE = QString("online");
 const QString ProtocolTrade::___STS_OFFLINE = QString("offline");
+const QString ProtocolTrade::___COUNT_MESSAGE = QString("countmessage");
 
 ProtocolTrade::ProtocolTrade(QObject *parent) : QObject(parent)
 {

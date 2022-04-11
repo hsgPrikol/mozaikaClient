@@ -177,6 +177,10 @@ Rectangle {
 
                         lastMessageUser: clientData.getTextLastMessage(index)
                         timeMessage: clientData.getDateLastMessage(index)
+                        isChecked: clientData.getIsCheckedLastMessage(index)
+                        isGroup: clientData.getDialogIsGroup(index)
+                        isOnline: clientData.getDialogIsOnline(index)
+                        countUnChecked: clientData.getDialogCountUnChecked(index)
                     }
                 }
             }

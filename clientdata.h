@@ -23,10 +23,15 @@ public slots:
 
     QString getTextLastMessage(int index);
     QString getDateLastMessage(int index);
-//    QVector<UserDialog> SortBy(QVector<UserDialog> arr);
+    bool getIsCheckedLastMessage(int index);
+    bool getDialogIsGroup(int index);
+    int getDialogCountUnChecked(int index);
+    bool getDialogIsOnline(int index);
+    //    QVector<UserDialog> SortBy(QVector<UserDialog> arr);
 //    bool greater(UserDialog a, UserDialog b);
 
     QString getLastActiveDateTime(QDateTime date);
+
 //    QString getNameDialog(int index){return dialogs[index].();}
 signals:
 
