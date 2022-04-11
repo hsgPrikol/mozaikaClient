@@ -1,4 +1,4 @@
-QT += quick sql network websockets
+QT += quick sql network websockets multimedia
 
 
 CONFIG += c++11 console

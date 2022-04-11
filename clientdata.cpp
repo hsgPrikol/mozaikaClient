@@ -19,7 +19,7 @@ QVector<UserDialog> SortBy(QVector<UserDialog> arr){
         }
         std::swap(arr[startIndex], arr[smallestIndex]);
     }
-    int c = 1000*6;
+
     return arr;
 }
 

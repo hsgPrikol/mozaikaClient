@@ -16,6 +16,7 @@ Rectangle {
 
     color: rootDialog.noColor
 
+    anchors.horizontalCenter: parent.horizontalCenter
 
     property var nameFamilia
 

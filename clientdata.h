@@ -13,6 +13,7 @@ public:
 
     QVector<UserDialog> dialogs;
 
+
 public slots:
     QVector<UserDialog> getDialogs();
     void setDialogs( QVector<UserDialog> value);

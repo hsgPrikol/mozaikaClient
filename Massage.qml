@@ -115,12 +115,10 @@ Rectangle {
         Component.onCompleted: {
             console.log(index + ") ", textMessage.lineCount)
         }
-
     }
 
     Text {
         id: timeMessage
-//        anchors.top: textMessage.bottom
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         width: 48

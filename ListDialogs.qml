@@ -19,7 +19,8 @@ Rectangle {
 
     color: noColor
 
-    function addNewDialog()
+    property int countRep: 6
+    function addNewDialogs()
     {
         var tmpDialog = tmpNewDialog.createObject(columnDialogs,
                                                   {
@@ -27,6 +28,9 @@ Rectangle {
 
 
                                                   });
+
+        repDialogs.itemAdded(++countRep ,tmpDialog)
+        console.log(repDialogs.model)
 
     }
 
@@ -195,7 +199,7 @@ Rectangle {
 
                     Dialogs {
                         id: dialogs
-                        anchors.horizontalCenter: parent.horizontalCenter
+//                        anchors.horizontalCenter: parent.horizontalCenter
 
                         MouseArea{
                             anchors.fill: parent
@@ -249,7 +253,12 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-                    loader.sourceComponent = contactsList
+//                    loader.sourceComponent = contactsList
+
+
+                    var str = "123213"
+                    testMap.createNewDialog(str)
+
 
                     console.log("loader.source = contactsList")
                 }
@@ -258,7 +267,9 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        testMap.onCreateNewDialog.connect()
+
+        testMap.onCreateNewDialog.connect(addNewDialogs)
+        tmpNewDialog = Qt.createComponent("Dialogs.qml");
     }
 }
 
