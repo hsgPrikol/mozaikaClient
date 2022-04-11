@@ -15,6 +15,27 @@ Window {
     property int dfltWidth: 506
     property int dfltHeight: 900
 
+
+
+
+
+    function autorization(name, avatar, birthDay, status)
+    {
+        if (status)
+        {
+            loader.setSource("Settings.qml");
+            currentUser.setAvatarFile(avatar)
+            currentUser.setName(name)
+            currentUser.setLogin(textField.text)
+            currentUser.setBirthDate(birthDay)
+            console.log("Авторизация - И");
+        }
+        else
+        {
+            console.log("Авторизация - Иди в жопу");
+        }
+    }
+
     //autorization
     Rectangle{
         anchors.fill: parent
@@ -195,6 +216,14 @@ Window {
                 onClicked: {
                     //вызываем сравнение логина и пароля
                     console.log("Вход")
+
+                    var password = textField1.text;
+                    var login = textField.text;
+
+                   client.authorization(login, password);
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Dialogs.qml
 //                    loader.setSource("Dialogs.qml")
@@ -235,8 +264,8 @@ Window {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Settings.qml
-                    loader.setSource("Settings.qml")
-                    console.log("Settings.qml")
+//                    loader.setSource("Settings.qml")
+//                    console.log("Settings.qml")
 
 
 
@@ -249,7 +278,9 @@ Window {
 //        }
 
         Component.onCompleted: {
-            console.log("Авторизация загружена")
+            console.log("Авторизация загружена");
+
+            client.onAutorization.connect(autorization);
         }
     }
 

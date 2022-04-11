@@ -4,6 +4,9 @@
 #include "test.h"
 #include "contactslist.h"
 #include "settingsdata.h"
+#include "Client/clientgeneral.h"
+#include "Client/super_server/user.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -19,11 +22,20 @@ int main(int argc, char *argv[])
     ContactsList contacts;
     SettingsData settingsData;
 
+    User *currentUser = new User();
+
+    ClientGeneral client;
+
+
+
     contacts.getVectorSize(0);
 
     engine.rootContext()->setContextProperty("testMap", &testMap);
     engine.rootContext()->setContextProperty("contactsss", &contacts);
     engine.rootContext()->setContextProperty("settingsData",&settingsData);
+    engine.rootContext()->setContextProperty("client", &client);
+
+    engine.rootContext()->setContextProperty("currentUser", currentUser);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));
