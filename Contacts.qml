@@ -31,7 +31,7 @@ Rectangle {
             id: mainPhone
             anchors.fill: parent
             source: "qrc:/picture/phone.tif"
-            opacity: 0.7
+            opacity: customOpacity
         }
         Rectangle {
             id: rectangle

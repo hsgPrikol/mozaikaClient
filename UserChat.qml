@@ -23,6 +23,8 @@ Rectangle {
     property var newMassege
 
 
+
+
     function creareNewMessage()
     {
         var countIndex = contactsss.getCountIndexMessage();
@@ -258,6 +260,7 @@ Rectangle {
                                 sizeMessage: testMap.getSizeMessage(index)
                                 messageText: testMap.getMassage(index)
                                 flagWhenMessage: testMap.getIsCheked(index)//testBoolArray[index]
+
 
 
 

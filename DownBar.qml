@@ -17,6 +17,17 @@ Rectangle {
     property real customOpacity: 0.7
     property int fontSize: 12
 
+    function sendMesage()
+    {
+
+        testMap.createNewMessage(writeMessage.text, true);
+        contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
+        writeMessage.clear();
+//                    testMap.createNewMessage("My answer", false);
+//                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
+        console.log("Сообщение отправлено")
+    }
+
 
     FileDialog {
             id: fileOpenDialog
@@ -152,7 +163,7 @@ Rectangle {
         height: 48
         color: sendMessageMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
         radius: 5
-
+        focus: true
         Image {
             id: image2
             x: 5
@@ -169,15 +180,14 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-
-                    testMap.createNewMessage(writeMessage.text, true);
-                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
-                    writeMessage.clear();
-//                    testMap.createNewMessage("My answer", false);
-//                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
-                    console.log("Сообщение отправлено")
+                    downBar.sendMesage()
                 }
             }
+        }
+
+        Keys.onEnterPressed: {
+
+            downBar.sendMesage()
         }
     }
 }

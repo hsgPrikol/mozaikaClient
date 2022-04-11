@@ -25,8 +25,12 @@ public slots:
 
     void createNewMessage(QString message, bool status);
 
+    void createNewDialog(QString login);
+
 signals:
     void onCreateNewMassage();
+
+    void onCreateNewDialog();
 
 };
 

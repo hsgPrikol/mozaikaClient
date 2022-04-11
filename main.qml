@@ -22,6 +22,15 @@ Window {
     property int dfltHeight: 900
 
 
+    function sendMessage()
+    {
+        console.log("Вход")
+
+        var passwor = password.text;
+        var login = textField.text;
+
+       client.authorization(login, passwor, clientData);
+    }
 
 
 
@@ -50,7 +59,8 @@ Window {
         //console.log("------------------------------------");
         //console.log(clientData.getTnps()[0].getName());
         console.log("------------------------------------");
-        loader.setSource("ListDialogs.qml");
+        loader.sourceComponent = listDialog
+//        loader.setSource("ListDialogs.qml");
     }
 
     //autorization
@@ -143,7 +153,6 @@ Window {
                 width: 231
                 height: 51
                 focus: true
-                text: "maksim"
                 hoverEnabled: false
                 placeholderTextColor: "#404040"
                 placeholderText: qsTr("5NR_Operator_27")
@@ -251,12 +260,10 @@ Window {
 
                 onClicked: {
                     //вызываем сравнение логина и пароля
-                    console.log("Вход")
 
-                    var password = textField1.text;
-                    var login = textField.text;
+                    root.sendMessage()
 
-                   client.authorization(login, password, clientData);
+
 
 
 
@@ -307,20 +314,6 @@ Window {
 
 
 
-                    loader.sourceComponent = listDialog
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 }
             }
@@ -364,15 +357,17 @@ Window {
         }
     }
 
+
+    Component.onCompleted: {
+        console.log("Авторизация загружена");
+
+        client.onAutorization.connect(autorization);
+        client.onGetDialogs.connect(getdialogs);
+    }
     Component {
         id: fileDialog
 
-        Component.onCompleted: {
-            console.log("Авторизация загружена");
 
-            client.onAutorization.connect(autorization);
-            client.onGetDialogs.connect(getdialogs);
-        }
         FileDialog {
                 id: fileOpenDialog
                 title: "Select an image file"
@@ -399,6 +394,8 @@ Window {
 
         //        source: "Dialogs.qml"
     }
+
+
 
     NavigationDrawer{
         id: navDrawer

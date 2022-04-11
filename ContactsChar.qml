@@ -68,7 +68,7 @@ Rectangle {
                 width: 448
                 height: 84
                 color: noColor
-                opacity: 0.7
+//                opacity: 0.7
                 border.color: mouseContacts.containsPress ? "white" : noColor
                 border.width: 1
 

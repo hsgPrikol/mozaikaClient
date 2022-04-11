@@ -70,3 +70,11 @@ void Test::createNewMessage(QString message, bool status)
     }
 }
 
+void Test::createNewDialog(QString login)
+{
+    if(login != "")
+    {
+        emit onCreateNewDialog();
+    }
+}
+
