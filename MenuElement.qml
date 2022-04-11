@@ -9,21 +9,29 @@ Rectangle{
 
     function createChat()
     {
+        loader.sourceComponent = contactsList
+        navDrawer.closeNavDrawer()
         console.log("createChat")
     }
 
     function createGroup()
     {
+        loader.sourceComponent = contactsList
+        navDrawer.closeNavDrawer()
         console.log("createGroup")
     }
 
     function createPrivateChat()
     {
+        loader.sourceComponent = contactsList
+        navDrawer.closeNavDrawer()
         console.log("createPrivateGroup")
     }
 
     function listContacts()
     {
+        loader.sourceComponent = contactsList
+        navDrawer.closeNavDrawer()
         console.log("listContacts")
     }
 
@@ -36,12 +44,12 @@ Rectangle{
     property color noColor: "#00000000"
 
     property var textArray: ["Создать чат", "Создать группу", "Создать приватный чат", "Контакты"]
-    property var pictureArray: ["qrc:/resourses/shtorka/plus.tif", "qrc:/resourses/shtorka/plusplus.tif", "qrc:/resourses/shtorka/zakochek.tif", "qrc:/resourses/shtorka/contakti.tif"]
+    property var pictureArray: ["qrc:/resourses/resourses v4/create chat.tif", "qrc:/resourses/resourses v4/gruppa.tif", "qrc:/resourses/resourses v4/private chat.tif", "qrc:/resourses/shtorka/contakti.tif"]
 
 
     width: dfltWidthElementMenu
     height: sizeHeightMenuElement
-    color: noColor
+    color: mouse.containsMouse ? Qt.darker(biruzoviu ) : noColor
 
     Rectangle {
         id: rectangle
@@ -60,7 +68,7 @@ Rectangle{
             anchors.topMargin: 15
             anchors.rightMargin: 15
             anchors.bottomMargin: 15
-            //            fillMode: Image.PreserveAspectFit
+                        fillMode: Image.PreserveAspectCrop
         }
     }
 
@@ -78,12 +86,14 @@ Rectangle{
             color: "#ffffff"
             font.pixelSize: fontSize
             verticalAlignment: Text.AlignVCenter
-        }
+        }      
     }
 
     MouseArea{
         id: mouse
         anchors.fill: parent
+
+        hoverEnabled: true
 
         onClicked: {
             functionMenuElementArray[index]()

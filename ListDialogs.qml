@@ -96,8 +96,18 @@ Rectangle {
                     y: 0
                     width: 40
                     height: 60
-                    source: "qrc:/picture/threeLines.tif"
+                    source: "qrc:/resourses/resourses v4/ri_tochki.tif"
                     fillMode: Image.PreserveAspectFit
+
+
+                }
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        navDrawer.showNavDrawer()
+                        console.log("navDrawer.showNavDrawer()")
+                    }
                 }
             }
 
@@ -171,6 +181,21 @@ Rectangle {
                     Dialogs {
                         id: dialogs
                         anchors.horizontalCenter: parent.horizontalCenter
+
+
+                        MouseArea{
+                            anchors.fill: parent
+
+                            onClicked: {
+                                loader.sourceComponent  = userChat
+                            }
+                        }
+
+//                        MouseArea{
+//                            id: mouse
+//                            anchors.fill: parent
+
+//                        }
                     }
                 }
             }

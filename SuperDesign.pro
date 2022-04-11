@@ -11,7 +11,8 @@ SOURCES += \
         main.cpp \
         massagetest.cpp \
         settingsdata.cpp \
-        test.cpp
+        test.cpp \
+        whynot.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,4 +31,5 @@ HEADERS += \
     contactslist.h \
     massagetest.h \
     settingsdata.h \
-    test.h
+    test.h \
+    whynot.h

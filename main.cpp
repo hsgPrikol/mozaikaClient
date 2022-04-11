@@ -4,6 +4,7 @@
 #include "test.h"
 #include "contactslist.h"
 #include "settingsdata.h"
+//#include "userdialog.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,11 +20,14 @@ int main(int argc, char *argv[])
     ContactsList contacts;
     SettingsData settingsData;
 
+//    UserDialog userDialog;
     contacts.getVectorSize(0);
 
     engine.rootContext()->setContextProperty("testMap", &testMap);
     engine.rootContext()->setContextProperty("contactsss", &contacts);
     engine.rootContext()->setContextProperty("settingsData",&settingsData);
+
+//    engine.rootContext()->setContextProperty("userDialog",&userDialog);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));

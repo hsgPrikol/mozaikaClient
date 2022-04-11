@@ -6,19 +6,23 @@ import QtGraphicalEffects 1.0
 
 
 Rectangle {
-    width: 200
-    height: 200
+    id: root
 
-    Text {
-        id: text1
-        x: 0
-        y: 0
-        width: 200
-        height: 200
-        text: qsTr("Text")
-        font.pixelSize: 12
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-    }
+    property int dfltWidth: 506
+    property int dfltHeight: 838
+    property color noColor: "#00000000"
+    property real customOpacity: 0.7
+    property color biruzoviu: "#068d9d"
+
+    property int countIndexVessage: 0
+
+    width: dfltWidth
+    height: dfltHeight
+
+    color: "#ffffff"
+
+
+
+
 
 }

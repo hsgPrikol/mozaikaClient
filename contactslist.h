@@ -6,6 +6,7 @@
 #include <QVector>
 #include <QDebug>
 #include <QList>
+#include "whynot.h"
 
 class ContactsList : public QObject
 {
@@ -18,8 +19,21 @@ public:
 
     int countIndexMessage;
 
+    QVector<int> sds = {1,2,3,4};
+
+    WhyNot why;
+
 
 public slots:
+
+    WhyNot gett()
+    {
+        return why;
+    }
+
+    QVector<int> getSds(){
+        return sds;
+    }
     void setMulti(QString symbol, QVector<QString> tmp);
 
     QString getSymbol(int index);

@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.2
 
 Window {
     id: root
@@ -11,6 +12,11 @@ Window {
     title: qsTr("Hello World")
 
     color: "#000000"
+
+    property var whyNot
+
+
+    property color biruzoviu: "#068d9d"
 
     property int dfltWidth: 506
     property int dfltHeight: 900
@@ -99,8 +105,10 @@ Window {
                 y: 0
                 width: 231
                 height: 51
+                focus: true
+                text: "maksim"
                 hoverEnabled: false
-                placeholderTextColor: "#ffffff"
+                placeholderTextColor: "#404040"
                 placeholderText: qsTr("5NR_Operator_27")
 
                 background: Image {
@@ -148,14 +156,17 @@ Window {
             color: "#00000000"
             radius: 0
             TextField {
-                id: textField1
+                id: password
                 x: 0
                 y: 0
                 width: 231
                 height: 51
-                text: ""
+                text: "123"
                 placeholderText: "********"
-                placeholderTextColor: "#ffffff"
+                placeholderTextColor: "#404040"
+
+                echoMode: TextInput.Password
+
                 background: Image {
                     source: "qrc:/resourses/avtorisation/pole_vvoda_avtorization.tif"
                 }
@@ -164,107 +175,188 @@ Window {
         }
 
         Rectangle {
-            id: rectangle5
+            id: input
             x: 204
             y: 474
             width: 103
             height: 40
-            color: "#00000000"
+            color: mouseArea.containsPress ? Qt.darker(biruzoviu) : biruzoviu
 
-            Image {
-                id: image2
+            radius: input.height / 4
+
+            //            Image {
+            //                id: image2
+            //                anchors.fill: parent
+            //                source: "qrc:/resourses/avtorisation/vhod_avtorisation.tif"
+
+
+
+            Text {
                 anchors.fill: parent
-                source: "qrc:/resourses/avtorisation/vhod_avtorisation.tif"
+                color: "#ffffff"
 
-                Text {
-                    anchors.fill: parent
-                    color: "#ffffff"
 
-                    text: "Вход"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-//                    fillMode: Image.PreserveAspectFit
+
+                text: "Вход"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
+            //                    fillMode: Image.PreserveAspectFit
+
 
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
 
+                hoverEnabled: true
 
                 onClicked: {
                     //вызываем сравнение логина и пароля
                     console.log("Вход")
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Dialogs.qml
-//                    loader.setSource("Dialogs.qml")
-//                    console.log("open new dialog")
+                    //                    loader.setSource("Dialogs.qml")
+                    //                    console.log("open new dialog")
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    //ListDialogs.qml
-//                    loader.setSource("ListDialogs.qml")
-//                    console.log("open new Listdialog")
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//                    ListDialogs.qml
+//                                        this.visibale = false
+//                                        loader.setSource("ListDialogs.qml")
+//                                        console.log("open new Listdialog")
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //NavigationDrawer.qml
-//                    loader.setSource("NavigationDrawer.qml")
-//                    console.log("NavigationDrawer.qml")
+                    //                    loader.setSource("NavigationDrawer.qml")
+                    //                    console.log("NavigationDrawer.qml")
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //UserChat.qml
-//                    loader.setSource("UserChat.qml")
-//                    console.log("UserChat.qml")
+                    //                    loader.setSource("UserChat.qml")
+                    //                    console.log("UserChat.qml")
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Message.qml
-//                    loader.setSource("Massage.qml")
-//                    console.log("Massage.qml")
+                    //                    loader.setSource("Massage.qml")
+                    //                    console.log("Massage.qml")
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Contacts.qml
-//                    loader.setSource("Contacts.qml")
-//                    console.log("Contacts.qml")
+                    //                    loader.setSource("Contacts.qml")
+                    //                    console.log("Contacts.qml")
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    //Contacts.qml
-//                    loader.setSource("ContactsChar.qml")
-//                    console.log("ContactsChar.qml")
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //ContactsChar.qml
+                    //                    loader.setSource("ContactsChar.qml")
+                    //                    console.log("ContactsChar.qml")
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Settings.qml
-                    loader.setSource("Settings.qml")
-                    console.log("Settings.qml")
+//                    loader.setSource("Settings.qml")
+//                    console.log("Settings.qml")
+
+
+
+
+                    loader.sourceComponent = listDialog
+
+
+
+
+
+
+
+
+
+
+
 
 
 
                 }
             }
         }
-
-//        Component {
-//            //id:
-//        }
-
         Component.onCompleted: {
+                        
+//            console.log(userDialog.getUs());
             console.log("Авторизация загружена")
         }
+    }
+
+    Component {
+        id: listDialog
+
+        ListDialogs{
+
+        }
+    }
+
+    Component{
+        id: userChat
+
+        UserChat{
+
+        }
+    }
+
+    Component{
+        id: contactsList
+
+        Contacts{
+
+        }
+    }
+
+    Component{
+        id: settingsNav
+
+        Settings{
+
+        }
+    }
+
+    Component {
+        id: fileDialog
+
+        FileDialog {
+                id: fileOpenDialog
+                title: "Select an image file"
+                folder: shortcuts.documents
+                nameFilters: [
+                    "Image files (*.png *.jpeg *.jpg)",
+                ]
+                onAccepted: {
+                    image.source = fileOpenDialog.fileUrl
+                }
+            }
     }
 
 
     //componentDialog
     Loader{
         id: loader
-//        source: "Dialogs.qml"
+
+//        x: 100
+//        y: 100
+//        height: 250
+//        width: 250
+
+
+        //        source: "Dialogs.qml"
+    }
+
+    NavigationDrawer{
+        id: navDrawer
+        x: -506
     }
 
 
 
 
 }
-    /*##^##
+/*##^##
 Designer {
     D{i:0;formeditorZoom:1.5}
 }
