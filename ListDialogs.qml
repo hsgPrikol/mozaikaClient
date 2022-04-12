@@ -34,6 +34,11 @@ Rectangle {
 
     }
 
+    function showDialog()
+    {
+        loader.sourceComponent  = userChat
+    }
+
 
     Rectangle{
         id: root
@@ -205,7 +210,10 @@ Rectangle {
                             anchors.fill: parent
 
                             onClicked: {
-                                loader.sourceComponent  = userChat
+                                currentDialogOpen = index
+                                client.getMessagesInDialog(clientData.getIdDialog(index))
+                                client.onGetMessages.connect(showDialog);
+
                             }
                         }
 
@@ -219,6 +227,7 @@ Rectangle {
                         isGroup: clientData.getDialogIsGroup(index)
                         isOnline: clientData.getDialogIsOnline(index)
                         countUnChecked: clientData.getDialogCountUnChecked(index)
+
                     }
                 }
             }

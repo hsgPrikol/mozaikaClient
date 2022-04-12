@@ -18,6 +18,12 @@ Rectangle {
     property int countIndexVessage: 0
 
 
+//    property var index: -1
+//    property var nameDialog
+//    property var avatarDialog
+//    property var isActiveDialog
+//    property var isGroupDialog
+
     property int fontSize: 14
 
     property var newMassege
@@ -99,8 +105,7 @@ Rectangle {
                             x: 8
                             y: 8
                             anchors.fill: parent
-                            source: "qrc:/resourses/avatar/efreitor.tif"
-                            anchors.topMargin: 0
+                            source: clientData.getPathAvatar(currentDialogOpen) ==""?"qrc:/resourses/avatar/efreitor.tif":"file:///" +currentDir+"/" + clientData.getPathAvatar(currentDialogOpen)
                             layer.enabled: true
                             anchors.rightMargin: 0
                             layer.effect: OpacityMask {
@@ -124,7 +129,7 @@ Rectangle {
                     Text {
                         id: text2
                         color: "#ffffff"
-                        text: qsTr("Рядовой Ефрейтор")
+                        text: clientData.getNameDialog(currentDialogOpen)
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -142,7 +147,7 @@ Rectangle {
                     Text {
                         id: text1
                         color: "#ffffff"
-                        text: "online"
+                        text: clientData.getDialogIsGroup(currentDialogOpen) ? clientData.getCountMembers(currentDialogOpen) + " участника" : (clientData.getDialogIsOnline(currentDialogOpen)? "в сети" : "не в сети")
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -263,16 +268,16 @@ Rectangle {
                             id: repeaterChat
                             anchors.fill: parent
 
-                            model: testMap.getSizeVector()
+                            model: clientData.getCountMessages(currentDialogOpen)
 
                             Massage{
                                 id: message
-                                sizeMessage: testMap.getSizeMessage(index)
-                                messageText: testMap.getMassage(index)
-                                flagWhenMessage: testMap.getIsCheked(index)//testBoolArray[index]
 
-
-
+                                messageText: clientData.getTextMessage(currentDialogOpen, index)
+                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
+                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
+                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
+                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
 
 
                                 Component.onCompleted: {

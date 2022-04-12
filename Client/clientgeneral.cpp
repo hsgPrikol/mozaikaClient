@@ -240,6 +240,7 @@ void ClientGeneral::authorization(QString login, QString password, ClientData *c
                                         });
 
     this->clientData=clientData;
+    this->clientData->setMyLogin(login);
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
@@ -322,7 +323,14 @@ void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object)
         dialog.addMessage(msg);
     }
 
+    UserDialog* d= clientData->getDialogFromId(idChat.toInt());
 
+//    for(int i=1;i<dialog.getMessages().count();i++)
+//        d->addMessage(dialog.getMessages()[i]);
+    d->setMessages(dialog.getMessages());
+    d->SortBy();
+
+    emit onGetMessages();
     qDebug() <<dialog.getID();
     // ОТДАТЬ ИГОРЮ ПОЛУЧЕННЫЙ ДИАЛОГ
 }
@@ -395,6 +403,8 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
         dialogs.append(dialog);
     }
     clientData->setDialogs(dialogs);
+
+
     emit onGetDialogs();
     // СДЕЛАЙ ЧТО ТО С ДИАЛОГС
 }

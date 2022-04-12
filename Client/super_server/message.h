@@ -26,6 +26,9 @@ public:
     QDateTime getTime(){return time;};
     int getStatus(){return status;};
     QVector<MyFile> getFiles(){return files;};
+
+    bool operator<(const Message& d1) const;
+    bool operator>(const Message& d1) const;
 };
 
 #endif // MESSAGE_H

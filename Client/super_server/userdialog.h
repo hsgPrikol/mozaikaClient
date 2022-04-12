@@ -31,6 +31,7 @@ public:// очень важный комментарий
     void addMessage(Message msg);
 //    UserDialog(){};
     QVector<Message> getMessages() {return messages;}
+    void setMessages( QVector<Message> ms) {messages=ms;}
     Message getLastMessage();
     int addMember(User* user);
     QString getName() {return name;}
@@ -49,6 +50,8 @@ public:// очень важный комментарий
     void setCountUnChecked(int value);
     bool getIsOnline();
     void setIsOnline(bool value);
+
+    void SortBy();
 };
 
 #endif // USERDIALOG_H

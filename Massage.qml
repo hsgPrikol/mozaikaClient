@@ -32,6 +32,8 @@ Rectangle {
 
     property bool flagWhenMessage: true
     property string messageText: "Ay"
+    property string messageTime: "Через год"
+    property int messageStatus: 0
 
     anchors.leftMargin: 7
     anchors.rightMargin: 7
@@ -119,14 +121,15 @@ Rectangle {
 
     Text {
         id: timeMessage
+        x: 100
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         width: 48
         height: 14
         color: flagWhenMessage ? selfColorText : enemyColorText
-        text: qsTr("21:15")
+        text: messageTime
         font.pixelSize: fontSize
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
     }
 
@@ -136,7 +139,7 @@ Rectangle {
         anchors.top: textMessage.bottom
         width: 32
         height: 14
-        source: "qrc:/picture/SendedMessage.tif"
+        source:  messageStatus == 0 ? "qrc:/resourses/kontacti/warning.tif" : (messageStatus == 1 ? "qrc:/resourses/kontacti/knopka_noviy_dialog.tif" : (messageStatus == 2 ? "qrc:/picture/SendedMessage.tif" : "qrc:/resourses/chat/prikrepit`.tif"))
         fillMode: Image.PreserveAspectFit
     }
 }

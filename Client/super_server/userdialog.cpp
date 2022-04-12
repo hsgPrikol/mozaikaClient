@@ -20,6 +20,19 @@ void UserDialog::setIsOnline(bool value)
     isOnline = value;
 }
 
+void UserDialog::SortBy()
+{
+    for(int startIndex = 0; startIndex < messages.length()-1; ++startIndex){
+        int smallestIndex = startIndex;
+        for(int currIndex = startIndex+1; currIndex < messages.length(); ++currIndex){
+            if(messages[currIndex]<messages[smallestIndex])
+                smallestIndex = currIndex;
+        }
+        std::swap(messages[startIndex], messages[smallestIndex]);
+    }
+
+}
+
 void UserDialog::addMessage(Message msg)
 {
     messages.append(msg);
@@ -29,7 +42,7 @@ void UserDialog::addMessage(Message msg)
 Message UserDialog::getLastMessage()
 {
     if(messages.count()!=0)
-        return messages.first();
+        return messages.last();
 }
 
 int UserDialog::addMember(User *user)

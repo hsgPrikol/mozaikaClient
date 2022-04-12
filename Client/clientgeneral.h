@@ -82,6 +82,7 @@ public slots:
 signals:
     void onAutorization(QString, QString, QString, bool);
     void onGetDialogs();
+    void onGetMessages();
 };
 
 #endif // CLIENTGENERAL_H

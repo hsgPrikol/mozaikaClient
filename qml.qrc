@@ -61,5 +61,6 @@
         <file>resourses/resourses v4/ri_tochki.tif</file>
         <file>resourses/create chat_2.tif</file>
         <file>ForTest.qml</file>
+        <file>resourses/kontacti/warning.tif</file>
     </qresource>
 </RCC>

@@ -21,6 +21,8 @@ Window {
     property int dfltWidth: 506
     property int dfltHeight: 900
 
+    property int currentDialogOpen: -1
+
 
     function sendMessage()
     {
