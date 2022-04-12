@@ -26,6 +26,14 @@ Rectangle {
 
     property var lastMessageUser
 
+    property var isChecked
+
+    property var isGroup
+
+    property var countUnChecked
+
+    property var isOnline
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //много проверти для забирания данных с класса user и message
@@ -63,7 +71,7 @@ Rectangle {
             color: rootDialog.noColor
 
             Text {
-                id: text1
+                id: textNameDialog
                 x: 0
                 y: 0
                 width: 280
@@ -83,14 +91,14 @@ Rectangle {
             color: rootDialog.noColor
 
             Text {
-                id: text2
+                id: textMessage
                 x: 0
                 y: 0
                 width: 280
                 height: 50
-                text: lastMessageUser
                 font.pixelSize: 12
-                font.bold: true
+                text: lastMessageUser
+                font.bold: !isChecked
                 verticalAlignment: Text.AlignTop
             }
         }
@@ -160,20 +168,21 @@ Rectangle {
         }
 
         Rectangle {
-            id: rectangle6
+            id: msgIsCheked
             x: 391
             y: 17
             width: 44
             height: 44
             color: "#068d9d"
             radius: 7
+            visible: !isChecked
 
             Text {
-                id: text4
+                id: msgIsChekedText
                 x: -12
                 y: -17
                 color: "#ffffff"
-                text: qsTr("2")
+                text: countUnChecked
                 anchors.fill: parent
                 font.pixelSize: 12
                 horizontalAlignment: Text.AlignHCenter
@@ -182,13 +191,14 @@ Rectangle {
         }
 
         Rectangle {
-            id: rectangle5
+            id: msgIsOnline
             x: 22
             y: 69
             width: 12
             height: 12
             color: "#068d9d"
             radius: 6
+            visible: isOnline
         }
 
     }

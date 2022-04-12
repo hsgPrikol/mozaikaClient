@@ -52,12 +52,14 @@ public:
     const static QString ___BIRTH_DATE;
     const static QString ___ARR_CHATS;
     const static QString ___ID_CHAT;
+    const static QString ___CHAT_GROUP;
     const static QString ___ARR_USERS;
     const static QString ___ARR_MESSAGES;
     const static QString ___ID_MESSAGE;
     const static QString ___TEXT_MESSAGE;
     const static QString ___ARR_ATTACHMENT;
     const static QString ___STATUS_MESSAGE;
+    const static QString ___COUNT_MESSAGE;
 
     //~~~~~status message start~~~~~
     const static QString ___STS_READ;

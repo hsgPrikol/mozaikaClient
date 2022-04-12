@@ -107,6 +107,7 @@ Rectangle{
         }
     }
 
+<<<<<<< HEAD
 //    Rectangle {
 //        id: pictureMask
 //        x: 0
@@ -175,6 +176,77 @@ Rectangle{
 //            }
 //        }
 //    }
+=======
+    Rectangle {
+        id: pictureMask
+        x: 0
+        y: 60
+        width: 506
+        height: 220
+        color: "#ffffff"
+
+        Image {
+            id: avatar
+            x: 0
+            y: 0
+            width: 506
+            height: 220
+            source: lientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/lobkov.tif"
+//            source: "qrc:/resourses/avatar/lobkov.tif"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Rectangle {
+            id: nameMask
+            x: 0
+            y: 180
+            width: 506
+            height: 40
+            color: biruzoviu
+            opacity: customOpacity
+        }
+
+        Text {
+            id: tbName
+            x: 0
+            y: 180
+            width: 415
+            height: 40
+            color: "#ffffff"
+            text: currentUser.getName()
+            font.pixelSize: 16
+            verticalAlignment: Text.AlignVCenter
+            minimumPixelSize: 16
+            leftPadding: 15
+        }
+
+        Rectangle {
+            id: chooseAvatarButtonMask
+            x: 414
+            y: 160
+            width: 76
+            height: 60
+            color: "#00000000"
+
+            Image {
+                id: chooseAvatarImage
+                anchors.fill: parent
+                source: "qrc:/resourses/nastroiki/kopka_obovit`_photo.tif"
+                anchors.leftMargin: 0
+                anchors.topMargin: 0
+                fillMode: Image.PreserveAspectFit
+            }
+
+            MouseArea{
+                anchors.fill: parent
+
+                onClicked: {
+                    fileOpenDialog.open()
+                }
+            }
+        }
+    }
+>>>>>>> Mozaika/prikol
 
     Rectangle {
         id: scrollViewMask

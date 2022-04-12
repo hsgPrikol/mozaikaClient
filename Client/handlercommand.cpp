@@ -229,8 +229,9 @@ void HandlerCommand::GetMessagesInDialog(QString idChat, QWebSocket *socket)
 void HandlerCommand::GetAnswerMessagesInDialog(QJsonObject *object, QWebSocket *socket)
 {
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
+    bool isGroup = ((*object)[ProtocolTrade::___CHAT_GROUP]).toBool();
 
-    UserDialog dialog(idChat);
+    UserDialog dialog(idChat.toInt(), isGroup);
 
     QJsonArray messages = ((*object)[ProtocolTrade::___ARR_MESSAGES]).toArray();
     foreach(QJsonValue objMsg, messages)

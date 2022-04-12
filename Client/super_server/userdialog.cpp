@@ -1,5 +1,25 @@
 #include "userdialog.h"
 
+int UserDialog::getCountUnChecked()
+{
+    return countUnChecked;
+}
+
+void UserDialog::setCountUnChecked(int value)
+{
+    countUnChecked = value;
+}
+
+bool UserDialog::getIsOnline()
+{
+    return isOnline;
+}
+
+void UserDialog::setIsOnline(bool value)
+{
+    isOnline = value;
+}
+
 void UserDialog::addMessage(Message msg)
 {
     messages.append(msg);

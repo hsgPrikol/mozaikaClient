@@ -73,14 +73,14 @@ void ClientGeneral::handlerCmdAuthorization(QJsonObject *object)
 
         QJsonObject jObj = ((*object)[ProtocolTrade::___AVATAR]).toObject();
 
-        ProtocolTrade::SaveBinaryFile(// PATH GDE
+        QString filePath =ProtocolTrade::SaveBinaryFile(// PATH GDE
                                       jObj[ProtocolTrade::___BINARY_FILE].toString(),
-                jObj[ProtocolTrade::___NAME_FILE].toString() +userName,
+                "userAvatar_"+jObj[ProtocolTrade::___NAME_FILE].toString() +userName,
                 jObj[ProtocolTrade::___TYPE_FILE].toString(),
                 "idMessage",
                 "idChat");
 
-        QString filePath = "" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
+//        QString filePath = "" + jObj[ProtocolTrade::___NAME_FILE].toString() + "."+jObj[ProtocolTrade::___TYPE_FILE].toString();
 
         Fix::isAuthorized = true;
         emit onAutorization(userName, filePath, birthDate, true);
@@ -291,8 +291,9 @@ void ClientGeneral::getMessagesInDialog(QString idChat)
 void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object)
 {
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
+    bool isGroup = false;
 
-    UserDialog dialog(idChat);
+    UserDialog dialog(idChat.toInt(), isGroup);
 
     QJsonArray messages = ((*object)[ProtocolTrade::___ARR_MESSAGES]).toArray();
     foreach(QJsonValue objMsg, messages)
@@ -366,9 +367,10 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
         QString dialog_name = c[ProtocolTrade::___USER_NAME].toString();
         QString dialog_avatar = c[ProtocolTrade::___AVATAR].toString();
         int id = c[ProtocolTrade::___ID_CHAT].toInt();
-        QString avatarPath = ProtocolTrade::SaveBinaryFile(dialog_avatar,dialog_name,c.toString(),"","");
+        QString avatarPath = ProtocolTrade::SaveBinaryFile(dialog_avatar,"dialogAvatar_"+QString::number(id)+"_"+dialog_name,c.toString(),"","");
         QJsonArray members = c[ProtocolTrade::___ARR_USERS].toArray();
-        UserDialog dialog(id, dialog_name,ProtocolTrade::StringToByteArray(dialog_avatar), avatarPath);
+        bool isGroup = c[ProtocolTrade::___CHAT_GROUP].toBool();
+        UserDialog dialog(id, isGroup, dialog_name,ProtocolTrade::StringToByteArray(dialog_avatar), avatarPath);
         foreach(QJsonValue m, members){
             QString login = m[ProtocolTrade::___LOGIN].toString();
             QByteArray user_avatar = ProtocolTrade::StringToByteArray(m[ProtocolTrade::___AVATAR].toString());
@@ -384,8 +386,12 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
                 jlastMsg[ProtocolTrade::___USER_NAME].toString(),
                 jlastMsg[ProtocolTrade::___TEXT_MESSAGE].toString(),
                 QDateTime::fromString(jlastMsg[ProtocolTrade::___BIRTH_DATE].toString()),
-                1);
+                jlastMsg[ProtocolTrade::___STATUS_MESSAGE].toInt());
         dialog.addMessage(last);
+        int countUnChecked=c[ProtocolTrade::___COUNT_MESSAGE].toInt();
+        bool isOnline=c[ProtocolTrade::___STATUS_USER].toString()==ProtocolTrade::___STS_ONLINE;
+        dialog.setCountUnChecked(countUnChecked);
+        dialog.setIsOnline(isOnline);
         dialogs.append(dialog);
     }
     clientData->setDialogs(dialogs);
@@ -393,12 +399,13 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
     // СДЕЛАЙ ЧТО ТО С ДИАЛОГС
 }
 
-void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray avatar)
+void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray avatar, bool isGroup)
 {
     QJsonObject* jObj = new QJsonObject({
                                             {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_CREATE_CHAT)},
                                             {ProtocolTrade::___USER_NAME, QJsonValue(name)},
-                                            {ProtocolTrade::___AVATAR, QJsonValue(ProtocolTrade::ByteArrayToString(avatar))}
+                                            {ProtocolTrade::___AVATAR, QJsonValue(ProtocolTrade::ByteArrayToString(avatar))},
+                                            {ProtocolTrade::___CHAT_GROUP, QJsonValue(isGroup)}
                                         });
 
     QJsonArray* jlogins=new QJsonArray();

@@ -25,6 +25,10 @@ Rectangle {
     {
         openNavDrawer.start()
         console.log("showNavDrawer()")
+
+        imgAvatar.source=currentUser.getAvatarFile()!=""?"file:///" +currentDir+"/" +  currentUser.getAvatarFile() : "qrc:/resourses/avatar/cop.tif"
+        tbName.text=currentUser.getName();
+        tbLogin.text=currentUser.getLogin();
     }
 
 
@@ -87,12 +91,12 @@ Rectangle {
                     radius: rectangle5.width / 2
 
                     Image {
-                        id: image1
+                        id: imgAvatar
                         x: 8
                         y: 8
                         anchors.fill: parent
                         fillMode: Image.PreserveAspectCrop
-                        source: "qrc:/resourses/avatar/efreitor.tif"
+                        source: "qrc:/resourses/avatar/cop.tif"
                         anchors.rightMargin: 0
                         anchors.bottomMargin: 0
                         anchors.leftMargin: 0
@@ -143,11 +147,11 @@ Rectangle {
                 color: noColor
 
                 Text {
-                    id: text2
+                    id: tbName
                     anchors.leftMargin: 10
                     anchors.fill: parent
                     color: "#ffffff"
-                    text: qsTr("Рядовой Ефрейтор")
+                    text: currentUser.getName()
                     font.pixelSize: fontSize
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -162,11 +166,11 @@ Rectangle {
                 color: noColor
 
                 Text {
-                    id: text1
+                    id: tbLogin
                     anchors.leftMargin: 10
                     anchors.fill: parent
                     color: "#ffffff"
-                    text: qsTr("5NR_Operator_27")
+                    text: currentUser.getLogin()
                     font.pixelSize: 12
                     verticalAlignment: Text.AlignVCenter
                 }
