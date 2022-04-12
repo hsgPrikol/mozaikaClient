@@ -38,31 +38,27 @@ Rectangle {
                                                });
     }
 
-    //    function creareNewMessage()
-    //    {
-    //        var countIndex = contactsss.getCountIndexMessage();
-    //        var tmpMessage = newMassege.createObject(columnChat,
-    //                                                 {
-    //                                                     sizeMessage: testMap.getSizeMessage(countIndex),
-    //                                                     messageText: testMap.getMassage(countIndex),
-    //                                                     flagWhenMessage: testMap.getIsCheked(countIndex)
-    //                                                 });
-    //    }
-
     function ebaka(){
-        repeaterChat.model = 0
+//        repeaterChat.model = 0
+
+        clientData.setAllReadMessageInDialog(currentDialogOpen);
+
+        for(var i = 0; i < columnChat.data.length;i++)
+        {
+            columnChat.data[i].destroy()
+        }
 
         for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
         {
             var tmp=newMassege.createObject(columnChat,
-                                                                 {
-                                                                     sizeMessage: clientData.getLength(clientData.getTextMessage(currentDialogOpen,i)),
-                                                                     messageText: clientData.getTextMessage(currentDialogOpen,i),
-                                                                     flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen,i),
-                                                                     messageTime: clientData.getDateMessage(currentDialogOpen,i),
-                                                                     messageStatus: 3
+                                            {
+                                                sizeMessage: clientData.getLength(clientData.getTextMessage(currentDialogOpen,i)),
+                                                messageText: clientData.getTextMessage(currentDialogOpen,i),
+                                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen,i),
+                                                messageTime: clientData.getDateMessage(currentDialogOpen,i),
+                                                messageStatus: 3
 
-                                                                 });
+                                            });
         }
 
         scrollToBottom();
@@ -75,22 +71,20 @@ Rectangle {
         }
     }
 
-    function updateChat(id_chat, messageAnswer, dateTime, lenghtMessage){
-        if(clientData.getIdDialog(currentDialogOpen) == id_chat){
+    function updateChat(id_chat){
 
-            ebaka()
-            client.getMessagesInDialog(clientData.getIdDialog(currentDialogOpen))
+//        if(loader.sourceComponent == userChat)
+//        {
+            if(clientData.getIdDialog(currentDialogOpen) == id_chat)
+            {
 
-            //            var countIndex = contactsss.getCountIndexMessage();
-//            var tmpMessage =
+                ebaka()
+                //client.getMessagesInDialog(clientData.getIdDialog(currentDialogOpen))
 
-
-            console.log("messageAnswer.lenght", messageAnswer.size())
-
-
-            //            repeaterChat.model = repeaterChat.model + 1
-            //            repeaterChat.update()
-        }
+                //console.log("messageAnswer.lenght", messageAnswer.size())
+//                repeaterChat.update()
+            }
+//        }
     }
 
     width: dfltWidth
@@ -284,13 +278,13 @@ Rectangle {
                     anchors.bottomMargin: 8
 
                     contentWidth: parent.width
-                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
+//                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
 
                     clip: true
                     //                    LayoutMirroring.enabled: true
 
-                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
-                    ScrollBar.vertical.position: t
+//                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
+//                    ScrollBar.vertical.position: t
 
 
                     Column{
@@ -305,37 +299,37 @@ Rectangle {
                             color: "#00000000"
                         }
 
-                        Repeater{
-                            id: repeaterChat
-                            anchors.fill: parent
+//                        Repeater{
+//                            id: repeaterChat
+//                            anchors.fill: parent
 
-                            model: clientData.getCountMessages(currentDialogOpen)
+//                            model: clientData.getCountMessages(currentDialogOpen)
 
-                            Massage{
-                                id: message
+//                            Massage{
+//                                id: message
 
-                                messageText: clientData.getTextMessage(currentDialogOpen, index)
-                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
-                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
-                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
-                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
-
-
-                                Component.onCompleted: {
-                                    console.log(repeaterChat.model)
-                                    console.log(index)
-
-                                    contactsss.setCountIndexMessage(countIndexVessage++)
-                                }
-                            }
+//                                messageText: clientData.getTextMessage(currentDialogOpen, index)
+//                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
+//                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
+//                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
+//                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
 
 
-                        }
+//                                Component.onCompleted: {
+//                                    console.log(repeaterChat.model)
+//                                    console.log(index)
+
+//                                    contactsss.setCountIndexMessage(countIndexVessage++)
+//                                }
+//                            }
+
+
+//                        }
                     }
 
                     onContentHeightChanged: {
                         scrollToBottom();
-                        repeaterChat.update()
+//                        repeaterChat.update()
                     }
 
                     Component.onCompleted: {
@@ -348,7 +342,7 @@ Rectangle {
 
             DownBar {
                 id: downBar
-                anchors.top: scrollChat.bottom
+//                anchors.top: scrollChat.bottom
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
@@ -382,13 +376,13 @@ Rectangle {
 
         newMediaMessage = Qt.createComponent("ForTest.qml");
 
-        client.onUpdateStatusMessage.connect(updateStatusMessage)
-        client.onMessageReceived.connect(updateChat);
+//        client.onUpdateStatusMessage.connect(updateStatusMessage)
+//        client.onMessageReceived.connect(updateChat);
 
-        testMap.onCreateNewMassage.connect(creareNewMessage);
+//        testMap.onCreateNewMassage.connect(creareNewMessage);
 
-        testMap.onMediaMessage.connect(createMediaMessage)
-
+//        testMap.onMediaMessage.connect(createMediaMessage)
+        client.onUpdateChat.connect(updateChat)
 
     }
 }

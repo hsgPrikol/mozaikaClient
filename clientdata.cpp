@@ -10,18 +10,29 @@ QVector<UserDialog> ClientData::getDialogs()
     return dialogs;
 }
 
-QVector<UserDialog> SortBy(QVector<UserDialog> arr){
-    for(int startIndex = 0; startIndex < arr.length()-1; ++startIndex){
+void ClientData::sortDialogs(){
+    for(int startIndex = 0; startIndex < dialogs.length()-1; ++startIndex){
         int smallestIndex = startIndex;
-        for(int currIndex = startIndex+1; currIndex < arr.length(); ++currIndex){
-            if(arr[currIndex]>arr[smallestIndex])
+        for(int currIndex = startIndex+1; currIndex < dialogs.length(); ++currIndex){
+//            if(dialogs[currIndex].messages[dialogs[currIndex].messages.size() - 1]>dialogs[smallestIndex].messages[dialogs[smallestIndex].messages.size() - 1])
+            if(dialogs[currIndex]>dialogs[smallestIndex])
                 smallestIndex = currIndex;
         }
-        std::swap(arr[startIndex], arr[smallestIndex]);
+        dialogs.swapItemsAt(startIndex, smallestIndex);
+//        std::swap(dialogs[startIndex], dialogs[smallestIndex]);
     }
-
-    return arr;
 }
+
+//void ClientData::sortDialogs(){
+//    for(int startIndex = 0; startIndex < dialogs.length()-1; ++startIndex){
+//        int smallestIndex = startIndex;
+//        for(int currIndex = startIndex+1; currIndex < dialogs.length(); ++currIndex){
+//            if(dialogs[currIndex].>dialogs[smallestIndex])
+//                smallestIndex = currIndex;
+//        }
+//        std::swap(dialogs[startIndex], dialogs[smallestIndex]);
+//    }
+//}
 
 QVector<Message> SortBy(QVector<Message> arr){
     for(int startIndex = 0; startIndex < arr.length()-1; ++startIndex){
@@ -39,7 +50,8 @@ QVector<Message> SortBy(QVector<Message> arr){
 void ClientData::setDialogs(QVector<UserDialog> value)
 {
 
-    this->dialogs=SortBy(value);
+    this->dialogs=value;
+    sortDialogs();
 }
 
 void ClientData::sortDialog(int index)
@@ -175,6 +187,14 @@ bool ClientData::getIsSenderMessage(int d_index, int m_index)
     return dialogs[d_index].getMessages()[m_index].getSender_login()== user->getLogin();
 }
 
+int ClientData::setAllReadMessageInDialog(int indexDialog)
+{
+    for(int i = 0; i < dialogs[indexDialog].messages.size(); i++)
+    {
+        dialogs[indexDialog].messages[i].setStatus(3);
+    }
+}
+
 //QString ClientData::getMyLogin() const
 //{
 //    return myLogin;
@@ -209,9 +229,11 @@ void ClientData::AddMessage(QString idDialog, QString idMessage, QString loginSe
             }
 
             dialogs[i].addMessage(*tmpMessage);
+            dialogs[i].SortBy();
             break;
         }
     }
+
 }
 
 void ClientData::UpdateMessageId(QString idDialog, QString tmpIdMessage, QString idMessage, QString statusMessage)

@@ -2,7 +2,12 @@
 
 int UserDialog::getCountUnChecked()
 {
-    return countUnChecked;
+    int count=0;
+    foreach(auto m,messages)
+        if(m.getStatus()!=3)
+            count++;
+
+    return count;
 }
 
 void UserDialog::setCountUnChecked(int value)
@@ -65,11 +70,21 @@ QVector<QString> UserDialog::getMemberLogins()
     return members;
 }
 
+Message getLastMessage(QVector<Message> arr){
+    Message res = arr[0];
+    for(int i = 1; i<arr.length(); i++){
+        if(arr[i]>res)
+            res = arr[i];
+    }
+
+    return res;
+}
+
 bool UserDialog::operator<(const UserDialog &d1) const
 {
 
-    Message m1=messages.first();
-    Message m2=d1.messages.first();
+    Message m1=messages.last();
+    Message m2=d1.messages.last();
 
     return m1.getTime()<m2.getTime();
 }
@@ -77,8 +92,8 @@ bool UserDialog::operator<(const UserDialog &d1) const
 bool UserDialog::operator>(const UserDialog &d1) const
 {
 
-    Message m1=messages.first();
-    Message m2=d1.messages.first();
+    Message m1=messages.last();
+    Message m2=d1.messages.last();
 
     return m1.getTime()>m2.getTime();
 }

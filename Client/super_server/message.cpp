@@ -25,6 +25,11 @@ void Message::setStatus(QString value)
     }
 }
 
+void Message::setStatus(int value)
+{
+    status = value;
+}
+
 void Message::addFile(MyFile file)
 {
     files.append(file);

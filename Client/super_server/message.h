@@ -36,6 +36,7 @@ public:
 //<<<<<<< HEAD
     void setId(int value);
     void setStatus(QString value);
+    void setStatus(int value);
 //=======
 
     bool operator<(const Message& d1) const;

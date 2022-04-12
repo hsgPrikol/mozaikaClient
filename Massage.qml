@@ -115,7 +115,7 @@ Rectangle {
 //        topPadding: 5
 
         Component.onCompleted: {
-            console.log(index + ") ", textMessage.lineCount)
+//            console.log(index + ") ", textMessage.lineCount)
         }
     }
 

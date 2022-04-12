@@ -13,14 +13,14 @@ Rectangle {
     property int dfltHeight: 100
     property color noColor: "#00000000"
     property real customOpacity: 0.7
-
+    property int indexInListDialogs: -1
     color: rootDialog.noColor
 
-//<<<<<<< HEAD
-//=======
+    //<<<<<<< HEAD
+    //=======
     anchors.horizontalCenter: parent.horizontalCenter
 
-//>>>>>>> origin/back
+    //>>>>>>> origin/back
     property var nameFamilia
 
     property var avatarClients:"qrc:/resourses/avatar/cop.tif"
@@ -42,14 +42,16 @@ Rectangle {
     //много проверти для забирания данных с класса user и message
 
 
-//    property type name: value
-//    property type name: value
-//    property type name: value
-//    property type name: value
+    //    property type name: value
+    //    property type name: value
+    //    property type name: value
+    //    property type name: value
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    function loadChat(){
 
+    }
 
 
     Image {
@@ -213,13 +215,20 @@ Rectangle {
         anchors.fill: parent
 
         onClicked: {
-            loader.sourceComponent  = userChat
 
-//            userChatObject.currentDialog = index
-            currentDialogOpen = index
 
-            console.log("Открыть диалог с данным юзером" + index)
+            //            userChatObject.currentDialog = index
+
+            client.getMessagesInDialog(clientData.getIdDialog(indexInListDialogs))
+            currentDialogOpen = indexInListDialogs;
+            loader.sourceComponent  = userChat;
+            console.log("Открыть диалог с данным юзером" + indexInListDialogs)
         }
+    }
+
+    Component.onCompleted: {
+
+
     }
 }
 

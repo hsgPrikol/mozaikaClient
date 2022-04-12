@@ -28,6 +28,7 @@ public slots:
 
     QVector<UserDialog> getDialogs();
     void setDialogs( QVector<UserDialog> value);
+    void sortDialogs();
     void sortDialog(int index);
 
     UserDialog* getDialogFromId(int id);
@@ -64,6 +65,8 @@ public slots:
     bool getIsSenderMessage(int d_index, int m_index);
 
     int getLength(QString text){return text.length();}
+
+    int setAllReadMessageInDialog(int indexDialog);
 
     //    QString getNameDialog(int index){return dialogs[index].();}
 //>>>>>>> origin/back

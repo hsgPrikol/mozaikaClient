@@ -34,6 +34,49 @@ Rectangle {
 
     }
 
+    function redrawDialogs(){
+
+//        if (loader.sourceComponent != listDialog)
+//        {
+//            return
+//        }
+
+        for(var i = 0; i < columnDialogs.data.length;i++)
+        {
+            columnDialogs.data[i].destroy()
+        }
+
+        let countD = clientData.getCountDialogs();
+
+        var tmp;
+        for(var i=0;i<countD;i++){
+            tmp = tmpNewDialog.createObject(columnDialogs,
+                                            {
+                                                nameFamilia: clientData.getNameDialog(i),
+                                                //                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
+                                                avatarClients: clientData.getPathAvatar(i) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(i):"qrc:/resourses/avatar/cop.tif",
+
+                                                lastMessageUser: clientData.getTextLastMessage(i),
+                                                timeMessage: clientData.getDateLastMessage(i),
+                                                isChecked: clientData.getIsCheckedLastMessage(i),
+                                                isGroup: clientData.getDialogIsGroup(i),
+                                                isOnline: clientData.getDialogIsOnline(i),
+                                                countUnChecked: clientData.getDialogCountUnChecked(i),
+                                                indexInListDialogs: i
+                                            });
+        }
+
+
+
+        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
+        //        columnDialogs.children = []
+        //        scrollView.contentHeight=150;
+        //        scrollView.height=150;
+        //        scrollView.focus=true
+        //showDialog()
+
+    }
+
     function showDialog()
     {
         loader.sourceComponent  = userChat
@@ -187,8 +230,8 @@ Rectangle {
             anchors.right: rectangle.right
             anchors.left: rectangle.left
             anchors.bottom: parent.bottom
-
-            contentHeight: repDialogs.model * (columnDialogs.spacing + dialogs.dfltHeight)
+//            background: Rectangle{color: "red"}
+//            contentHeight: repDialogs.model * (columnDialogs.spacing + dialogs.dfltHeight)
             contentWidth: parent.width
             clip: true
 
@@ -197,40 +240,40 @@ Rectangle {
                 anchors.fill: parent
                 spacing: 10
 
-                Repeater {
-                    id: repDialogs
-                    anchors.fill: parent
-                    model: clientData.getCountDialogs()
+//                Repeater {
+//                    id: repDialogs
+//                    anchors.fill: parent
+////                    model: clientData.getCountDialogs()
 
-                    Dialogs {
-                        id: dialogs
-//                        anchors.horizontalCenter: parent.horizontalCenter
+//                    Dialogs {
+////                        id: dialogs
+////                        //                        anchors.horizontalCenter: parent.horizontalCenter
 
-                        MouseArea{
-                           anchors.fill: parent
+////                        MouseArea{
+////                            anchors.fill: parent
 
-                            onClicked: {
-                                currentDialogOpen = index
-                                client.getMessagesInDialog(clientData.getIdDialog(index))
-                                client.onGetMessages.connect(showDialog);
-                                client.onUpda
+////                            onClicked: {
+////                                currentDialogOpen = index
+////                                //                                client.getMessagesInDialog(clientData.getIdDialog(index))
+////                                //                                client.onGetMessages.connect(showDialog);
+////
 
-                            }
-                        }
+////                            }
+////                        }
 
-                        nameFamilia: clientData.getNameDialog(index)
-//                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
-                         avatarClients: clientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/cop.tif"
+////                        nameFamilia: clientData.getNameDialog(index)
+////                        //                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
+////                        avatarClients: clientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/cop.tif"
 
-                        lastMessageUser: clientData.getTextLastMessage(index)
-                        timeMessage: clientData.getDateLastMessage(index)
-                        isChecked: clientData.getIsCheckedLastMessage(index)
-                        isGroup: clientData.getDialogIsGroup(index)
-                        isOnline: clientData.getDialogIsOnline(index)
-                        countUnChecked: clientData.getDialogCountUnChecked(index)
+////                        lastMessageUser: clientData.getTextLastMessage(index)
+////                        timeMessage: clientData.getDateLastMessage(index)
+////                        isChecked: clientData.getIsCheckedLastMessage(index)
+////                        isGroup: clientData.getDialogIsGroup(index)
+////                        isOnline: clientData.getDialogIsOnline(index)
+////                        countUnChecked: clientData.getDialogCountUnChecked(index)
 
-                    }
-                }
+//                   }
+//                }
             }
         }
 
@@ -268,7 +311,7 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-//                    loader.sourceComponent = contactsList
+                    //                    loader.sourceComponent = contactsList
 
 
                     var str = "123213"
@@ -282,9 +325,11 @@ Rectangle {
     }
 
     Component.onCompleted: {
-
+//        console.log(" Component.onCompleted list dialogs");
         testMap.onCreateNewDialog.connect(addNewDialogs)
         tmpNewDialog = Qt.createComponent("Dialogs.qml");
+        client.onUpdateAllChats.connect(redrawDialogs);
+        redrawDialogs();
     }
 }
 

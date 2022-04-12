@@ -132,9 +132,13 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
 
     clientData->AddMessage(idChat, idMessage,loginSender, date,status, messageText, paths);
 
-    int sizeMessage = messageText.size();
+    clientData->sortDialogs();
+
+//    int sizeMessage = messageText.size();
     // дописать отображение на фронте
-    emit onMessageReceived(idChat.toInt(), messageText, QDateTime::currentDateTime().toString(), sizeMessage);
+    emit onUpdateChat(idChat.toInt());
+    emit onUpdateAllChats();
+//    emit onMessageReceived(idChat.toInt(), messageText, QDateTime::currentDateTime().toString(), sizeMessage);
     // Формирование ответа серверу
     QJsonObject* answer = new QJsonObject({
                                               {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_SEND_MESSAGE)},
@@ -158,7 +162,8 @@ void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object)
 
     clientData->UpdateMessageId(idChat, tmpIdMessage, idMessage, statusMessage);
 
-    emit onMessageReceived(3,"","",4);
+    emit onUpdateMessage(idChat.toInt(), idMessage.toInt());
+//    emit onMessageReceived(3,"","",4);
 }
 
 void ClientGeneral::processingEventFromServer(QJsonObject *object)
@@ -345,7 +350,8 @@ void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object)
     d->setMessages(dialog.getMessages());
     d->SortBy();
 
-    emit onGetMessages();
+    emit onUpdateChat(dialog.getID());
+//    emit onGetMessages();
     qDebug() <<dialog.getID();
     // ОТДАТЬ ИГОРЮ ПОЛУЧЕННЫЙ ДИАЛОГ
 }
@@ -420,6 +426,9 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
     clientData->setDialogs(dialogs);
 
 
+
+
+    emit onUpdateAllChats();
     emit onGetDialogs();
     // СДЕЛАЙ ЧТО ТО С ДИАЛОГС
 }
@@ -463,7 +472,8 @@ void ClientGeneral::getUpdatedStatusMessage(QJsonObject *qObj)
     QString message_id = (*qObj)[ProtocolTrade::___ID_MESSAGE].toString();
     QString status = (*qObj)[ProtocolTrade::___STATUS_MESSAGE].toString();
 
-    emit onUpdateStatusMessage(dialog_id.toInt(), message_id.toInt(), status.toInt());
+    emit onUpdateMessage(dialog_id.toInt(), message_id.toInt());
+//    emit onUpdateStatusMessage(dialog_id.toInt(), message_id.toInt(), status.toInt());
     // MAKSIM SDELAI OBNOVY STATUSA -> emit ebaka(int, int, int)
 };
 
@@ -475,6 +485,7 @@ QString ClientGeneral::generateTmpIdMsg()
 void ClientGeneral::addMessage(QString idDialog, QString tmpIdMessage, QString message, QVector<QString> paths)
 {
     clientData->AddMessage(idDialog, tmpIdMessage, clientData->user->getLogin(),QDateTime::currentDateTime(),ProtocolTrade::___STS_TAKEN, message, paths);
+    clientData->sortDialogs();
 }
 
 
