@@ -327,7 +327,7 @@ Window {
         }
     }
 
-    property var currentDialogOpen: -1
+//    property var currentDialogOpen: -1
 
     Component {
         id: listDialog

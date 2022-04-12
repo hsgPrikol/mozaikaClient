@@ -249,7 +249,7 @@ void ClientGeneral::authorization(QString login, QString password, ClientData *c
                                         });
 
     this->clientData=clientData;
-    this->clientData->setMyLogin(login);
+    this->clientData->user->setLogin(login);
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }

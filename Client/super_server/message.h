@@ -33,14 +33,14 @@ public:
     QDateTime getTime(){return time;};
     int getStatus(){return status;};
     QVector<MyFile> getFiles(){return files;};
-<<<<<<< HEAD
+//<<<<<<< HEAD
     void setId(int value);
     void setStatus(QString value);
-=======
+//=======
 
     bool operator<(const Message& d1) const;
     bool operator>(const Message& d1) const;
->>>>>>> origin/back
+//>>>>>>> origin/back
 };
 
 #endif // MESSAGE_H

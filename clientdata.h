@@ -14,13 +14,13 @@ public:
 
     QVector<UserDialog> dialogs;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
     User *user;
-=======
-    QString myLogin;
-    QString getMyLogin() const;
-    void setMyLogin(const QString &value);
->>>>>>> origin/back
+//=======
+//    QString myLogin;
+//    QString getMyLogin() const;
+//    void setMyLogin(const QString &value);
+//>>>>>>> origin/back
 
 public slots:
 
@@ -49,13 +49,13 @@ public slots:
 
     QString getLastActiveDateTime(QDateTime date);
 
-<<<<<<< HEAD
-    QString getIdDialog(int index);
+//<<<<<<< HEAD
+    QString getIdDialogString(int index);
 
     void AddMessage(QString idDialog, QString idMessage, QString message, QVector<QString> paths);
     void UpdateMessageId(QString idDialog, QString tmpIdMessage, QString idMessage, QString statusMessage);
 //    QString getNameDialog(int index){return dialogs[index].();}
-=======
+//=======
     int getCountMessages(int index);
     QString getTextMessage(int d_index, int m_index);
     int getSizeTextMessage(int d_index, int m_index){return getTextMessage(d_index,m_index).length();}
@@ -66,7 +66,7 @@ public slots:
 
 
     //    QString getNameDialog(int index){return dialogs[index].();}
->>>>>>> origin/back
+//>>>>>>> origin/back
 signals:
 
 };

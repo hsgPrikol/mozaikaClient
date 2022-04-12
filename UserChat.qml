@@ -17,8 +17,8 @@ Rectangle {
     property int heightToolBar: 60
     property int countIndexVessage: 0
 
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 
 //    property var index: -1
 //    property var nameDialog
@@ -26,14 +26,14 @@ Rectangle {
 //    property var isActiveDialog
 //    property var isGroupDialog
 
->>>>>>> origin/back
+//>>>>>>> origin/back
     property int fontSize: 14
 
     property var newMassege
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //    property var currentDialog: -1
-=======
+//=======
     property var newMediaMessage
 
 
@@ -46,7 +46,7 @@ Rectangle {
     }
 
 
->>>>>>> origin/back
+//>>>>>>> origin/back
 
     function creareNewMessage()
     {

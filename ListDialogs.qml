@@ -206,10 +206,10 @@ Rectangle {
                         id: dialogs
 //                        anchors.horizontalCenter: parent.horizontalCenter
 
-//                        MouseArea{
-//                            anchors.fill: parent
+                        MouseArea{
+                           anchors.fill: parent
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //                            onClicked: {
 ////                                userChat.tmpDialogId = -1
 
@@ -218,7 +218,7 @@ Rectangle {
 
 //                            }
 //                        }
-=======
+//=======
                             onClicked: {
                                 currentDialogOpen = index
                                 client.getMessagesInDialog(clientData.getIdDialog(index))
@@ -226,7 +226,7 @@ Rectangle {
 
                             }
                         }
->>>>>>> origin/back
+//>>>>>>> origin/back
 
                         nameFamilia: clientData.getNameDialog(index)
 //                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)

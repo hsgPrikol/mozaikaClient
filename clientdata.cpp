@@ -173,20 +173,20 @@ bool ClientData::getIsSenderMessage(int d_index, int m_index)
 {
     if(dialogs.count()<=d_index) return false;
 
-    return dialogs[d_index].getMessages()[m_index].getSender_login()==myLogin;
+    return dialogs[d_index].getMessages()[m_index].getSender_login()== user->getLogin();
 }
 
-QString ClientData::getMyLogin() const
-{
-    return myLogin;
-}
+//QString ClientData::getMyLogin() const
+//{
+//    return myLogin;
+//}
 
-void ClientData::setMyLogin(const QString &value)
-{
-    myLogin = value;
-}
+//void ClientData::setMyLogin(const QString &value)
+//{
+//    myLogin = value;
+//}
 
-QString ClientData::getIdDialog(int index)
+QString ClientData::getIdDialogString(int index)
 {
     return QString::number(dialogs[index].getID());
 }

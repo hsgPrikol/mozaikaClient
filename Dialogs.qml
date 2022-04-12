@@ -16,11 +16,11 @@ Rectangle {
 
     color: rootDialog.noColor
 
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
     anchors.horizontalCenter: parent.horizontalCenter
 
->>>>>>> origin/back
+//>>>>>>> origin/back
     property var nameFamilia
 
     property var avatarClients:"qrc:/resourses/avatar/cop.tif"
