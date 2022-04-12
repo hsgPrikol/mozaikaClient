@@ -110,6 +110,8 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
         arrAttachment = ((*object)[ProtocolTrade::___ARR_ATTACHMENT]).toArray();
     }
 
+    QVector<QString> paths;
+
     if(arrAttachment.size() > 0)
     {
         QJsonObject jObj;
@@ -117,14 +119,17 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
         for(int i = 0; i < arrAttachment.size(); i++)
         {
             jObj = arrAttachment[i].toObject();
-            ProtocolTrade::SaveBinaryFile(
-                        jObj[ProtocolTrade::___BINARY_FILE].toString(),
-                    jObj[ProtocolTrade::___NAME_FILE].toString(),
-                    jObj[ProtocolTrade::___TYPE_FILE].toString(),
-                    idMessage,
-                    idChat);
+            paths.push_back(ProtocolTrade::SaveBinaryFile(
+                                jObj[ProtocolTrade::___BINARY_FILE].toString(),
+                            jObj[ProtocolTrade::___NAME_FILE].toString(),
+                            jObj[ProtocolTrade::___TYPE_FILE].toString(),
+                            idMessage,
+                            idChat));
         }
     }
+
+    clientData->AddMessage(idChat, idMessage, messageText, paths);
+    // дописать отображение на фронте
 
     // Формирование ответа серверу
     QJsonObject* answer = new QJsonObject({
@@ -138,12 +143,16 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
 }
 
 //ЖОПиСАТЬ
+
+//ЖОПиСАЛ)
 void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object)
 {
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
     QString idMessage = ((*object)[ProtocolTrade::___ID_MESSAGE]).toString();
     QString tmpIdMessage = ((*object)[ProtocolTrade::___TMP_ID_MESSAGE]).toString();
-    QString statusMessage = ((*object)[ProtocolTrade::___TMP_ID_MESSAGE]).toString();
+    QString statusMessage = ((*object)[ProtocolTrade::___STATUS_MESSAGE]).toString();
+
+    clientData->UpdateMessageId(idChat, tmpIdMessage, idMessage, statusMessage);
 }
 
 void ClientGeneral::processingEventFromServer(QJsonObject *object)
@@ -428,6 +437,16 @@ void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray
     jObj->insert(ProtocolTrade::___ARR_USERS, *jlogins);
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
+}
+
+QString ClientGeneral::generateTmpIdMsg()
+{
+    return QString::number(QTime::currentTime().msecsSinceStartOfDay());
+}
+
+void ClientGeneral::addMessage(QString idDialog, QString tmpIdMessage, QString message, QVector<QString> paths)
+{
+    clientData->AddMessage(idDialog, tmpIdMessage, message, paths);
 }
 
 void ClientGeneral::createPrivateChat(QString receiver_login)

@@ -327,6 +327,8 @@ Window {
         }
     }
 
+    property var currentDialogOpen: -1
+
     Component {
         id: listDialog
 
@@ -338,8 +340,12 @@ Window {
     Component{
         id: userChat
 
-        UserChat{
+//        property var tmpDialogId: -1
 
+
+
+        UserChat{
+//            id: userChatObject
         }
     }
 

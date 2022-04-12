@@ -66,6 +66,7 @@ public:
     const static QString ___STS_READ;
     const static QString ___STS_TAKEN;
     const static QString ___STS_NON_TAKEN;
+    const static QString ___STS_ON_SERVER;
     //~~~~~status message end~~~~~~~
 
     const static QString ___IP_USER;

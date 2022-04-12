@@ -4,6 +4,7 @@
 #include <QObject>
 #include <Client/super_server/userdialog.h>
 #include <algorithm>
+#include "Client/protocoltrade.h"
 
 class ClientData : public QObject
 {
@@ -13,11 +14,18 @@ public:
 
     QVector<UserDialog> dialogs;
 
+<<<<<<< HEAD
+    User *user;
+=======
     QString myLogin;
     QString getMyLogin() const;
     void setMyLogin(const QString &value);
+>>>>>>> origin/back
 
 public slots:
+
+
+
     QVector<UserDialog> getDialogs();
     void setDialogs( QVector<UserDialog> value);
     void sortDialog(int index);
@@ -41,6 +49,13 @@ public slots:
 
     QString getLastActiveDateTime(QDateTime date);
 
+<<<<<<< HEAD
+    QString getIdDialog(int index);
+
+    void AddMessage(QString idDialog, QString idMessage, QString message, QVector<QString> paths);
+    void UpdateMessageId(QString idDialog, QString tmpIdMessage, QString idMessage, QString statusMessage);
+//    QString getNameDialog(int index){return dialogs[index].();}
+=======
     int getCountMessages(int index);
     QString getTextMessage(int d_index, int m_index);
     int getSizeTextMessage(int d_index, int m_index){return getTextMessage(d_index,m_index).length();}
@@ -51,6 +66,7 @@ public slots:
 
 
     //    QString getNameDialog(int index){return dialogs[index].();}
+>>>>>>> origin/back
 signals:
 
 };
