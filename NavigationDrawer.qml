@@ -36,7 +36,7 @@ Rectangle {
 //    opacity: 0.3
 
     property var textArray: ["Создать чат", "Создать группу", "Создать приватный чат", "Контакты"]
-    property var pictureArray: ["qrc:/resourses/shtorka/plus.tif", "qrc:/resourses/shtorka/plusplus.tif", "qrc:/resourses/shtorka/zakochek.tif", "qrc:/resourses/shtorka/contakti.tif"]
+    property var pictureArray: ["qrc:/resourses/create chat_2.tif", "qrc:/resourses/shtorka/plusplus.tif", "qrc:/resourses/shtorka/zakochek.tif", "qrc:/resourses/shtorka/contakti.tif"]
 
 
     NumberAnimation {

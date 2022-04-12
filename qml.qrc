@@ -60,6 +60,11 @@
         <file>resourses/resourses v4/private chat.tif</file>
         <file>resourses/resourses v4/ri_tochki.tif</file>
         <file>resourses/create chat_2.tif</file>
-        <file>ForTest.qml</file>
+        <file>MediaWidget.qml</file>
+        <file>MediaTextMessage.qml</file>
+        <file>DialogPrivateChat.qml</file>
+        <file>ProfileMember.qml</file>
+        <file>ErrorDialog.qml</file>
+        <file>ConfidenceWidget.qml</file>
     </qresource>
 </RCC>

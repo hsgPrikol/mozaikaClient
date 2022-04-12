@@ -24,8 +24,8 @@ Rectangle {
 
     width: dfltWidth
     height: dfltHeight
-//    border.width: 1
-//    border.color: "white"
+    //    border.width: 1
+    //    border.color: "white"
 
     color: noColor
 
@@ -68,9 +68,9 @@ Rectangle {
                 width: 448
                 height: 84
                 color: noColor
-//                opacity: 0.7
-                border.color: mouseContacts.containsPress ? "white" : noColor
-                border.width: 1
+                //                opacity: 0.7
+                //                border.color: mouseContacts.containsPress ? "white" : noColor
+                //                border.width: 1
 
                 Rectangle {
                     id: contactPageAvatar
@@ -119,41 +119,78 @@ Rectangle {
                             verticalAlignment: Text.AlignVCenter
                             leftPadding: 10
                         }
+
+                        CheckBox {
+                            id: checkBox
+                            checked: true
+                            width: 20
+                            height: 20
+                            x: 300
+                            y: 25
+
+                            background: Rectangle{
+//                                anchors.fill: parent
+                                width: 20
+                                height: 20
+                                color: noColor
+                                radius: parent.width/2
+                                border.width: 1
+                                border.color: "white"
+
+                            }
+                            indicator: Rectangle{
+                                anchors.centerIn: parent
+                                width: 14
+                                height: 14
+                                x: 6
+                                y: 6
+                                radius: 7
+                                color: "white"
+                                visible: !checkBox.checked
+                            }
+                        }
+
                     }
                 }
 
-                MouseArea {
-                    id: mouseContacts
 
-                    anchors.fill: parent
-                    hoverEnabled: true
-
-                }
             }
 
+            //                MouseArea {
+            //                    id: mouseContacts
 
-//            Rectangle {
-//                id: contactPage
-//                x: 56
-//                y: 8
-//                width: 442
-//                height: 84
-//                color: noColor
-//                border.width: 1
-//                border.color: "black"
+            //                    anchors.fill: parent
+            //                    hoverEnabled: true
 
-//                Text {
-//                    color: "#ffffff"
-//                    anchors.fill: parent
-//                    anchors.leftMargin: 10
-//                    text: contactsss.getName(textRepeaterChar,index)
-//                    font.pixelSize: 30
-//                    verticalAlignment: Text.AlignVCenter
-//                    Component.onCompleted: {
-//                        console.log("textRepeaterContactsName", textRepeaterContactsName)
-//                    }
-//                }
-//            }
+            //                }
+
+
+
+
+
+
+            //            Rectangle {
+            //                id: contactPage
+            //                x: 56
+            //                y: 8
+            //                width: 442
+            //                height: 84
+            //                color: noColor
+            //                border.width: 1
+            //                border.color: "black"
+
+            //                Text {
+            //                    color: "#ffffff"
+            //                    anchors.fill: parent
+            //                    anchors.leftMargin: 10
+            //                    text: contactsss.getName(textRepeaterChar,index)
+            //                    font.pixelSize: 30
+            //                    verticalAlignment: Text.AlignVCenter
+            //                    Component.onCompleted: {
+            //                        console.log("textRepeaterContactsName", textRepeaterContactsName)
+            //                    }
+            //                }
+            //            }
         }
     }
 
@@ -172,67 +209,69 @@ Rectangle {
 
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//    Rectangle {
-//        id: contactPageMain
-//        x: 50
-//        y: 8
-//        width: 448
-//        height: 84
-//        color: noColor
-
-//        Rectangle {
-//            id: contactPageAvatar
-//            x: 0
-//            y: 0
-//            width: 84
-//            height: parent.height
-//            color: noColor
-
-//            Rectangle {
-//                id: contactPageAvatarMask
-//                x: 10
-//                y: 10
-//                width: 64
-//                height: 65
-//                color: noColor
 
 
-//                Image {
-//                    id: image1
-//                    anchors.fill: parent
-//                    fillMode: Image.PreserveAspectCrop
-//                    source: "qrc:/resourses/avatar/cop.tif"
-//                    layer.enabled: true
-//                    layer.effect: OpacityMask {
-//                        maskSource: parent
-//                    }
-//                }
-//            }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //    Rectangle {
+    //        id: contactPageMain
+    //        x: 50
+    //        y: 8
+    //        width: 448
+    //        height: 84
+    //        color: noColor
 
-//            Rectangle {
-//                x: 80
-//                y: 0
-//                width: 367
-//                height: 84
-//                color: noColor
+    //        Rectangle {
+    //            id: contactPageAvatar
+    //            x: 0
+    //            y: 0
+    //            width: 84
+    //            height: parent.height
+    //            color: noColor
 
-//                Text {
-//                    id: textName
-//                    anchors.fill: parent
-//                    text: contactsss.getName(textRepeaterChar,index)
-//                    font.pixelSize: 30
-//                    verticalAlignment: Text.AlignVCenter
-//                    leftPadding: 10
-//                }
-//            }
-//        }
-//    }
+    //            Rectangle {
+    //                id: contactPageAvatarMask
+    //                x: 10
+    //                y: 10
+    //                width: 64
+    //                height: 65
+    //                color: noColor
 
 
+    //                Image {
+    //                    id: image1
+    //                    anchors.fill: parent
+    //                    fillMode: Image.PreserveAspectCrop
+    //                    source: "qrc:/resourses/avatar/cop.tif"
+    //                    layer.enabled: true
+    //                    layer.effect: OpacityMask {
+    //                        maskSource: parent
+    //                    }
+    //                }
+    //            }
+
+    //            Rectangle {
+    //                x: 80
+    //                y: 0
+    //                width: 367
+    //                height: 84
+    //                color: noColor
+
+    //                Text {
+    //                    id: textName
+    //                    anchors.fill: parent
+    //                    text: contactsss.getName(textRepeaterChar,index)
+    //                    font.pixelSize: 30
+    //                    verticalAlignment: Text.AlignVCenter
+    //                    leftPadding: 10
+    //                }
+    //            }
+    //        }
+    //    }
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
 /*##^##

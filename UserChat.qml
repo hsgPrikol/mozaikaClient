@@ -13,10 +13,8 @@ Rectangle {
     property real customOpacity: 0.7
     property color biruzoviu: "#068d9d"
 
-
     property int heightToolBar: 60
     property int countIndexVessage: 0
-
 
     property int fontSize: 14
 
@@ -24,16 +22,20 @@ Rectangle {
 
     property var newMediaMessage
 
+    property var str: "Здравствуйте, товарищи! Это лучший месснджер написанный 5 научной ротой в Инновационном Военном Технополисе ЭРА"
 
     function createMediaMessage()
     {
+
         var tmp = newMediaMessage.createObject(columnChat,
                                                {
-                                                    flagWhenMessage: false
+                                                    flagWhenMessage: true,
+                                                    countAttachment: 5,
+                                                   sizeMessage: 111,
+                                                    messageText: str
+
                                                });
     }
-
-
 
     function creareNewMessage()
     {
@@ -279,7 +281,7 @@ Rectangle {
                                     console.log(repeaterChat.model)
                                     console.log(index)
 
-                                    contactsss.setCountIndexMessage(countIndexVessage++)
+                                    contactsss.setCountIndexMessage(countIndexVessage)
                                 }
                             }
                         }
@@ -320,8 +322,9 @@ Rectangle {
         console.log("UserChar open");
         newMassege = Qt.createComponent("Massage.qml");
 
-        newMediaMessage = Qt.createComponent("ForTest.qml");
+//        newMediaMessage = Qt.createComponent("ForTest.qml");
 
+        newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
 
         testMap.onCreateNewMassage.connect(creareNewMessage);
 

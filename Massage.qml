@@ -119,14 +119,16 @@ Rectangle {
 
     Text {
         id: timeMessage
+        x: 32
+        y: 36
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        width: 48
+        font.pixelSize: 9
+        width: 69
         height: 14
         color: flagWhenMessage ? selfColorText : enemyColorText
-        text: qsTr("21:15")
-        font.pixelSize: fontSize
-        horizontalAlignment: Text.AlignHCenter
+        text: qsTr("5 минут назад")
+        horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
     }
 
@@ -143,6 +145,6 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:4}
+    D{i:0;formeditorZoom:1.66}
 }
 ##^##*/

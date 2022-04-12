@@ -17,6 +17,13 @@ Rectangle {
 
     property int fontSize: 14
 
+    ConfidenceWidget{
+        id: confidence
+        onClicked: {
+            confidence.show()
+        }
+    }
+
     width: dfltWidth
     height: dfltHeight
     color: noColor
@@ -55,8 +62,16 @@ Rectangle {
                     y: 0
                     width: 40
                     height: 60
-                    source: "qrc:/resourses/resourses v4/ri_tochki.tif"
+                    source: "qrc:/resourses/chat/nazad_strelochka.tif"
                     fillMode: Image.PreserveAspectFit
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+
+                    onClicked: {
+                        loader.sourceComponent = listDialog
+                    }
                 }
             }
 
@@ -98,14 +113,12 @@ Rectangle {
                     height: 44
                     source: "qrc:/picture/luppa.tif"
                     fillMode: Image.PreserveAspectFit
-
-
                 }
                 MouseArea{
                     anchors.fill: parent
 
                     onClicked: {
-                        loader.sourceComponent = listDialog
+                        console.log("Здесь будет фильтр")
                     }
                 }
             }
@@ -150,6 +163,17 @@ Rectangle {
                             indexRepeaterChar: index
                             textRepeaterChar: contactsss.getSymbol(index)
 //                            textRepeaterContactsName: contactsss.getName(index)
+
+//                            MouseArea{
+//                                anchors.fill: parent
+
+//                                hoverEnabled: true
+
+////                                onClicked: {
+////                                    confidence.show()
+////                                }
+//                            }
+
 
                             Component.onCompleted: {
                                 console.log("ContactsChar{}textRepeaterContactsName", textRepeaterContactsName)

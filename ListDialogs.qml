@@ -187,6 +187,10 @@ Rectangle {
             contentWidth: parent.width
             clip: true
 
+            Component.onCompleted: {
+
+            }
+
             Column {
                 id: columnDialogs
                 anchors.fill: parent
@@ -211,7 +215,7 @@ Rectangle {
 
                         nameFamilia: clientData.getNameDialog(index)
 //                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
-                         avatarClients: clientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/cop.tif"
+                         avatarClients: clientData.getPathAvatar(index) != "" ? "file:///" + currentDir + "/" + clientData.getPathAvatar(index) : "qrc:/resourses/avatar/cop.tif"
 
                         lastMessageUser: clientData.getTextLastMessage(index)
                         timeMessage: clientData.getDateLastMessage(index)

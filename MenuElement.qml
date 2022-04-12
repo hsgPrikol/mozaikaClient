@@ -44,7 +44,7 @@ Rectangle{
     property color noColor: "#00000000"
 
     property var textArray: ["Создать чат", "Создать группу", "Создать приватный чат", "Контакты"]
-    property var pictureArray: ["qrc:/resourses/resourses v4/create chat.tif", "qrc:/resourses/resourses v4/gruppa.tif", "qrc:/resourses/resourses v4/private chat.tif", "qrc:/resourses/shtorka/contakti.tif"]
+    property var pictureArray: ["qrc:/resourses/create chat_2.tif", "qrc:/resourses/resourses v4/gruppa.tif", "qrc:/resourses/resourses v4/private chat.tif", "qrc:/resourses/shtorka/contakti.tif"]
 
 
     width: dfltWidthElementMenu
