@@ -79,10 +79,18 @@ public slots:
     /// Отправка запроса на создание чата
     void createChat(QVector<QString> logins, QString name, QByteArray avatar, bool isGroup);
 
+    /// Изменить статус сообщения
+    void markMessage(int d_id, int m_id, int status);
+
+    /// Получить данные об обновлнном статусе сообщения
+    void getUpdatedStatusMessage(QJsonObject* qObj);
+
 signals:
     void onAutorization(QString, QString, QString, bool);
     void onGetDialogs();
     void onGetMessages();
+
+    void onUpdateStatusMessage(int, int, int);
 };
 
 #endif // CLIENTGENERAL_H

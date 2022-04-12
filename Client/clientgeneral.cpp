@@ -430,6 +430,27 @@ void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
+void ClientGeneral::markMessage(int d_id, int m_id, int status)
+{
+    QJsonObject* jObj = new QJsonObject({
+                                            {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_UPDATE_STATUS_MESSAGE)},
+                                            {ProtocolTrade::___ID_CHAT, QJsonValue(QString(d_id))},
+                                            {ProtocolTrade::___ID_MESSAGE, QJsonValue(QString(m_id))},
+                                            {ProtocolTrade::___STATUS_MESSAGE, QJsonValue(QString(status))}
+                                        });
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
+}
+
+void ClientGeneral::getUpdatedStatusMessage(QJsonObject *qObj)
+{
+    QString dialog_id = (*qObj)[ProtocolTrade::___ID_CHAT].toString();
+    QString message_id = (*qObj)[ProtocolTrade::___ID_MESSAGE].toString();
+    QString status = (*qObj)[ProtocolTrade::___STATUS_MESSAGE].toString();
+
+    emit onUpdateStatusMessage(dialog_id.toInt(), message_id.toInt(), status.toInt());
+    // MAKSIM SDELAI OBNOVY STATUSA -> emit ebaka(int, int, int)
+};
+
 void ClientGeneral::createPrivateChat(QString receiver_login)
 {
     QJsonObject* jObj = new QJsonObject({

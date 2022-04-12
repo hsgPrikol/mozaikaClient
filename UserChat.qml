@@ -52,6 +52,15 @@ Rectangle {
                                                  });
     }
 
+    function updateStatusMessage(d_id, m_id, status){
+        if(currentDialogOpen==d_id)
+        {
+            var temp=repeaterChat.itemAt(m_id)
+            temp.messageStatus = status
+
+        }
+    }
+
     width: dfltWidth
     height: dfltHeight
 
@@ -327,10 +336,13 @@ Rectangle {
 
         newMediaMessage = Qt.createComponent("ForTest.qml");
 
+        client.onUpdateStatusMessage.connect(updateStatusMessage)
 
         testMap.onCreateNewMassage.connect(creareNewMessage);
 
         testMap.onMediaMessage.connect(createMediaMessage)
+
+
     }
 }
 
