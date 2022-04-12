@@ -92,12 +92,18 @@ public slots:
 
 signals:
     void onAutorization(QString, QString, QString, bool);
-    void onGetDialogs();
-    void onGetMessages();
+    
+    void onUpdateAllChats();
+    void onUpdateChat(int id_chat);
+    void onUpdateMessage(int id)
 
-    void onUpdateStatusMessage(int, int, int);
+    
+//    void onGetDialogs();
+//    void onGetMessages();
 
-    void onMessageReceived(int, QString, QString, int);
+//    void onUpdateStatusMessage(int, int, int);
+
+//    void onMessageReceived(int, QString, QString, int);
 
 };
 

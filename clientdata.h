@@ -52,7 +52,7 @@ public slots:
 //<<<<<<< HEAD
     QString getIdDialogString(int index);
 
-    void AddMessage(QString idDialog, QString idMessage, QString message, QVector<QString> paths);
+    void AddMessage(QString idDialog, QString idMessage, QString loginSender, QDateTime date, QString status, QString message, QVector<QString> paths);
     void UpdateMessageId(QString idDialog, QString tmpIdMessage, QString idMessage, QString statusMessage);
 //    QString getNameDialog(int index){return dialogs[index].();}
 //=======
@@ -63,7 +63,7 @@ public slots:
     int getStatusMessage(int d_index, int m_index);
     bool getIsSenderMessage(int d_index, int m_index);
 
-
+    int getLength(QString text){return text.length();}
 
     //    QString getNameDialog(int index){return dialogs[index].();}
 //>>>>>>> origin/back

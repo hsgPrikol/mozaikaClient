@@ -102,8 +102,11 @@ Rectangle {
                 height: 50
                 font.pixelSize: 12
                 text: lastMessageUser
+                elide: Text.ElideRight
                 font.bold: !isChecked
                 verticalAlignment: Text.AlignTop
+                textFormat: Text.AutoText
+                clip: false
             }
         }
 

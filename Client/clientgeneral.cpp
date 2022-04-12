@@ -97,6 +97,9 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
     // Обработка входных данных
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
     QString idMessage = ((*object)[ProtocolTrade::___ID_MESSAGE]).toString();
+    QString loginSender = ((*object)[ProtocolTrade::___LOGIN]).toString();
+    QString status = ((*object)[ProtocolTrade::___STATUS_MESSAGE]).toString();
+    QDateTime date =QDateTime::fromString(((*object)[ProtocolTrade::___BIRTH_DATE]).toString());
     QString messageText = "";
     QJsonArray arrAttachment;
 
@@ -127,9 +130,11 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
         }
     }
 
-    clientData->AddMessage(idChat, idMessage, messageText, paths);
-    // дописать отображение на фронте
+    clientData->AddMessage(idChat, idMessage,loginSender, date,status, messageText, paths);
 
+    int sizeMessage = messageText.size();
+    // дописать отображение на фронте
+    emit onMessageReceived(idChat.toInt(), messageText, QDateTime::currentDateTime().toString(), sizeMessage);
     // Формирование ответа серверу
     QJsonObject* answer = new QJsonObject({
                                               {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_SEND_MESSAGE)},
@@ -152,6 +157,8 @@ void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object)
     QString statusMessage = ((*object)[ProtocolTrade::___STATUS_MESSAGE]).toString();
 
     clientData->UpdateMessageId(idChat, tmpIdMessage, idMessage, statusMessage);
+
+    emit onMessageReceived(3,"","",4);
 }
 
 void ClientGeneral::processingEventFromServer(QJsonObject *object)
@@ -438,7 +445,7 @@ void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-<<<<<<< HEAD
+
 void ClientGeneral::markMessage(int d_id, int m_id, int status)
 {
     QJsonObject* jObj = new QJsonObject({
@@ -459,7 +466,7 @@ void ClientGeneral::getUpdatedStatusMessage(QJsonObject *qObj)
     emit onUpdateStatusMessage(dialog_id.toInt(), message_id.toInt(), status.toInt());
     // MAKSIM SDELAI OBNOVY STATUSA -> emit ebaka(int, int, int)
 };
-=======
+
 QString ClientGeneral::generateTmpIdMsg()
 {
     return QString::number(QTime::currentTime().msecsSinceStartOfDay());
@@ -467,9 +474,9 @@ QString ClientGeneral::generateTmpIdMsg()
 
 void ClientGeneral::addMessage(QString idDialog, QString tmpIdMessage, QString message, QVector<QString> paths)
 {
-    clientData->AddMessage(idDialog, tmpIdMessage, message, paths);
+    clientData->AddMessage(idDialog, tmpIdMessage, clientData->user->getLogin(),QDateTime::currentDateTime(),ProtocolTrade::___STS_TAKEN, message, paths);
 }
->>>>>>> 39fd0423a0646c6d64ec55b50362212a0686ee19
+
 
 void ClientGeneral::createPrivateChat(QString receiver_login)
 {

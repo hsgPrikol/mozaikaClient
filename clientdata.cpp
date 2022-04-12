@@ -124,13 +124,12 @@ QString ClientData::getLastActiveDateTime(QDateTime date)
 
     QString str;
     if(mins<=1){
-        str = "Несколько секунд назад";
+        str = "Только что";
     }
-    else if(mins <=20){
+    else if(mins <=30){
         int ddd=qRound(mins);
-    str = QString::number(ddd)+ " минут назад";
+        str = QString::number(ddd)+ " минут назад";
     }
-
     else if(hours <= 1.5)
         str = "Час назад";
     else if(days <= 1 && current.date()==date.date())
@@ -191,7 +190,7 @@ QString ClientData::getIdDialogString(int index)
     return QString::number(dialogs[index].getID());
 }
 
-void ClientData::AddMessage(QString idDialog, QString idMessage, QString message, QVector<QString> paths)
+void ClientData::AddMessage(QString idDialog, QString idMessage, QString loginSender, QDateTime date, QString status, QString message, QVector<QString> paths)
 {
     int id_dialog = idDialog.toInt();
     int tmp_id_message = idMessage.toInt();
@@ -200,7 +199,8 @@ void ClientData::AddMessage(QString idDialog, QString idMessage, QString message
     {
         if(dialogs[i].getID() == id_dialog)
         {
-            Message* tmpMessage = new Message(tmp_id_message, id_dialog, user->getLogin(), message, QDateTime::currentDateTime(), 0);
+            Message* tmpMessage = new Message(tmp_id_message, id_dialog, loginSender, message, date, 0);
+            tmpMessage->setStatus(status);
 
             for(int j = 0; j < paths.size(); j++)
             {

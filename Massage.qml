@@ -139,7 +139,7 @@ Rectangle {
         anchors.top: textMessage.bottom
         width: 32
         height: 14
-        source:  messageStatus == 0 ? "qrc:/resourses/kontacti/warning.tif" : (messageStatus == 1 ? "qrc:/resourses/kontacti/knopka_noviy_dialog.tif" : (messageStatus == 2 ? "qrc:/picture/SendedMessage.tif" : "qrc:/resourses/chat/prikrepit`.tif"))
+        source:  messageStatus == 0 ? "qrc:/resourses/kontacti/warning.tif" : (messageStatus == 1 ? "qrc:/resourses/kontacti/warning.png" : (messageStatus == 2 ? "qrc:/resourses/chat/OneGalochka.png" : "qrc:/resourses/chat/SendedMessage.tif"))
         fillMode: Image.PreserveAspectFit
     }
 }

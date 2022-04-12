@@ -62,5 +62,9 @@
         <file>resourses/create chat_2.tif</file>
         <file>ForTest.qml</file>
         <file>resourses/kontacti/warning.tif</file>
+        <file>resourses/chat/DontReadedMessage.png</file>
+        <file>resourses/chat/OneGalochka.png</file>
+        <file>resourses/chat/SendedMessage.tif</file>
+        <file>resourses/chat/двеГалочки.png</file>
     </qresource>
 </RCC>

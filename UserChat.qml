@@ -17,54 +17,79 @@ Rectangle {
     property int heightToolBar: 60
     property int countIndexVessage: 0
 
-//<<<<<<< HEAD
-//=======
 
-//    property var index: -1
-//    property var nameDialog
-//    property var avatarDialog
-//    property var isActiveDialog
-//    property var isGroupDialog
-
-//>>>>>>> origin/back
     property int fontSize: 14
 
     property var newMassege
 
-//<<<<<<< HEAD
-//    property var currentDialog: -1
-//=======
     property var newMediaMessage
+
+    function scrollToBottom()
+    {
+        scrollChat.ScrollBar.vertical.position = 1 - scrollChat.ScrollBar.vertical.size
+    }
 
 
     function createMediaMessage()
     {
         var tmp = newMediaMessage.createObject(columnChat,
                                                {
-                                                    flagWhenMessage: false
+                                                   flagWhenMessage: false
                                                });
     }
 
+    //    function creareNewMessage()
+    //    {
+    //        var countIndex = contactsss.getCountIndexMessage();
+    //        var tmpMessage = newMassege.createObject(columnChat,
+    //                                                 {
+    //                                                     sizeMessage: testMap.getSizeMessage(countIndex),
+    //                                                     messageText: testMap.getMassage(countIndex),
+    //                                                     flagWhenMessage: testMap.getIsCheked(countIndex)
+    //                                                 });
+    //    }
 
-//>>>>>>> origin/back
+    function ebaka(){
+        repeaterChat.model = 0
 
-    function creareNewMessage()
-    {
-        var countIndex = contactsss.getCountIndexMessage();
-        var tmpMessage = newMassege.createObject(columnChat,
-                                                 {
-                                                     sizeMessage: testMap.getSizeMessage(countIndex),
-                                                     messageText: testMap.getMassage(countIndex),
-                                                     flagWhenMessage: testMap.getIsCheked(countIndex)
-                                                 });
+        for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
+        {
+            var tmp=newMassege.createObject(columnChat,
+                                                                 {
+                                                                     sizeMessage: clientData.getLength(clientData.getTextMessage(currentDialogOpen,i)),
+                                                                     messageText: clientData.getTextMessage(currentDialogOpen,i),
+                                                                     flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen,i),
+                                                                     messageTime: clientData.getDateMessage(currentDialogOpen,i),
+                                                                     messageStatus: 3
+
+                                                                 });
+        }
+
+        scrollToBottom();
     }
 
     function updateStatusMessage(d_id, m_id, status){
-        if(currentDialogOpen==d_id)
+        if(clientData.getIdDialog(currentDialogOpen)==d_id)
         {
-            var temp=repeaterChat.itemAt(m_id)
-            temp.messageStatus = status
+            ebaka()
+        }
+    }
 
+    function updateChat(id_chat, messageAnswer, dateTime, lenghtMessage){
+        if(clientData.getIdDialog(currentDialogOpen) == id_chat){
+
+            ebaka()
+            client.getMessagesInDialog(clientData.getIdDialog(currentDialogOpen))
+
+            //            var countIndex = contactsss.getCountIndexMessage();
+//            var tmpMessage =
+
+
+            console.log("messageAnswer.lenght", messageAnswer.size())
+
+
+            //            repeaterChat.model = repeaterChat.model + 1
+            //            repeaterChat.update()
         }
     }
 
@@ -194,7 +219,7 @@ Rectangle {
                         anchors.fill: parent
 
                         onClicked: {
-                              navDrawer.showNavDrawer()
+                            navDrawer.showNavDrawer()
                             console.log("navDrawer.showNavDrawer()")
                         }
                     }
@@ -224,7 +249,7 @@ Rectangle {
 
                         onClicked: {
                             loader.sourceComponent = listDialog
-//                            loader1.source = "ListDialogs.qml"
+                            //                            loader1.source = "ListDialogs.qml"
                         }
                     }
                 }
@@ -303,8 +328,21 @@ Rectangle {
                                     contactsss.setCountIndexMessage(countIndexVessage++)
                                 }
                             }
+
+
                         }
                     }
+
+                    onContentHeightChanged: {
+                        scrollToBottom();
+                        repeaterChat.update()
+                    }
+
+                    Component.onCompleted: {
+                        scrollToBottom();
+
+                    }
+
                 }
             }
 
@@ -314,7 +352,7 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-//                currentDialogDownBar: currentDialog
+                //                currentDialogDownBar: currentDialog
             }
         }
 
@@ -345,6 +383,7 @@ Rectangle {
         newMediaMessage = Qt.createComponent("ForTest.qml");
 
         client.onUpdateStatusMessage.connect(updateStatusMessage)
+        client.onMessageReceived.connect(updateChat);
 
         testMap.onCreateNewMassage.connect(creareNewMessage);
 
