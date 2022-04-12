@@ -41,7 +41,11 @@ const QString ProtocolTrade::___TMP_ID_CHAT = QString("tmpidchat");
 const QString ProtocolTrade::___STATUS_USER = QString("statususer");
 const QString ProtocolTrade::___STS_ONLINE = QString("online");
 const QString ProtocolTrade::___STS_OFFLINE = QString("offline");
+//<<<<<<< HEAD
+const QString ProtocolTrade::___STS_ON_SERVER = QString("onserver");
+//=======
 const QString ProtocolTrade::___COUNT_MESSAGE = QString("countmessage");
+//>>>>>>> origin/back
 
 ProtocolTrade::ProtocolTrade(QObject *parent) : QObject(parent)
 {

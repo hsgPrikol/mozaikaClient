@@ -5,6 +5,7 @@
 #include <QDateTime>
 #include <QVector>
 #include "myfile.h"
+#include "Client/protocoltrade.h"
 
 class Message
 {
@@ -14,6 +15,12 @@ class Message
     QString message_data;
     QDateTime time;
     int status;
+    /*
+     * 0 - не доставлено серверу
+     * 1 - на сервере
+     * 2 - на клиенте
+     * 3 - прочитано
+    */
     QVector<MyFile> files;
 public:
     Message(int _id, int _dialog_id, QString _sender_login, QString _message_data, QDateTime _time, int _status):
@@ -26,9 +33,14 @@ public:
     QDateTime getTime(){return time;};
     int getStatus(){return status;};
     QVector<MyFile> getFiles(){return files;};
+//<<<<<<< HEAD
+    void setId(int value);
+    void setStatus(QString value);
+//=======
 
     bool operator<(const Message& d1) const;
     bool operator>(const Message& d1) const;
+//>>>>>>> origin/back
 };
 
 #endif // MESSAGE_H

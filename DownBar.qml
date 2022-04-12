@@ -17,15 +17,27 @@ Rectangle {
     property real customOpacity: 0.7
     property int fontSize: 12
 
+//    property var currentDialogDownBar: -1
+
     function sendMesage()
     {
+        var textMessage = writeMessage.text
+
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", textMessage)
 
         testMap.createNewMessage(writeMessage.text, true);
         contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
         writeMessage.clear();
 //                    testMap.createNewMessage("My answer", false);
 //                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
-        console.log("Сообщение отправлено")
+        console.log("Сообщение отправлено в диалог >>>", currentDialogOpen)
+
+        var tmpIdMsg = client.generateTmpIdMsg();
+        var dialogID = clientData.getIdDialog(currentDialogOpen)
+
+        client.sendMessage(dialogID, tmpIdMsg, textMessage);
+        client.addMessage(dialogID, tmpIdMsg, textMessage)
+
     }
 
 

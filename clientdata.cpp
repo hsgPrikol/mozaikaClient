@@ -173,17 +173,78 @@ bool ClientData::getIsSenderMessage(int d_index, int m_index)
 {
     if(dialogs.count()<=d_index) return false;
 
-    return dialogs[d_index].getMessages()[m_index].getSender_login()==myLogin;
+    return dialogs[d_index].getMessages()[m_index].getSender_login()== user->getLogin();
 }
 
-QString ClientData::getMyLogin() const
+//QString ClientData::getMyLogin() const
+//{
+//    return myLogin;
+//}
+
+//void ClientData::setMyLogin(const QString &value)
+//{
+//    myLogin = value;
+//}
+
+QString ClientData::getIdDialogString(int index)
 {
-    return myLogin;
+    return QString::number(dialogs[index].getID());
 }
 
-void ClientData::setMyLogin(const QString &value)
+void ClientData::AddMessage(QString idDialog, QString idMessage, QString message, QVector<QString> paths)
 {
-    myLogin = value;
+    int id_dialog = idDialog.toInt();
+    int tmp_id_message = idMessage.toInt();
+
+    for(int i = 0; i < dialogs.size(); i++)
+    {
+        if(dialogs[i].getID() == id_dialog)
+        {
+            Message* tmpMessage = new Message(tmp_id_message, id_dialog, user->getLogin(), message, QDateTime::currentDateTime(), 0);
+
+            for(int j = 0; j < paths.size(); j++)
+            {
+                MyFile* tmpFile = new MyFile(tmp_id_message, paths[j], ProtocolTrade::GetNameFromPathFile(paths[j]), ProtocolTrade::GetTypeFromPathFile(paths[j]));
+                tmpMessage->addFile(*tmpFile);
+            }
+
+            dialogs[i].addMessage(*tmpMessage);
+            break;
+        }
+    }
+}
+
+void ClientData::UpdateMessageId(QString idDialog, QString tmpIdMessage, QString idMessage, QString statusMessage)
+{
+    int id_dialog = idDialog.toInt();
+    int tmp_id_message = tmpIdMessage.toInt();
+    int id_message = idMessage.toInt();
+
+    for(int i = 0; i < dialogs.size(); i++)
+    {
+        if(dialogs[i].getID() == id_dialog)
+        {
+            for(int j = 0; dialogs[i].getMessages().size(); j++)
+            {
+                if(dialogs[i].getMessages()[j].getId() == tmp_id_message)
+                {
+                    dialogs[i].messages[j].setId(id_message);
+                    dialogs[i].messages[j].setStatus(statusMessage);
+                    break;
+                }
+            }
+
+//            Message* tmpMessage = new Message(tmp_id_message, id_dialog, user->getLogin(), message, QDateTime::currentDateTime(), 0);
+
+//            for(int j = 0; j < paths.size(); j++)
+//            {
+//                MyFile* tmpFile = new MyFile(tmp_id_message, paths[j], ProtocolTrade::GetNameFromPathFile(paths[j]), ProtocolTrade::GetTypeFromPathFile(paths[j]));
+//                tmpMessage->addFile(*tmpFile);
+//            }
+
+            break;
+        }
+    }
 }
 
 

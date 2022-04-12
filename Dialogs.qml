@@ -16,8 +16,11 @@ Rectangle {
 
     color: rootDialog.noColor
 
+//<<<<<<< HEAD
+//=======
     anchors.horizontalCenter: parent.horizontalCenter
 
+//>>>>>>> origin/back
     property var nameFamilia
 
     property var avatarClients:"qrc:/resourses/avatar/cop.tif"
@@ -46,6 +49,7 @@ Rectangle {
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
     Image {
@@ -206,16 +210,12 @@ Rectangle {
         anchors.fill: parent
 
         onClicked: {
+            loader.sourceComponent  = userChat
+
+//            userChatObject.currentDialog = index
+            currentDialogOpen = index
 
             console.log("Открыть диалог с данным юзером" + index)
-        }
-    }
-
-    Component{
-        id: componen
-
-        UserChat{
-
         }
     }
 }

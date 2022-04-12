@@ -17,6 +17,8 @@ Rectangle {
     property int heightToolBar: 60
     property int countIndexVessage: 0
 
+//<<<<<<< HEAD
+//=======
 
 //    property var index: -1
 //    property var nameDialog
@@ -24,10 +26,14 @@ Rectangle {
 //    property var isActiveDialog
 //    property var isGroupDialog
 
+//>>>>>>> origin/back
     property int fontSize: 14
 
     property var newMassege
 
+//<<<<<<< HEAD
+//    property var currentDialog: -1
+//=======
     property var newMediaMessage
 
 
@@ -40,6 +46,7 @@ Rectangle {
     }
 
 
+//>>>>>>> origin/back
 
     function creareNewMessage()
     {
@@ -188,7 +195,7 @@ Rectangle {
 
                         onClicked: {
                               navDrawer.showNavDrawer()
-//                            loader.sourceComponent = navigationDrawer
+                            console.log("navDrawer.showNavDrawer()")
                         }
                     }
                 }
@@ -307,6 +314,7 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
+//                currentDialogDownBar: currentDialog
             }
         }
 
