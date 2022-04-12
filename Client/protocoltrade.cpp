@@ -76,8 +76,9 @@ QString ProtocolTrade::SaveBinaryFile(QString binary, QString name, QString type
 {
     if(binary.length()==0) return "";
 
+    QDir dir = QDir::currentPath();
     QString path = "client_garbarge/";
-    QFile file(path + name + "." + "png");
+    QFile file("client_garbarge/" + name + "." + "png");
 
     file.open(QIODevice::WriteOnly);
 

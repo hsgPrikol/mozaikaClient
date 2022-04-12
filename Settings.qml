@@ -107,7 +107,6 @@ Rectangle{
         }
     }
 
-<<<<<<< HEAD
 //    Rectangle {
 //        id: pictureMask
 //        x: 0
@@ -176,7 +175,6 @@ Rectangle{
 //            }
 //        }
 //    }
-=======
     Rectangle {
         id: pictureMask
         x: 0
@@ -246,7 +244,6 @@ Rectangle{
             }
         }
     }
->>>>>>> Mozaika/prikol
 
     Rectangle {
         id: scrollViewMask

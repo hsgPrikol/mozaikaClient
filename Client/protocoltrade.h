@@ -6,6 +6,7 @@
 #include <QWebSocket>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDir>
 
 struct DataClientOnline
 {
