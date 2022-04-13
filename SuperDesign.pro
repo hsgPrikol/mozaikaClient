@@ -30,6 +30,7 @@ SOURCES += \
         massagetest.cpp \
         settingsdata.cpp \
         test.cpp \
+        userdata.cpp \
         userdata.cpp
 
 RESOURCES += qml.qrc \
@@ -67,6 +68,7 @@ HEADERS += \
     massagetest.h \
     settingsdata.h \
     test.h \
+    userdata.h \
     userdata.h
 
 SUBDIRS += \

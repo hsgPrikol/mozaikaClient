@@ -316,9 +316,9 @@ Window {
 
 
 
-                        loader.sourceComponent = authorsWidget
+//                        loader.sourceComponent = authorsWidget
 //                    supporting.show()
-                    //                    root.sendMessage()
+                    root.sendMessage()
 
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Dialogs.qml
