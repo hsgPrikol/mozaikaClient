@@ -36,9 +36,14 @@ Test::Test(QObject *parent) : QObject(parent)
     }
 }
 
+void Test::emitMultiWidget()
+{
+    emit onEverythingMessage();
+}
+
 QString Test::getMassage(int index)
 {
-//        qDebug() <<"getMassage"<< index;
+    //        qDebug() <<"getMassage"<< index;
     return array[index]->getMessage();
 }
 

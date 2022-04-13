@@ -8,16 +8,22 @@ Rectangle{
 
     function unLoginAccount()
     {
+
+
         console.log("unLoginAccount")
     }
 
     function helping()
     {
+        loader.sourceComponent = supportingComp
+        closeNavDrawer()
         console.log("helping")
     }
 
     function aboutDeveloper()
     {
+        loader.sourceComponent = authorsWidget
+        closeNavDrawer()
         console.log("aboutDeveloper")
     }
 
@@ -34,7 +40,7 @@ Rectangle{
 
     width: dfltWidthElementMenu
     height: sizeHelpHeight
-    color: noColor
+    color: mouseHelpMenu.containsMouse ? Qt.darker(biruzoviu ) : noColor
 
     Text {
         id: textHelpMenu
@@ -56,7 +62,10 @@ Rectangle{
     }
 
     MouseArea{
+        id: mouseHelpMenu
         anchors.fill: parent
+
+        hoverEnabled: true
 
         onClicked: {
             functionHelpingArray[index]()

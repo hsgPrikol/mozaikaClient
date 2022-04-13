@@ -75,5 +75,15 @@
         <file>SupportingWidget.qml</file>
         <file>AuthorsWidget.qml</file>
         <file>picture/cyber_mandarin.png</file>
+        <file>UniversalMediafileWidget.qml</file>
+        <file>AudioWidget.qml</file>
+        <file>PictureWidget.qml</file>
+        <file>TextWidget.qml</file>
+        <file>picture/PauseAudio.tif</file>
+        <file>picture/StartAudio.tif</file>
+        <file>ToolTipVideo.qml</file>
+        <file>picture/button/pause.png</file>
+        <file>picture/button/play.png</file>
+        <file>picture/button/scale.png</file>
     </qresource>
 </RCC>

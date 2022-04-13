@@ -23,15 +23,68 @@ Rectangle {
     property var newMediaMessage
 
     property var str: "Здравствуйте, товарищи! Это лучший месснджер написанный 5 научной ротой в Инновационном Военном Технополисе ЭРА"
+
+
+
+
+
+
+
+
+
     function scrollToBottom()
     {
         scrollChat.ScrollBar.vertical.position = 1 - scrollChat.ScrollBar.vertical.size
     }
 
 
+
+
+    property var musicW
+    property var imgW
+    property var textW
+    property var universalMedia
+
+
+    function createEveryThingMessage(/*vectorImage, vectorMusic, sizeImag, sizeMusic*/)
+    {
+        var heighttextWidget = 50
+        var heightvideoWidget = 200
+        var heightaudioWidget = 50
+        var heightpictureWidget = 170
+
+        var countHeighttextWidget = 2
+        var countHeightvideoWidget = 2
+        var countHeightaudioWidget = 2
+        var countHeightpictureWidget = 2
+
+        var heightMessage = (heighttextWidget * countHeighttextWidget) + (heightvideoWidget * countHeightvideoWidget) + (heightaudioWidget * countHeightaudioWidget) + (heightpictureWidget * countHeightpictureWidget)
+
+        var tmp = newMediaMessage.createObject(columnChat,
+                                               {
+                                                   flagWhenMessage: true,
+                                                   countImg: 2,
+                                                   countAud: 2,
+                                                   countVid: 2,
+                                                   countText: 2,
+                                                   sizeMessage: 111,
+                                                   messageText: str,
+                                                   dfltHeightMul: heightMessage
+
+
+                                               });
+    }
+
+
+
+
+
+
+
+
     function createMediaMessage()
     {
-
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~createMediaMessage")
         var tmp = newMediaMessage.createObject(columnChat,
                                                {
                                                    flagWhenMessage: true,
@@ -64,7 +117,7 @@ Rectangle {
         }
 
         for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
-        {            
+        {
             var str="file:///" +currentDir+"/" +clientData.getAvatarPathContact(currentDialogOpen,i);
             console.log(str)
             var tmp=newMassege.createObject(columnChat,
@@ -297,7 +350,7 @@ Rectangle {
                     anchors.bottomMargin: 8
 
                     contentWidth: parent.width
-//                    contentHeight: clientData.getCountDialogs() * (columnChat.spacing + message.height)
+                    //                    contentHeight: clientData.getCountDialogs() * (columnChat.spacing + message.height)
 
                     clip: true
                     //                    LayoutMirroring.enabled: true
@@ -312,11 +365,11 @@ Rectangle {
 
                         spacing: 15
 
-//                        Rectangle{
-//                            width: 1
-//                            height: date.height - 10
-//                            color: "#00000000"
-//                        }
+                        //                        Rectangle{
+                        //                            width: 1
+                        //                            height: date.height - 10
+                        //                            color: "#00000000"
+                        //                        }
 
                         //                        Repeater{
                         //                            id: repeaterChat
@@ -391,17 +444,34 @@ Rectangle {
     }
     Component.onCompleted: {
         console.log("UserChar open");
+        newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
+        universalMedia = Qt.createComponent("UniversalMediafileWidget.qml")
+
+        musicW = Qt.createComponent("AudioWidget.qml")
+        imgW = Qt.createComponent("PictureWidget.qml")
+        textW = Qt.createComponent("TextWidget.qml")
+
+
+        testMap.onEverythingMessage.connect(createEveryThingMessage);
+        //        testMap.onEverythingMessage.connect(createMediaMessage);
+
+
+
+
+
+
         newMassege = Qt.createComponent("Massage.qml");
 
-        //        newMediaMessage = Qt.createComponent("ForTest.qml");
+        //                newMediaMessage = Qt.createComponent("MediaTextMessage.qml");
 
-//        newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
-                //        client.onUpdateStatusMessage.connect(updateStatusMessage)
-                //        client.onMessageReceived.connect(updateChat);
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~newMediaMessage")
+        //        newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
+        //        client.onUpdateStatusMessage.connect(updateStatusMessage)
+        //        client.onMessageReceived.connect(updateChat);
 
-                //        testMap.onCreateNewMassage.connect(creareNewMessage);
+        //        testMap.onCreateNewMassage.connect(creareNewMessage);
 
-        //        testMap.onMediaMessage.connect(createMediaMessage)
+        //                testMap.onMediaMessage.connect(createMediaMessage)
         client.onUpdateChat.connect(updateChat)
 
     }

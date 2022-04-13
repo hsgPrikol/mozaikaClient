@@ -3,6 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.2
+//import Qt.labs.platform 1.0
 
 Window {
     id: root
@@ -314,10 +315,10 @@ Window {
                     //вызываем сравнение логина и пароля
 
 
+                    //                    loader.sourceComponent = audioWidget
 
-
-//                        loader.sourceComponent = authorsWidget
-//                    supporting.show()
+                    //                        loader.sourceComponent = authorsWidget
+                    //                    supporting.show()
                     root.sendMessage()
 
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -372,12 +373,32 @@ Window {
             }
         }
         Component.onCompleted: {
-
+//            loader.sourceComponent = mediaTextMessage
             //            console.log(userDialog.getUs());
             console.log("Авторизация загружена")
         }
     }
 
+//    Component{
+//        id: audi
+
+//        AudioWidget{
+
+//        }
+//    }
+
+
+//    Component {
+//        id: mediaTextMessage
+//        MediaTextMessage{
+////            flagWhenMessage: true
+////            sizeMessage: 111
+////            messageText: "2131321321312"
+////            countAttachment: 5
+////            dfltHeightMul: 1000
+
+//        }
+//    }
 
     Component{
         id: profileMember
@@ -430,6 +451,16 @@ Window {
         client.onAutorization.connect(autorization);
         client.onGetDialogs.connect(getdialogs);
     }
+
+    Component{
+        id: audioWidget
+
+        AudioWidget{
+
+        }
+    }
+
+
     Component {
         id: fileDialog
 
@@ -438,6 +469,8 @@ Window {
             id: fileOpenDialog
             title: "Select an image file"
             folder: shortcuts.documents
+
+            //            fileMode: FileDialog.OpenFiles
             nameFilters: [
                 "Image files (*.png *.jpeg *.jpg)",
             ]

@@ -14,9 +14,38 @@ public:
 
     QVector<MassageTest*> array;
 
+    QVector<QString> audio = {"audio 1, audio 2"};
+    QVector<QString> picture = {"qrc:/resourses/avatar/baba.tif, qrc:/resourses/avatar/kloun.tif"};
+
 
 public slots:
 
+    int getSizeAudio() { return audio.size();}
+
+    int getSizePicture() { return picture.size();}
+
+
+    void emitMultiWidget();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     QString getMassage(int index);
     bool getIsCheked(int index);
     int getSizeVector();
@@ -35,6 +64,9 @@ signals:
     void onCreateNewDialog();
 
     void onMediaMessage();
+
+    void onEverythingMessage(/*QVector<QString>, QVector<QString>, int, int*/);
+
 
 };
 

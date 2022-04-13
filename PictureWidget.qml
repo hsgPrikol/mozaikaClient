@@ -1,0 +1,25 @@
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtGraphicalEffects 1.0
+
+Rectangle {
+    id: image
+
+    property var sourcePicture: "qrc:/resourses/avatar/kloun.tif"
+
+    width: 300
+    height: 170
+
+    color: "#00000000"
+
+    Image {
+        anchors.fill: parent
+        source: sourcePicture
+        anchors.rightMargin: 54
+        anchors.bottomMargin: 23
+        anchors.leftMargin: 54
+        anchors.topMargin: 23
+    }
+}

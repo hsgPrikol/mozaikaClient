@@ -204,8 +204,9 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-                    downBar.sendMesage()
-                 //   testMap.getMediaMessage()
+//                    downBar.sendMesage()
+                      testMap.emitMultiWidget()
+//                    testMap.getMediaMessage()
                 }
             }
         }

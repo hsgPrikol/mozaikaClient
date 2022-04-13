@@ -3,25 +3,14 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
+import QtMultimedia 5.12
 
-Rectangle {
-    id: mediaTextMessage
+Rectangle{
+    id: messageMultimedia
 
-    property int dfltHeight: 230
-    property int dfltWidth: 300
-    property color noColor: "#00000000"
+    color: "gray"
 
-    property int countAttachment: 1
-    property int heightAttachment: 230
-
-    property int calcHeightText
-
-    property int calcHeight: (sizeOneLineHeight + 1) * textMessage.lineCount
-
-    //    property int heightmulimedua: 230
-
-    property bool flagWhenMessage: true
-    property string messageText: "Ay"
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     property string attachmentFileName: "filename.wmv"
 
@@ -43,42 +32,57 @@ Rectangle {
     property int sizeOneLineHeight: 14
     property int dfltHeightText: 36
     property int dfltHeightRect: 50
-    property int dfltHeightMul: 200
+
+
+   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     property var contentImg
+    property var countVid
+    property var countAud
+    property var countText
 
-    property int countImg: 1
-    property int countVid: 1
-    property int countAud: 1
-    property int countText: 1
 
-    anchors.leftMargin: 7
-    anchors.rightMargin: 7
+    property int countImg: 0
+    property int countVid: 0
+    property int countAud: 0
+    property int countText: 0
+
+    property var messageText: "Шаблонsadsadasdsadsad adasdsadasd asdasdasdasd asdasdasda asdasdasd asdasdasdas asdasdasdas"
+
+    property bool flagWhenMessage: true
+    property string fileNameText
+
+    property int customHeight: 200
+
+    property color noColor: "#00000000"
+
+    property int dfltWidth: 300
+    property int dfltHeightMul: 230
+
+    property int calcHeightText
+
+    property int calcHeight: (sizeOneLineHeight + 1) * textMessage.lineCount
+
+    width: dfltWidth
+    height: dfltHeightMul
 
     anchors.right: {
         if (flagWhenMessage)
-        {
             parent.right
-        }
-    }
 
+    }
     anchors.left: {
         if (!flagWhenMessage)
-        {
             parent.left
-        }
     }
 
-    width: dfltWidth
-    height: dfltHeightMul + 24 + textMessage.height
+    property bool isPlay: true
 
-    color: flagWhenMessage ? selfColor : enemyColor
-    radius: 15
-    Column {
-        id: columnMaskMedia
-        //            x: 0
-        //            y: 35
-
+    Column{
+        id: allFiles
+        anchors.fill: parent
         spacing: 2
+
         Rectangle {
             id: maskTextMessage
             width: dfltWidth
@@ -99,6 +103,11 @@ Rectangle {
             Text {
                 id: textMessage
                 anchors.fill: parent
+                //                anchors.right: parent.right
+                //                anchors.left: parent.left
+                //                anchors.bottom: timeMessage.top
+                //                anchors.top: parent.top
+                //        anchors.topMargin: 10
                 anchors.leftMargin: 10
                 anchors.rightMargin: 10
                 //        width: 100
@@ -122,8 +131,6 @@ Rectangle {
                 wrapMode: Text.Wrap
             }
         }
-
-
 
         Repeater{
             id: repImg
@@ -159,42 +166,52 @@ Rectangle {
 
             }
         }
-        Rectangle {
-            id: timeMask
-            width: dfltWidth
-            height: 24
-            color: noColor
-        }
-
     }
-
-
-    //        Repeater{
-    //            id: repeaterMediaGroup
-
-    //            anchors.fill: parent
-    //            model: 4
-
-    //            Rectangle {
-    //                id: mediaMask
-    //                width: dfltWidth
-    //                height: 230
-    //                color: noColor
-
-    //                MediaWidget{
-    //                    anchors.fill: parent
-    //                    fileNameText: attachmentFileName
-    //                }
-    //            }
-    //        }
-
-
 }
+
+//    Rectangle{
+//        width: parent.width
+//        height: customHeight
+//        color: "gray"
+//        visible: mouseContent.containsPress ? false : true
+//        opacity: 0.3
+
+
+//    }
+
+//    Rectangle{
+//        x: 0
+//        y: customHeight
+//        width: parent.width
+//        height: 30
+//        color: noColor
+////        border.width: 1
+////        border.color: "black"
+//        Text{
+//            x: 0
+//            y: 0
+//            width: customHeight
+//            height: 30
+//            text: fileNameText + "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+//            elide: Text.ElideRight
+//            verticalAlignment: Text.AlignVCenter
+//            leftPadding: 10
+//        }
+
+//        MouseArea{
+//            anchors.fill: parent
+
+//            onClicked: {
+
+//            }
+//        }
+//    }
+
 
 
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.5}D{i:7;locked:true}
+    D{i:0;formeditorZoom:1.66}
 }
 ##^##*/
