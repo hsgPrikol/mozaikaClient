@@ -22,13 +22,22 @@ Rectangle {
 
     property var newMediaMessage
 
+<<<<<<< HEAD
     property var str: "Здравствуйте, товарищи! Это лучший месснджер написанный 5 научной ротой в Инновационном Военном Технополисе ЭРА"
+=======
+    function scrollToBottom()
+    {
+        scrollChat.ScrollBar.vertical.position = 1 - scrollChat.ScrollBar.vertical.size
+    }
+
+>>>>>>> Mozaika/back
 
     function createMediaMessage()
     {
 
         var tmp = newMediaMessage.createObject(columnChat,
                                                {
+<<<<<<< HEAD
                                                     flagWhenMessage: true,
                                                     countAttachment: 5,
                                                    sizeMessage: 111,
@@ -46,6 +55,59 @@ Rectangle {
                                                      messageText: testMap.getMassage(countIndex),
                                                      flagWhenMessage: testMap.getIsCheked(countIndex)
                                                  });
+=======
+                                                   flagWhenMessage: false
+                                               });
+    }
+
+    function ebaka(){
+//        repeaterChat.model = 0
+
+        clientData.setAllReadMessageInDialog(currentDialogOpen);
+
+        for(var i = 0; i < columnChat.data.length;i++)
+        {
+            columnChat.data[i].destroy()
+        }
+
+        for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
+        {
+            var tmp=newMassege.createObject(columnChat,
+                                            {
+                                                sizeMessage: clientData.getLength(clientData.getTextMessage(currentDialogOpen,i)),
+                                                messageText: clientData.getTextMessage(currentDialogOpen,i),
+                                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen,i),
+                                                messageTime: clientData.getDateMessage(currentDialogOpen,i),
+                                                messageStatus: 3
+
+                                            });
+        }
+
+        scrollToBottom();
+    }
+
+    function updateStatusMessage(d_id, m_id, status){
+        if(clientData.getIdDialog(currentDialogOpen)==d_id)
+        {
+            ebaka()
+        }
+    }
+
+    function updateChat(id_chat){
+
+//        if(loader.sourceComponent == userChat)
+//        {
+            if(clientData.getIdDialog(currentDialogOpen) == id_chat)
+            {
+
+                ebaka()
+                //client.getMessagesInDialog(clientData.getIdDialog(currentDialogOpen))
+
+                //console.log("messageAnswer.lenght", messageAnswer.size())
+//                repeaterChat.update()
+            }
+//        }
+>>>>>>> Mozaika/back
     }
 
     width: dfltWidth
@@ -101,8 +163,7 @@ Rectangle {
                             x: 8
                             y: 8
                             anchors.fill: parent
-                            source: "qrc:/resourses/avatar/efreitor.tif"
-                            anchors.topMargin: 0
+                            source: clientData.getPathAvatar(currentDialogOpen) ==""?"qrc:/resourses/avatar/efreitor.tif":"file:///" +currentDir+"/" + clientData.getPathAvatar(currentDialogOpen)
                             layer.enabled: true
                             anchors.rightMargin: 0
                             layer.effect: OpacityMask {
@@ -126,7 +187,7 @@ Rectangle {
                     Text {
                         id: text2
                         color: "#ffffff"
-                        text: qsTr("Рядовой Ефрейтор")
+                        text: clientData.getNameDialog(currentDialogOpen)
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -144,7 +205,7 @@ Rectangle {
                     Text {
                         id: text1
                         color: "#ffffff"
-                        text: "online"
+                        text: clientData.getDialogIsGroup(currentDialogOpen) ? clientData.getCountMembers(currentDialogOpen) + " участника" : (clientData.getDialogIsOnline(currentDialogOpen)? "в сети" : "не в сети")
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -175,8 +236,8 @@ Rectangle {
                         anchors.fill: parent
 
                         onClicked: {
-                              navDrawer.showNavDrawer()
-//                            loader.sourceComponent = navigationDrawer
+                            navDrawer.showNavDrawer()
+                            console.log("navDrawer.showNavDrawer()")
                         }
                     }
                 }
@@ -205,7 +266,7 @@ Rectangle {
 
                         onClicked: {
                             loader.sourceComponent = listDialog
-//                            loader1.source = "ListDialogs.qml"
+                            //                            loader1.source = "ListDialogs.qml"
                         }
                     }
                 }
@@ -240,13 +301,13 @@ Rectangle {
                     anchors.bottomMargin: 8
 
                     contentWidth: parent.width
-                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
+//                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
 
                     clip: true
                     //                    LayoutMirroring.enabled: true
 
-                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
-                    ScrollBar.vertical.position: t
+//                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
+//                    ScrollBar.vertical.position: t
 
 
                     Column{
@@ -261,40 +322,61 @@ Rectangle {
                             color: "#00000000"
                         }
 
-                        Repeater{
-                            id: repeaterChat
-                            anchors.fill: parent
+//                        Repeater{
+//                            id: repeaterChat
+//                            anchors.fill: parent
 
-                            model: testMap.getSizeVector()
+//                            model: clientData.getCountMessages(currentDialogOpen)
 
-                            Massage{
-                                id: message
-                                sizeMessage: testMap.getSizeMessage(index)
-                                messageText: testMap.getMassage(index)
-                                flagWhenMessage: testMap.getIsCheked(index)//testBoolArray[index]
+//                            Massage{
+//                                id: message
+
+//                                messageText: clientData.getTextMessage(currentDialogOpen, index)
+//                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
+//                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
+//                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
+//                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
 
 
+//                                Component.onCompleted: {
+//                                    console.log(repeaterChat.model)
+//                                    console.log(index)
+
+//                                    contactsss.setCountIndexMessage(countIndexVessage++)
+//                                }
+//                            }
 
 
-
-                                Component.onCompleted: {
-                                    console.log(repeaterChat.model)
-                                    console.log(index)
-
+<<<<<<< HEAD
                                     contactsss.setCountIndexMessage(countIndexVessage)
                                 }
                             }
                         }
+=======
+//                        }
+>>>>>>> Mozaika/back
                     }
+
+                    onContentHeightChanged: {
+                        scrollToBottom();
+//                        repeaterChat.update()
+                    }
+
+                    Component.onCompleted: {
+                        scrollToBottom();
+
+                    }
+
                 }
             }
 
             DownBar {
                 id: downBar
-                anchors.top: scrollChat.bottom
+//                anchors.top: scrollChat.bottom
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
+                //                currentDialogDownBar: currentDialog
             }
         }
 
@@ -324,11 +406,18 @@ Rectangle {
 
 //        newMediaMessage = Qt.createComponent("ForTest.qml");
 
+<<<<<<< HEAD
         newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
+=======
+//        client.onUpdateStatusMessage.connect(updateStatusMessage)
+//        client.onMessageReceived.connect(updateChat);
 
-        testMap.onCreateNewMassage.connect(creareNewMessage);
+//        testMap.onCreateNewMassage.connect(creareNewMessage);
+>>>>>>> Mozaika/back
 
-        testMap.onMediaMessage.connect(createMediaMessage)
+//        testMap.onMediaMessage.connect(createMediaMessage)
+        client.onUpdateChat.connect(updateChat)
+
     }
 }
 

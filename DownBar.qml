@@ -17,15 +17,39 @@ Rectangle {
     property real customOpacity: 0.7
     property int fontSize: 12
 
+//    property var currentDialogDownBar: -1
+
     function sendMesage()
     {
+        var textMessage = writeMessage.text
 
-        testMap.createNewMessage(writeMessage.text, true);
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", textMessage)
+
+//        testMap.createNewMessage(writeMessage.text, true);
+
+        var tmpMessage = newMassege.createObject(columnChat,
+                                                 {
+                                                     sizeMessage:  clientData.getLength(textMessage),
+                                                     messageText: textMessage,
+                                                     flagWhenMessage: true,
+                                                     messageTime: "15:13",
+                                                     messageStatus: 2
+                                                 });
+
         contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
         writeMessage.clear();
 //                    testMap.createNewMessage("My answer", false);
 //                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
-        console.log("Сообщение отправлено")
+        console.log("Сообщение отправлено в диалог >>>", currentDialogOpen)
+
+        var tmpIdMsg = client.generateTmpIdMsg();
+        var dialogID = clientData.getIdDialog(currentDialogOpen)
+
+        client.sendMessage(dialogID, tmpIdMsg, textMessage);
+        client.addMessage(dialogID, tmpIdMsg, textMessage)
+
+        chatDialog.scrollToBottom();
+
     }
 
 
@@ -180,8 +204,8 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-//                    downBar.sendMesage()
-                    testMap.getMediaMessage()
+                    downBar.sendMesage()
+                 //   testMap.getMediaMessage()
                 }
             }
         }

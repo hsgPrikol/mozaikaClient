@@ -97,6 +97,9 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
     // Обработка входных данных
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
     QString idMessage = ((*object)[ProtocolTrade::___ID_MESSAGE]).toString();
+    QString loginSender = ((*object)[ProtocolTrade::___LOGIN]).toString();
+    QString status = ((*object)[ProtocolTrade::___STATUS_MESSAGE]).toString();
+    QDateTime date =QDateTime::fromString(((*object)[ProtocolTrade::___BIRTH_DATE]).toString());
     QString messageText = "";
     QJsonArray arrAttachment;
 
@@ -110,6 +113,7 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
         arrAttachment = ((*object)[ProtocolTrade::___ARR_ATTACHMENT]).toArray();
     }
 
+    QVector<QString> paths;
     if(arrAttachment.size() > 0)
     {
         QJsonObject jObj;
@@ -117,15 +121,24 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
         for(int i = 0; i < arrAttachment.size(); i++)
         {
             jObj = arrAttachment[i].toObject();
-            ProtocolTrade::SaveBinaryFile(
-                        jObj[ProtocolTrade::___BINARY_FILE].toString(),
-                    jObj[ProtocolTrade::___NAME_FILE].toString(),
-                    jObj[ProtocolTrade::___TYPE_FILE].toString(),
-                    idMessage,
-                    idChat);
+            paths.push_back(ProtocolTrade::SaveBinaryFile(
+                                jObj[ProtocolTrade::___BINARY_FILE].toString(),
+                            jObj[ProtocolTrade::___NAME_FILE].toString(),
+                            jObj[ProtocolTrade::___TYPE_FILE].toString(),
+                            idMessage,
+                            idChat));
         }
     }
 
+    clientData->AddMessage(idChat, idMessage,loginSender, date,status, messageText, paths);
+
+    clientData->sortDialogs();
+
+//    int sizeMessage = messageText.size();
+    // дописать отображение на фронте
+    emit onUpdateChat(idChat.toInt());
+    emit onUpdateAllChats();
+//    emit onMessageReceived(idChat.toInt(), messageText, QDateTime::currentDateTime().toString(), sizeMessage);
     // Формирование ответа серверу
     QJsonObject* answer = new QJsonObject({
                                               {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_SEND_MESSAGE)},
@@ -138,12 +151,19 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
 }
 
 //ЖОПиСАТЬ
+
+//ЖОПиСАЛ)
 void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object)
 {
     QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
     QString idMessage = ((*object)[ProtocolTrade::___ID_MESSAGE]).toString();
     QString tmpIdMessage = ((*object)[ProtocolTrade::___TMP_ID_MESSAGE]).toString();
-    QString statusMessage = ((*object)[ProtocolTrade::___TMP_ID_MESSAGE]).toString();
+    QString statusMessage = ((*object)[ProtocolTrade::___STATUS_MESSAGE]).toString();
+
+    clientData->UpdateMessageId(idChat, tmpIdMessage, idMessage, statusMessage);
+
+    emit onUpdateMessage(idChat.toInt(), idMessage.toInt());
+//    emit onMessageReceived(3,"","",4);
 }
 
 void ClientGeneral::processingEventFromServer(QJsonObject *object)
@@ -240,6 +260,7 @@ void ClientGeneral::authorization(QString login, QString password, ClientData *c
                                         });
 
     this->clientData=clientData;
+    this->clientData->user->setLogin(login);
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
@@ -322,7 +343,15 @@ void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object)
         dialog.addMessage(msg);
     }
 
+    UserDialog* d= clientData->getDialogFromId(idChat.toInt());
 
+//    for(int i=1;i<dialog.getMessages().count();i++)
+//        d->addMessage(dialog.getMessages()[i]);
+    d->setMessages(dialog.getMessages());
+    d->SortBy();
+
+    emit onUpdateChat(dialog.getID());
+//    emit onGetMessages();
     qDebug() <<dialog.getID();
     // ОТДАТЬ ИГОРЮ ПОЛУЧЕННЫЙ ДИАЛОГ
 }
@@ -395,6 +424,11 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
         dialogs.append(dialog);
     }
     clientData->setDialogs(dialogs);
+
+
+
+
+    emit onUpdateAllChats();
     emit onGetDialogs();
     // СДЕЛАЙ ЧТО ТО С ДИАЛОГС
 }
@@ -419,6 +453,41 @@ void ClientGeneral::createChat(QVector<QString> logins, QString name, QByteArray
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
+
+
+void ClientGeneral::markMessage(int d_id, int m_id, int status)
+{
+    QJsonObject* jObj = new QJsonObject({
+                                            {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_UPDATE_STATUS_MESSAGE)},
+                                            {ProtocolTrade::___ID_CHAT, QJsonValue(QString(d_id))},
+                                            {ProtocolTrade::___ID_MESSAGE, QJsonValue(QString(m_id))},
+                                            {ProtocolTrade::___STATUS_MESSAGE, QJsonValue(QString(status))}
+                                        });
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
+}
+
+void ClientGeneral::getUpdatedStatusMessage(QJsonObject *qObj)
+{
+    QString dialog_id = (*qObj)[ProtocolTrade::___ID_CHAT].toString();
+    QString message_id = (*qObj)[ProtocolTrade::___ID_MESSAGE].toString();
+    QString status = (*qObj)[ProtocolTrade::___STATUS_MESSAGE].toString();
+
+    emit onUpdateMessage(dialog_id.toInt(), message_id.toInt());
+//    emit onUpdateStatusMessage(dialog_id.toInt(), message_id.toInt(), status.toInt());
+    // MAKSIM SDELAI OBNOVY STATUSA -> emit ebaka(int, int, int)
+};
+
+QString ClientGeneral::generateTmpIdMsg()
+{
+    return QString::number(QTime::currentTime().msecsSinceStartOfDay());
+}
+
+void ClientGeneral::addMessage(QString idDialog, QString tmpIdMessage, QString message, QVector<QString> paths)
+{
+    clientData->AddMessage(idDialog, tmpIdMessage, clientData->user->getLogin(),QDateTime::currentDateTime(),ProtocolTrade::___STS_TAKEN, message, paths);
+    clientData->sortDialogs();
+}
+
 
 void ClientGeneral::createPrivateChat(QString receiver_login)
 {

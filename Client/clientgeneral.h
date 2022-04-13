@@ -7,6 +7,7 @@
 #include "handlercommand.h"
 #include <QThread>
 #include "clientdata.h"
+
 //#include "super_server/user.h"
 
 class ClientGeneral : public QObject
@@ -55,9 +56,9 @@ public slots:
     /// Получение ответа на создание приватного чата
     void getAnswerCreatePrivateChat(QJsonObject* qObj);
 
-    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths);
+    void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg = "", QVector<QString> paths = {});
     void authorization(QString login, QString password, ClientData* clientData);
-    void sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVector<QString> paths);
+    void sendPrivateMessage(QString tmpIdMsg, QString textMsg = "", QVector<QString> paths = {});
     /// Запрос клиента на получение сообщений из конкретного диалога
     void getMessagesInDialog(QString idChat);
 
@@ -79,9 +80,31 @@ public slots:
     /// Отправка запроса на создание чата
     void createChat(QVector<QString> logins, QString name, QByteArray avatar, bool isGroup);
 
+
+    /// Изменить статус сообщения
+    void markMessage(int d_id, int m_id, int status);
+
+    /// Получить данные об обновлнном статусе сообщения
+    void getUpdatedStatusMessage(QJsonObject* qObj);
+
+    QString generateTmpIdMsg();
+    void addMessage(QString idDialog, QString tmpIdMessage, QString message = "", QVector<QString> paths = {});
+
 signals:
     void onAutorization(QString, QString, QString, bool);
+
+    void onUpdateAllChats();
+    void onUpdateChat(int id_chat);
+    void onUpdateMessage(int id_chat, int id_message);
+
+
     void onGetDialogs();
+//    void onGetMessages();
+
+//    void onUpdateStatusMessage(int, int, int);
+
+//    void onMessageReceived(int, QString, QString, int);
+
 };
 
 #endif // CLIENTGENERAL_H

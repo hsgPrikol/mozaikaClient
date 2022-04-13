@@ -32,6 +32,8 @@ Rectangle {
 
     property bool flagWhenMessage: true
     property string messageText: "Ay"
+    property string messageTime: "Через год"
+    property int messageStatus: 0
 
     anchors.leftMargin: 7
     anchors.rightMargin: 7
@@ -113,22 +115,32 @@ Rectangle {
 //        topPadding: 5
 
         Component.onCompleted: {
-            console.log(index + ") ", textMessage.lineCount)
+//            console.log(index + ") ", textMessage.lineCount)
         }
     }
 
     Text {
         id: timeMessage
+<<<<<<< HEAD
         x: 32
         y: 36
+=======
+        x: 100
+>>>>>>> Mozaika/back
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         font.pixelSize: 9
         width: 69
         height: 14
         color: flagWhenMessage ? selfColorText : enemyColorText
+<<<<<<< HEAD
         text: qsTr("5 минут назад")
         horizontalAlignment: Text.AlignLeft
+=======
+        text: messageTime
+        font.pixelSize: fontSize
+        horizontalAlignment: Text.AlignRight
+>>>>>>> Mozaika/back
         verticalAlignment: Text.AlignVCenter
     }
 
@@ -138,7 +150,7 @@ Rectangle {
         anchors.top: textMessage.bottom
         width: 32
         height: 14
-        source: "qrc:/picture/SendedMessage.tif"
+        source:  messageStatus == 0 ? "qrc:/resourses/kontacti/warning.tif" : (messageStatus == 1 ? "qrc:/resourses/kontacti/warning.png" : (messageStatus == 2 ? "qrc:/resourses/chat/OneGalochka.png" : "qrc:/resourses/chat/SendedMessage.tif"))
         fillMode: Image.PreserveAspectFit
     }
 }

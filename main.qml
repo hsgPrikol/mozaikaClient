@@ -21,6 +21,8 @@ Window {
     property int dfltWidth: 506
     property int dfltHeight: 900
 
+    property int currentDialogOpen: -1
+
 
     ErrorDialog{
         id: errorDialog
@@ -361,6 +363,7 @@ Window {
         }
     }
 
+<<<<<<< HEAD
 
     Component{
         id: profileMember
@@ -369,6 +372,9 @@ Window {
 
         }
     }
+=======
+//    property var currentDialogOpen: -1
+>>>>>>> Mozaika/back
 
     Component {
         id: listDialog
@@ -381,8 +387,12 @@ Window {
     Component{
         id: userChat
 
-        UserChat{
+//        property var tmpDialogId: -1
 
+
+
+        UserChat{
+//            id: userChatObject
         }
     }
 

@@ -34,7 +34,8 @@ Rectangle {
             y: 0
             width: dfltWidth
             height: 220
-            source: "qrc:/resourses/avatar/lobkov.tif"
+//            source: "qrc:/resourses/avatar/lobkov.tif"
+            source: currentUser.getAvatarFile() != ""?"file:///" +currentDir+"/" + currentUser.getAvatarFile():"qrc:/resourses/avatar/lobkov.tif"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -55,7 +56,7 @@ Rectangle {
             width: 415
             height: 40
             color: "#ffffff"
-            text: "Рядовой Ефрейтор"
+            text: currentUser.getName();
             font.pixelSize: 16
             verticalAlignment: Text.AlignVCenter
             minimumPixelSize: 16
@@ -242,7 +243,7 @@ Rectangle {
                     id: loginAnswerText
                     color: "#ffffff"
                     anchors.fill: parent
-                    text: qsTr("5NR_Operator_27")
+                    text: currentUser.getLogin()
                     font.pixelSize: 15
                     verticalAlignment: Text.AlignVCenter
                     leftPadding: 10
@@ -302,7 +303,7 @@ Rectangle {
                     id: accountAnswerBirthDayText
                     color: "#ffffff"
                     anchors.fill: parent
-                    text: qsTr("Дата рождения")
+                    text: currentUser.getBirthDate()
                     font.pixelSize: 15
                     verticalAlignment: Text.AlignVCenter
                     leftPadding: 10

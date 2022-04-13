@@ -13,11 +13,14 @@ Rectangle {
     property int dfltHeight: 100
     property color noColor: "#00000000"
     property real customOpacity: 0.7
-
+    property int indexInListDialogs: -1
     color: rootDialog.noColor
 
+    //<<<<<<< HEAD
+    //=======
     anchors.horizontalCenter: parent.horizontalCenter
 
+    //>>>>>>> origin/back
     property var nameFamilia
 
     property var avatarClients:"qrc:/resourses/avatar/cop.tif"
@@ -39,13 +42,14 @@ Rectangle {
     //много проверти для забирания данных с класса user и message
 
 
-//    property type name: value
-//    property type name: value
-//    property type name: value
-//    property type name: value
+    //    property type name: value
+    //    property type name: value
+    //    property type name: value
+    //    property type name: value
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<<<<<<< HEAD
 //    Image {
 //        id: image
 //        anchors.fill: parent
@@ -54,6 +58,14 @@ Rectangle {
 //    }
 
     Rectangle{
+=======
+    function loadChat(){
+
+    }
+
+
+    Image {
+>>>>>>> Mozaika/back
         id: image
         anchors.fill: parent
         color: "white"
@@ -107,8 +119,11 @@ Rectangle {
                 height: 50
                 font.pixelSize: 12
                 text: lastMessageUser
+                elide: Text.ElideRight
                 font.bold: !isChecked
                 verticalAlignment: Text.AlignTop
+                textFormat: Text.AutoText
+                clip: false
             }
         }
 
@@ -217,16 +232,19 @@ Rectangle {
 
         onClicked: {
 
-            console.log("Открыть диалог с данным юзером" + index)
+
+            //            userChatObject.currentDialog = index
+
+            client.getMessagesInDialog(clientData.getIdDialog(indexInListDialogs))
+            currentDialogOpen = indexInListDialogs;
+            loader.sourceComponent  = userChat;
+            console.log("Открыть диалог с данным юзером" + indexInListDialogs)
         }
     }
 
-    Component{
-        id: componen
+    Component.onCompleted: {
 
-        UserChat{
 
-        }
     }
 }
 

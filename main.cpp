@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 
     ClientGeneral client;
     ClientData clientData;
+    clientData.user = currentUser;
 
 
     contacts.getVectorSize(0);
