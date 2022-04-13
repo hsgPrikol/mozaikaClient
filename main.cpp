@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     Test testMap;
-    ContactsList contacts;
+    ContactsList addContact;
     SettingsData settingsData;
 
     User *currentUser = new User();
@@ -38,18 +38,17 @@ int main(int argc, char *argv[])
     clientData.user = currentUser;
 
 
-    contacts.getVectorSize(0);
+    addContact.getVectorSize(0);
 
     engine.rootContext()->setContextProperty("currentDir", *currentDir);
     engine.rootContext()->setContextProperty("testMap", &testMap);
-    engine.rootContext()->setContextProperty("contactsss", &contacts);
+    engine.rootContext()->setContextProperty("contactsss", &addContact);
     engine.rootContext()->setContextProperty("settingsData",&settingsData);
     engine.rootContext()->setContextProperty("client", &client);
     engine.rootContext()->setContextProperty("clientData", &clientData);
     engine.rootContext()->setContextProperty("currentUser", currentUser);
 
 
-//    engine.rootContext()->setContextProperty("userDialog",&userDialog);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 //    const QUrl url(QStringLiteral("qrc:/Dialogs.qml"));

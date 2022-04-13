@@ -5,10 +5,9 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 
-Rectangle {
-    id: rootMessage
-    clip: true
-    //~~~~~~~~~~~~~~~~~~Width~~~~~~~~~~~~~~~~~~~~~~~
+
+Rectangle{
+    id: messageFull
     property real sizeOnePXWidth: 5
     property int sizeMessage: 10
     property int maxWidthMessage: 303
@@ -31,9 +30,13 @@ Rectangle {
     property color enemyColorText: "#000000"
 
     property bool flagWhenMessage: true
+    property bool isGroupDialog: true
     property string messageText: "Ay"
     property string messageTime: "Через год"
     property int messageStatus: 0
+    property string avatarClient
+
+    color: "transparent"
 
     anchors.leftMargin: 7
     anchors.rightMargin: 7
@@ -79,71 +82,135 @@ Rectangle {
         }
     }
 
-    color: flagWhenMessage ? selfColor : enemyColor
-    radius: 10
 
-    Text {
-        id: textMessage
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.bottom: timeMessage.top
-        anchors.top: parent.top
-//        anchors.topMargin: 10
-        anchors.leftMargin: 10
-        anchors.rightMargin: 10
-//        width: 100
-        height: {
-            if (calcHeight < 50)
-            {
-                dfltHeightText - 10
-            }
-            else
-            {
-                calcHeight
-            }
+
+    Row{
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~JHHFUDIHGEWUFIHF
+
+        spacing: 7
+        Rectangle{
+            id: mask
+            x: 0
+            y: 5
+            width: 30
+            height: 30
+            radius: 15
+            //color: rootDialog.noColor
+            clip: true
+            //color: enemyColor
+            visible: !flagWhenMessage && isGroupDialog
+
+            Rectangle{
+                width: parent.width
+                height: parent.height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                radius: 15
+                border.width: 1
+                border.color: "#068d9d"
+                clip: true
+
+
+                Image {
+                    id: image1
+                    anchors.fill: parent
+                    source: flagWhenMessage ? "qrc:/resourses/avatar/kloun.tif" : avatarClient
+//                    anchors.rightMargin: 8
+//                    anchors.bottomMargin: 7
+//                    anchors.leftMargin: 8
+//                    anchors.topMargin: 8
+
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: parent
+                    }
+                }
+            }                //                    fillMode: Image.PreserveAspectCrop
         }
 
-        text: messageText
-        font.pixelSize: 12
-        color: flagWhenMessage ? selfColorText : enemyColorText
-        verticalAlignment: Text.AlignVCenter
 
-        wrapMode: Text.Wrap
-//        rightPadding: 7
-//        leftPadding: 7
-//        bottomPadding: 5
-//        topPadding: 5
 
-        Component.onCompleted: {
-//            console.log(index + ") ", textMessage.lineCount)
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~DTSRAYFGBEJKLBHGKJNFG
+
+        Rectangle {
+            id: rootMessage
+            clip: true
+            //~~~~~~~~~~~~~~~~~~Width~~~~~~~~~~~~~~~~~~~~~~~
+
+            color: flagWhenMessage ? selfColor : enemyColor
+
+            width: messageFull.width
+            height: messageFull.height
+            //            anchors.centerIn: messageFull
+            radius: 10
+            Text {
+                id: textMessage
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.bottom: timeMessage.top
+                anchors.top: parent.top
+                //        anchors.topMargin: 10
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
+                //        width: 100
+                height: {
+                    if (calcHeight < 50)
+                    {
+                        dfltHeightText - 10
+                    }
+                    else
+                    {
+                        calcHeight
+                    }
+                }
+
+                text: messageText
+                font.pixelSize: 12
+                color: flagWhenMessage ? selfColorText : enemyColorText
+                verticalAlignment: Text.AlignVCenter
+
+                wrapMode: Text.Wrap
+                //        rightPadding: 7
+                //        leftPadding: 7
+                //        bottomPadding: 5
+                //        topPadding: 5
+
+                Component.onCompleted: {
+                    //            console.log(index + ") ", textMessage.lineCount)
+                }
+            }
+
+            Text {
+                id: timeMessage
+                x: 100
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                width: 48
+                height: 14
+                color: flagWhenMessage ? selfColorText : enemyColorText
+                text: messageTime
+                font.pixelSize: fontSize
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            Image {
+                id: image
+                anchors.left: parent.left
+                anchors.top: textMessage.bottom
+                width: 32
+                height: 14
+                fillMode: Image.PreserveAspectFit
+
+                Component.onCompleted: {
+                    if (flagWhenMessage)
+                        source = messageStatus == 0 ? "qrc:/resourses/kontacti/warning.tif" : (messageStatus == 1 ? "qrc:/resourses/kontacti/warning.png" : (messageStatus == 2 ? "qrc:/resourses/chat/OneGalochka.png" : "qrc:/resourses/chat/SendedMessage.tif"))
+                }
+            }
         }
-    }
-
-    Text {
-        id: timeMessage
-        x: 100
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        width: 48
-        height: 14
-        color: flagWhenMessage ? selfColorText : enemyColorText
-        text: messageTime
-        font.pixelSize: fontSize
-        horizontalAlignment: Text.AlignRight
-        verticalAlignment: Text.AlignVCenter
-    }
-
-    Image {
-        id: image
-        anchors.left: parent.left
-        anchors.top: textMessage.bottom
-        width: 32
-        height: 14
-        source:  messageStatus == 0 ? "qrc:/resourses/kontacti/warning.tif" : (messageStatus == 1 ? "qrc:/resourses/kontacti/warning.png" : (messageStatus == 2 ? "qrc:/resourses/chat/OneGalochka.png" : "qrc:/resourses/chat/SendedMessage.tif"))
-        fillMode: Image.PreserveAspectFit
     }
 }
-
 /*##^##
 Designer {
     D{i:0;formeditorZoom:4}

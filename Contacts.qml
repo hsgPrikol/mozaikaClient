@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
-    id: contacts
+    id: addContact
 
     property int dfltWidth: 506
     property int dfltHeight: 900

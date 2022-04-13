@@ -28,7 +28,8 @@ SOURCES += \
         main.cpp \
         massagetest.cpp \
         settingsdata.cpp \
-        test.cpp
+        test.cpp \
+        userdata.cpp
 
 RESOURCES += qml.qrc \
     Client/resourcesServer.qrc
@@ -63,7 +64,8 @@ HEADERS += \
     contactslist.h \
     massagetest.h \
     settingsdata.h \
-    test.h
+    test.h \
+    userdata.h
 
 SUBDIRS += \
     ../Client/super_server/super_server.pro

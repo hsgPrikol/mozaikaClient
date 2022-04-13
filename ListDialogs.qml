@@ -49,6 +49,7 @@ Rectangle {
         let countD = clientData.getCountDialogs();
 
         var tmp;
+
         for(var i=0;i<countD;i++){
             tmp = tmpNewDialog.createObject(columnDialogs,
                                             {

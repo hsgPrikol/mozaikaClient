@@ -16,7 +16,7 @@
 
 class User : public QObject
 {
-    Q_OBJECT
+        Q_OBJECT
 private:
     int id;
     QString login;
@@ -26,13 +26,13 @@ private:
     QString avatarFile;
 
 public:
-    explicit User(QObject *parent = nullptr) : QObject(parent)
-    {
+        explicit User(QObject *parent = nullptr) : QObject(parent)
+        {
 
-    };
+        };
     User(User& user): id(user.id), login(user.login), name(user.name), avatar(user.avatar), birthdate(user.birthdate) {};
     User(int _id, QString _login, QString _name, QByteArray _avatar, QString _birthdate): id(_id), login(_login), name(_name), avatar(_avatar), birthdate(_birthdate){}
-
+//    User();
     const User operator =(User user) const{
         User user2(user);
         return user2;
