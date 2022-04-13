@@ -92,9 +92,9 @@ Rectangle{
             id: mask
             x: 0
             y: 5
-            width: 30
-            height: 30
-            radius: 15
+            width: 45
+            height: 45
+            radius: 22
             //color: rootDialog.noColor
             clip: true
             //color: enemyColor
@@ -105,7 +105,7 @@ Rectangle{
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                radius: 15
+                radius: 22
                 border.width: 1
                 border.color: "#068d9d"
                 clip: true
@@ -114,6 +114,7 @@ Rectangle{
                 Image {
                     id: image1
                     anchors.fill: parent
+                    fillMode: Image.PreserveAspectCrop
                     source: flagWhenMessage ? "qrc:/resourses/avatar/kloun.tif" : avatarClient
 //                    anchors.rightMargin: 8
 //                    anchors.bottomMargin: 7

@@ -16,10 +16,35 @@ Rectangle {
     property int sizeHeightRectName: 84
 
     property int fontSize: 14
+    property var tmpContactsChar
 
     width: dfltWidth
     height: dfltHeight
     color: noColor
+
+
+    function loadContacts(){
+        for(var i = 0; i < columnContact.data.length;i++)
+        {
+            columnContact.data[i].destroy()
+        }
+
+        var countD = clientData.getCountMapContacts();
+
+        var tmp;
+
+        for(var i=0;i<countD;i++){
+            tmp = tmpContactsChar.createObject(columnContact,
+                                            {
+                                                   indexRepeaterChar: i,
+                                                   textRepeaterChar: clientData.getCharMapContacts(i),
+                                                   dfltHeight: clientData.getCountContactsInMap(clientData.getCharMapContacts(i)) * sizeHeightRectName
+//                                                   textRepeaterContactsName: contactsss.getName(i)
+                                            });
+        }
+
+         scrollContacts.contentHeight= clientData.getc * sizeHeightRectName
+    }
 
     Rectangle{
         anchors.fill: parent
@@ -125,40 +150,44 @@ Rectangle {
                 width: parent.width
                 height: parent.height
                 contentWidth: parent.width
-                contentHeight: contactsss.getAllVectorSize() * sizeHeightRectName
+
 
                 clip: true
 
                 Column{
                     id: columnContact
                     anchors.fill: parent
-//                    width: parent.width
-//                    height: parent.height
+                    width: parent.width
+                    height: parent.height
+                    spacing: 10
+//                    Repeater{
+//                        id: repSymbol
+//                        anchors.fill: parent
 
-                    Repeater{
-                        id: repSymbol
-                        anchors.fill: parent
+//                        model: contactsss.getMapSize()
 
-                        model: contactsss.getMapSize()
+//                        Component.onCompleted: {
+//                            console.log("contactsss.getMapSize()", contactsss.getMapSize())
+//                        }
 
-                        Component.onCompleted: {
-                            console.log("contactsss.getMapSize()", contactsss.getMapSize())
-                        }
+//                        ContactsChar {
+//                            dfltHeight: contactsss.getVectorSize(index) * sizeHeightRectName
+//                            indexRepeaterChar: index
+//                            textRepeaterChar: contactsss.getSymbol(index)
+////                            textRepeaterContactsName: contactsss.getName(index)
 
-                        ContactsChar {
-                            dfltHeight: contactsss.getVectorSize(index) * sizeHeightRectName
-                            indexRepeaterChar: index
-                            textRepeaterChar: contactsss.getSymbol(index)
-//                            textRepeaterContactsName: contactsss.getName(index)
-
-                            Component.onCompleted: {
-                                console.log("ContactsChar{}textRepeaterContactsName", textRepeaterContactsName)
-                            }
-                        }
-                    }
+//                            Component.onCompleted: {
+//                                console.log("ContactsChar{}textRepeaterContactsName", textRepeaterContactsName)
+//                            }
+//                        }
+//                    }
                 }
             }
         }
+    }
+    Component.onCompleted: {
+        tmpContactsChar = Qt.createComponent("ContactsChar.qml");
+        loadContacts()
     }
 }
 

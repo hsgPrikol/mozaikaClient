@@ -66,5 +66,6 @@
         <file>resourses/chat/OneGalochka.png</file>
         <file>resourses/chat/SendedMessage.tif</file>
         <file>resourses/chat/двеГалочки.png</file>
+        <file>ContactPageMain.qml</file>
     </qresource>
 </RCC>

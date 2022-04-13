@@ -35,12 +35,6 @@ Rectangle {
     }
 
     function redrawDialogs(){
-
-//        if (loader.sourceComponent != listDialog)
-//        {
-//            return
-//        }
-
         for(var i = 0; i < columnDialogs.data.length;i++)
         {
             columnDialogs.data[i].destroy()

@@ -16,11 +16,12 @@ Rectangle {
     property int fontSize: 20
 
     property int indexRepeaterChar: 0
-    property string textRepeaterContactsName: "Balbes Balbesovich"
     property string textRepeaterChar: "s"
 
-
     property int dfltHeightContactList: 84
+    property var tmpContactName
+
+
 
     width: dfltWidth
     height: dfltHeight
@@ -28,6 +29,28 @@ Rectangle {
 //    border.color: "white"
 
     color: noColor
+
+    function loadContactsInChar(){
+        for(var i = 0; i < columnContactList.data.length;i++)
+        {
+            columnContactList.data[i].destroy()
+        }
+
+        var countD = clientData.getCountContactsInMap(textRepeaterChar);
+
+        var tmp;
+
+        for(var i=0;i<countD;i++){
+            tmp = tmpContactName.createObject(columnContactList,
+                                            {
+                                                   nameContact: clientData.getNameContact(textRepeaterChar, i),
+                                                   pathAvatarContact: clientData.getPathAvatarContact(textRepeaterChar, i) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatarContact(textRepeaterChar, i):"qrc:/resourses/avatar/cop.tif"
+//                                                   textRepeaterContactsName: contactsss.getName(i)
+                                            });
+        }
+
+        rootLineCharList.height= countD * dfltHeightContactList - 50
+    }
 
     Rectangle {
         id: rootCharContact
@@ -52,109 +75,7 @@ Rectangle {
 
     Column {
         id: columnContactList
-
-        Repeater{
-            id: repeaterPage
-            model: contactsss.getVectorSize(indexRepeaterChar)
-
-            Component.onCompleted: {
-                //console.log("contactsss.getVectorSize(indexRepeaterChar)", contactsss.getVectorSize(indexRepeaterChar))
-            }
-
-            Rectangle {
-                id: contactPageMain
-                x: 50
-                y: 8
-                width: 448
-                height: 84
-                color: noColor
-//                opacity: 0.7
-                border.color: mouseContacts.containsPress ? "white" : noColor
-                border.width: 1
-
-                Rectangle {
-                    id: contactPageAvatar
-                    x: 0
-                    y: 0
-                    width: 84
-                    height: parent.height
-                    color: noColor
-
-                    Rectangle {
-                        id: contactPageAvatarMask
-                        x: 10
-                        y: 10
-                        width: 64
-                        height: 65
-                        color: "#ffffff"
-                        radius: contactPageAvatarMask.width / 2
-
-
-                        Image {
-                            id: image1
-                            anchors.fill: parent
-                            fillMode: Image.PreserveAspectCrop
-                            source: "qrc:/resourses/avatar/cop.tif"
-                            layer.enabled: true
-                            layer.effect: OpacityMask {
-                                maskSource: parent
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        x: 80
-                        y: 0
-                        width: 367
-                        height: 84
-                        color: noColor
-
-                        Text {
-                            property int fontSize: 20
-                            id: textName
-                            anchors.fill: parent
-                            text: contactsss.getName(textRepeaterChar,index)
-                            font.pixelSize: textName.fontSize
-                            color: "white"
-                            verticalAlignment: Text.AlignVCenter
-                            leftPadding: 10
-                        }
-                    }
-                }
-
-                MouseArea {
-                    id: mouseContacts
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-
-                }
-            }
-
-
-//            Rectangle {
-//                id: contactPage
-//                x: 56
-//                y: 8
-//                width: 442
-//                height: 84
-//                color: noColor
-//                border.width: 1
-//                border.color: "black"
-
-//                Text {
-//                    color: "#ffffff"
-//                    anchors.fill: parent
-//                    anchors.leftMargin: 10
-//                    text: contactsss.getName(textRepeaterChar,index)
-//                    font.pixelSize: 30
-//                    verticalAlignment: Text.AlignVCenter
-//                    Component.onCompleted: {
-//                        console.log("textRepeaterContactsName", textRepeaterContactsName)
-//                    }
-//                }
-//            }
-        }
+        y:30
     }
 
     Rectangle {
@@ -165,7 +86,7 @@ Rectangle {
         anchors.bottomMargin: 10
         anchors.horizontalCenter: rootCharContact.horizontalCenter
         width: 2
-        height: repeaterPage.model * dfltHeightContactList - 70
+//        height: columnContactList.model * dfltHeightContactList - 70
         color: "#ffffff"
     }
 
@@ -230,7 +151,11 @@ Rectangle {
 //    }
 
 
-
+Component.onCompleted: {
+    tmpContactName= Qt.createComponent("ContactPageMain.qml");
+    console.log("huyyy")
+    loadContactsInChar();
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }

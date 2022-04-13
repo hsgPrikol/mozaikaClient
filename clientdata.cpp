@@ -6,28 +6,35 @@ ClientData::ClientData(QObject *parent) : QObject(parent)
 
 void ClientData::addContact(User *user)
 {
-    for(int i=0;i< contacts.length();i++){
-        if(contacts[i].login==user->getLogin())
-            return;
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==user->getLogin())
+                return;
+        }
     }
 
-    contacts.append(UserData(user->getLogin(),user->getName(),user->getBirthDate(), user->getAvatarFile()));
+    contacts[user->getName()[0].toUpper()].append(UserData(user->getLogin(),user->getName(),user->getBirthDate(), user->getAvatarFile()));
+//    contacts.append(UserData(user->getLogin(),user->getName(),user->getBirthDate(), user->getAvatarFile()));
 }
 
 QString ClientData::getNameContact(QString login)
 {
-    for(int i=0;i< contacts.length();i++){
-        if(contacts[i].login==login)
-            return contacts[i].name;
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==login)
+                return contacts[contacts.keys()[j]][i].name;
+        }
     }
     return "No contacts";
 }
 
 QString ClientData::getAvatarPathContact(QString login)
 {
-    for(int i=0;i< contacts.length();i++){
-        if(contacts[i].login==login)
-            return contacts[i].avatarFile;
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==login)
+                return contacts[contacts.keys()[j]][i].avatarFile;
+        }
     }
     return "";
 }
@@ -39,11 +46,47 @@ QString ClientData::getAvatarPathContact(int d_index, int m_index)
 
 QString ClientData::getBirthDateContact(QString login)
 {
-    for(int i=0;i< contacts.length();i++){
-        if(contacts[i].login==login)
-            return contacts[i].avatarFile;
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==login)
+                return contacts[contacts.keys()[j]][i].birthdate;
+        }
     }
     return "No contacts";
+}
+
+int ClientData::getCountMapContacts()
+{
+    return contacts.keys().count();
+}
+
+int ClientData::getCountContacts()
+{
+    int count=0;
+    foreach(auto c, contacts.keys())
+        count+=contacts[c].count();
+
+    return count;
+}
+
+int ClientData::getCountContactsInMap(QString c)
+{
+    return contacts[c.toUpper()].count();
+}
+
+QString ClientData::getCharMapContacts(int index)
+{
+    return contacts.keys()[index];
+}
+
+QString ClientData::getNameContact(QString c, int index)
+{
+    return contacts[c.toUpper()][index].name;
+}
+
+QString ClientData::getPathAvatarContact(QString c, int index)
+{
+    return contacts[c.toUpper()][index].avatarFile;
 }
 
 QVector<UserDialog> ClientData::getDialogs()
