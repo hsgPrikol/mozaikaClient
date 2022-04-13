@@ -24,6 +24,31 @@ Window {
     property int currentDialogOpen: -1
 
 
+    ErrorDialog{
+        id: errorDialog
+        onClicked: {
+            errorDialog.show()
+        }
+    }
+
+
+    Component{
+        id: supportingComp
+
+        SupportingWidget{
+            id: supporting
+
+        }
+    }
+
+    Component{
+        id: authorsWidget
+
+        AuthorsWidget{
+            id: authors
+        }
+    }
+
     function sendMessage()
     {
         console.log("Вход")
@@ -31,10 +56,8 @@ Window {
         var passwor = password.text;
         var login = textField.text;
 
-       client.authorization(login, passwor, clientData);
+        client.authorization(login, passwor, clientData);
     }
-
-
 
     function autorization(name, avatar, birthDay, status)
     {
@@ -50,19 +73,20 @@ Window {
         }
         else
         {
+            errorDialog.show()
             console.log("Авторизация - Иди в жопу");
         }
     }
 
     function getdialogs(){
-//        currentDialogs.setDialogs(nenuzhno)
-//        spisok_dialogov = currentDialogs.getMyDialogs()
+        //        currentDialogs.setDialogs(nenuzhno)
+        //        spisok_dialogov = currentDialogs.getMyDialogs()
         //a = 1000 * 555;
         //console.log("------------------------------------");
         //console.log(clientData.getTnps()[0].getName());
         console.log("------------------------------------");
         loader.sourceComponent = listDialog
-//        loader.setSource("ListDialogs.qml");
+        //        loader.setSource("ListDialogs.qml");
     }
 
     //autorization
@@ -76,7 +100,7 @@ Window {
             id: mainPhone
             anchors.fill: parent
             source: "qrc:/picture/phone.tif"
-//            source: "file:///C:/Users/Tihon/Desktop/HackathonApril/build-SuperDesign-3_Desktop_Qt_5_15_2_MinGW_64_bit-Debug/client_garbarge/userAvatar_просто_картинкаMaksim Sergeevich.png"
+            //            source: "file:///C:/Users/Tihon/Desktop/HackathonApril/build-SuperDesign-3_Desktop_Qt_5_15_2_MinGW_64_bit-Debug/client_garbarge/userAvatar_просто_картинкаMaksim Sergeevich.png"
             opacity: 0.7
 
             Component.onCompleted: {
@@ -166,6 +190,17 @@ Window {
                     source: "qrc:/resourses/avtorisation/pole_vvoda_avtorization.tif"
                 }
             }
+
+            //            MouseArea{
+            //                x: 0
+            //                y: 0
+            //                width:  parent.width / 2
+            //                height: parent.height
+
+            //                onClicked: {
+            //                    textField.selectAll()
+            //                }
+            //            }
         }
 
         Rectangle {
@@ -215,13 +250,28 @@ Window {
                 placeholderText: "********"
                 placeholderTextColor: "#404040"
 
+                selectByMouse: true
+
                 echoMode: TextInput.Password
 
                 background: Image {
                     source: "qrc:/resourses/avtorisation/pole_vvoda_avtorization.tif"
                 }
                 hoverEnabled: false
+
+
             }
+
+            //            MouseArea{
+            //                x: 0
+            //                y: 0
+            //                width:  parent.width / 2
+            //                height: parent.height
+
+            //                onClicked: {
+            //                    password.selectAll()
+            //                }
+            //            }
         }
 
         Rectangle {
@@ -263,23 +313,24 @@ Window {
                 onClicked: {
                     //вызываем сравнение логина и пароля
 
+
+
+
+//                        loader.sourceComponent = authorsWidget
+//                    supporting.show()
                     root.sendMessage()
 
-
-
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Dialogs.qml
                     //                    loader.setSource("Dialogs.qml")
                     //                    console.log("open new dialog")
 
 
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//                    ListDialogs.qml
-//                                        this.visibale = false
-//                                        loader.setSource("ListDialogs.qml")
-//                                        console.log("open new Listdialog")
+                    //                    ListDialogs.qml
+                    //                                        this.visibale = false
+                    //                                        loader.setSource("ListDialogs.qml")
+                    //                                        console.log("open new Listdialog")
 
 
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -310,8 +361,8 @@ Window {
 
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Settings.qml
-//                    loader.setSource("Settings.qml")
-//                    console.log("Settings.qml")
+                    //                    loader.setSource("Settings.qml")
+                    //                    console.log("Settings.qml")
 
 
 
@@ -321,13 +372,20 @@ Window {
             }
         }
         Component.onCompleted: {
-                        
-//            console.log(userDialog.getUs());
+
+            //            console.log(userDialog.getUs());
             console.log("Авторизация загружена")
         }
     }
 
-//    property var currentDialogOpen: -1
+
+    Component{
+        id: profileMember
+
+        ProfileMember{
+
+        }
+    }
 
     Component {
         id: listDialog
@@ -340,12 +398,12 @@ Window {
     Component{
         id: userChat
 
-//        property var tmpDialogId: -1
+        //        property var tmpDialogId: -1
 
 
 
         UserChat{
-//            id: userChatObject
+            //            id: userChatObject
         }
     }
 
@@ -377,16 +435,25 @@ Window {
 
 
         FileDialog {
-                id: fileOpenDialog
-                title: "Select an image file"
-                folder: shortcuts.documents
-                nameFilters: [
-                    "Image files (*.png *.jpeg *.jpg)",
-                ]
-                onAccepted: {
-                    image.source = fileOpenDialog.fileUrl
-                }
+            id: fileOpenDialog
+            title: "Select an image file"
+            folder: shortcuts.documents
+            nameFilters: [
+                "Image files (*.png *.jpeg *.jpg)",
+            ]
+            onAccepted: {
+                //                image2.source = fileOpenDialog.fileUrl
             }
+        }
+    }
+
+    Component{
+        id: inviteSecretChat
+
+        DialogPrivateChat{
+            x: 100
+            y: 300
+        }
     }
 
 
@@ -394,10 +461,10 @@ Window {
     Loader{
         id: loader
 
-//        x: 100
-//        y: 100
-//        height: 250
-//        width: 250
+        //        x: 100
+        //        y: 100
+        //        height: 250
+        //        width: 250
 
 
         //        source: "Dialogs.qml"

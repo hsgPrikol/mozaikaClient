@@ -62,8 +62,9 @@ Rectangle {
         }
 
 
+        console.log(tmp.dfltHeight)
 
-        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
+//        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
         //        columnDialogs.children = []
         //        scrollView.contentHeight=150;
         //        scrollView.height=150;
@@ -219,21 +220,32 @@ Rectangle {
 
         ScrollView {
             id: scrollView
-            anchors.topMargin: 6
+            anchors.topMargin: 0
             anchors.bottomMargin: 0
+//            anchors.fill: parent
             anchors.top: rectangle.bottom
             anchors.right: rectangle.right
             anchors.left: rectangle.left
             anchors.bottom: parent.bottom
 //            background: Rectangle{color: "red"}
-//            contentHeight: repDialogs.model * (columnDialogs.spacing + dialogs.dfltHeight)
+//            contentHeight: 10000
             contentWidth: parent.width
             clip: true
+
+            Component.onCompleted: {
+
+            }
 
             Column {
                 id: columnDialogs
                 anchors.fill: parent
                 spacing: 10
+
+                Rectangle{
+                    width: parent.width
+                    height: 1
+                    color: noColor
+                }
 
 //                Repeater {
 //                    id: repDialogs
@@ -320,7 +332,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-//        console.log(" Component.onCompleted list dialogs");
+        console.log(" Component.onCompleted list dialogs");
         testMap.onCreateNewDialog.connect(addNewDialogs)
         tmpNewDialog = Qt.createComponent("Dialogs.qml");
         client.onUpdateAllChats.connect(redrawDialogs);

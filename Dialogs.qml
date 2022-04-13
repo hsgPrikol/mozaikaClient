@@ -16,11 +16,8 @@ Rectangle {
     property int indexInListDialogs: -1
     color: rootDialog.noColor
 
-    //<<<<<<< HEAD
-    //=======
     anchors.horizontalCenter: parent.horizontalCenter
 
-    //>>>>>>> origin/back
     property var nameFamilia
 
     property var avatarClients:"qrc:/resourses/avatar/cop.tif"
@@ -49,16 +46,26 @@ Rectangle {
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    function loadChat(){
+//    Image {
+//        id: image
+//        anchors.fill: parent
+//        source: "qrc:/resourses/kontacti/uvedomlenie_o_soobshenii.tif"
+//        opacity: rootDialog.customOpacity
+//    }
 
-    }
+    Rectangle{
+//    function loadChat(){
+
+//    }
 
 
-    Image {
         id: image
         anchors.fill: parent
-        source: "qrc:/resourses/kontacti/uvedomlenie_o_soobshenii.tif"
+        color: "white"
         opacity: rootDialog.customOpacity
+        radius: 20
+//        border.width: 3
+//        border.color: !isChecked ? "white" : "black"
     }
 
     //общий
@@ -83,8 +90,9 @@ Rectangle {
                 width: 280
                 height: 50
                 text: nameFamilia
-                font.pixelSize: 12
+                font.pixelSize: 16
                 verticalAlignment: Text.AlignVCenter
+                font.weight: Font.Bold
             }
         }
 
@@ -125,8 +133,9 @@ Rectangle {
                 anchors.fill: parent
                 text: timeMessage
                 font.pixelSize: 12
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
+                anchors.leftMargin: -89
             }
         }
         Rectangle{

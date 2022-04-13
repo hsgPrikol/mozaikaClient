@@ -71,9 +71,12 @@
         <file>resourses/chat/OneGalochka.png</file>
         <file>resourses/chat/SendedMessage.tif</file>
         <file>resourses/chat/двеГалочки.png</file>
-        <file>ContactPageMain.qml</file>
+<<<<<<< HEAD
         <file>SupportingWidget.qml</file>
         <file>AuthorsWidget.qml</file>
         <file>picture/cyber_mandarin.png</file>
+=======
+        <file>ContactPageMain.qml</file>
+>>>>>>> refs/remotes/Mozaika/back
     </qresource>
 </RCC>

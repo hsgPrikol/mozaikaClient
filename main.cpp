@@ -9,6 +9,7 @@
 #include "Client/super_server/dialogsvector.h"
 #include "clientdata.h"
 #include "qdir.h"
+#include "dateleft.h"
 //#include "userdialog.h"
 
 
@@ -37,6 +38,7 @@ int main(int argc, char *argv[])
     ClientData clientData;
     clientData.user = currentUser;
 
+    DateLeft dateLeft;
 
     addContact.getVectorSize(0);
 
@@ -48,6 +50,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("clientData", &clientData);
     engine.rootContext()->setContextProperty("currentUser", currentUser);
 
+    engine.rootContext()->setContextProperty("dateLeft", &dateLeft);
 
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

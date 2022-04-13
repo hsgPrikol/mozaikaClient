@@ -132,6 +132,27 @@ Rectangle{
 
 
 
+<<<<<<< HEAD
+    Text {
+        id: timeMessage
+//<<<<<<< HEAD
+        x: 32
+        y: 36
+//=======
+//        x: 100
+//>>>>>>> Mozaika/back
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        font.pixelSize: 9
+        width: 69
+        height: 14
+        color: flagWhenMessage ? selfColorText : enemyColorText
+
+        text: messageTime
+        horizontalAlignment: Text.AlignRight
+        verticalAlignment: Text.AlignVCenter
+    }
+=======
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~DTSRAYFGBEJKLBHGKJNFG
 
         Rectangle {
@@ -182,25 +203,20 @@ Rectangle{
                 }
             }
 
-    Text {
-        id: timeMessage
-//<<<<<<< HEAD
-        x: 32
-        y: 36
-//=======
-//        x: 100
-//>>>>>>> Mozaika/back
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        font.pixelSize: 9
-        width: 69
-        height: 14
-        color: flagWhenMessage ? selfColorText : enemyColorText
-
-        text: messageTime
-        horizontalAlignment: Text.AlignRight
-        verticalAlignment: Text.AlignVCenter
-    }
+            Text {
+                id: timeMessage
+                x: 100
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                width: 48
+                height: 14
+                color: flagWhenMessage ? selfColorText : enemyColorText
+                text: messageTime
+                font.pixelSize: fontSize
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+            }
+>>>>>>> refs/remotes/Mozaika/back
 
             Image {
                 id: image

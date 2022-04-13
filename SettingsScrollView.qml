@@ -335,6 +335,8 @@ Rectangle {
             width: 192
             height: 48
 
+            model: ["Русский", "English"]
+
             background: Rectangle{
                 anchors.fill: parent
 

@@ -24,7 +24,7 @@ Rectangle{
     property var functionHelpingArray: [unLoginAccount,helping,aboutDeveloper ]
 
     property color noColor: "#00000000"
-    property int sizeHelpHeight: 60
+    property int sizeHelpHeight: 40
     property int dfltWidthElementMenu: 337
 
     property var textHelpArray: ["Выход", "Поддержка", "О разработчике"]
