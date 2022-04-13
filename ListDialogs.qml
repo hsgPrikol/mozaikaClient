@@ -41,7 +41,7 @@ Rectangle {
 //            return
 //        }
 
-        for(var i = 0; i < columnDialogs.data.length;i++)
+        for(var i = 1; i < columnDialogs.data.length;i++)
         {
             columnDialogs.data[i].destroy()
         }
@@ -73,7 +73,7 @@ Rectangle {
 
         console.log(tmp.dfltHeight)
 
-        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
+//        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
         //        columnDialogs.children = []
         //        scrollView.contentHeight=150;
         //        scrollView.height=150;
@@ -229,14 +229,15 @@ Rectangle {
 
         ScrollView {
             id: scrollView
-            anchors.topMargin: 6
+            anchors.topMargin: 0
             anchors.bottomMargin: 0
+//            anchors.fill: parent
             anchors.top: rectangle.bottom
             anchors.right: rectangle.right
             anchors.left: rectangle.left
             anchors.bottom: parent.bottom
 //            background: Rectangle{color: "red"}
-//            contentHeight: repDialogs.model * (columnDialogs.spacing + dialogs.dfltHeight)
+//            contentHeight: 10000
             contentWidth: parent.width
             clip: true
 
@@ -248,6 +249,12 @@ Rectangle {
                 id: columnDialogs
                 anchors.fill: parent
                 spacing: 10
+
+                Rectangle{
+                    width: parent.width
+                    height: 1
+                    color: noColor
+                }
 
 //                Repeater {
 //                    id: repDialogs

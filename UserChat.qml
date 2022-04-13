@@ -293,7 +293,7 @@ Rectangle {
                     anchors.bottomMargin: 8
 
                     contentWidth: parent.width
-                    //                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
+//                    contentHeight: clientData.getCountDialogs() * (columnChat.spacing + message.height)
 
                     clip: true
                     //                    LayoutMirroring.enabled: true
@@ -342,10 +342,10 @@ Rectangle {
                         //contactsss.setCountIndexMessage(countIndexVessage)
                     }
 
-//                    onContentHeightChanged: {
-//                        scrollToBottom();
-//                        //                        repeaterChat.update()
-//                    }
+                    onContentHeightChanged: {
+                        scrollToBottom();
+                        //                        repeaterChat.update()
+                    }
 
                     Component.onCompleted: {
                         scrollToBottom();
