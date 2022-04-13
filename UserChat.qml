@@ -22,26 +22,22 @@ Rectangle {
 
     property var newMediaMessage
 
-<<<<<<< HEAD
     property var str: "Здравствуйте, товарищи! Это лучший месснджер написанный 5 научной ротой в Инновационном Военном Технополисе ЭРА"
-=======
     function scrollToBottom()
     {
         scrollChat.ScrollBar.vertical.position = 1 - scrollChat.ScrollBar.vertical.size
     }
 
->>>>>>> Mozaika/back
 
     function createMediaMessage()
     {
 
         var tmp = newMediaMessage.createObject(columnChat,
                                                {
-<<<<<<< HEAD
-                                                    flagWhenMessage: true,
-                                                    countAttachment: 5,
+                                                   flagWhenMessage: true,
+                                                   countAttachment: 5,
                                                    sizeMessage: 111,
-                                                    messageText: str
+                                                   messageText: str
 
                                                });
     }
@@ -55,13 +51,10 @@ Rectangle {
                                                      messageText: testMap.getMassage(countIndex),
                                                      flagWhenMessage: testMap.getIsCheked(countIndex)
                                                  });
-=======
-                                                   flagWhenMessage: false
-                                               });
     }
 
     function ebaka(){
-//        repeaterChat.model = 0
+        //        repeaterChat.model = 0
 
         clientData.setAllReadMessageInDialog(currentDialogOpen);
 
@@ -95,19 +88,18 @@ Rectangle {
 
     function updateChat(id_chat){
 
-//        if(loader.sourceComponent == userChat)
-//        {
-            if(clientData.getIdDialog(currentDialogOpen) == id_chat)
-            {
+        //        if(loader.sourceComponent == userChat)
+        //        {
+        if(clientData.getIdDialog(currentDialogOpen) == id_chat)
+        {
 
-                ebaka()
-                //client.getMessagesInDialog(clientData.getIdDialog(currentDialogOpen))
+            ebaka()
+            //client.getMessagesInDialog(clientData.getIdDialog(currentDialogOpen))
 
-                //console.log("messageAnswer.lenght", messageAnswer.size())
-//                repeaterChat.update()
-            }
-//        }
->>>>>>> Mozaika/back
+            //console.log("messageAnswer.lenght", messageAnswer.size())
+            //                repeaterChat.update()
+        }
+        //        }
     }
 
     width: dfltWidth
@@ -301,13 +293,13 @@ Rectangle {
                     anchors.bottomMargin: 8
 
                     contentWidth: parent.width
-//                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
+                    //                    contentHeight: repeaterChat.model * (columnChat.spacing + message.height)
 
                     clip: true
                     //                    LayoutMirroring.enabled: true
 
-//                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
-//                    ScrollBar.vertical.position: t
+                    //                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
+                    //                    ScrollBar.vertical.position: t
 
 
                     Column{
@@ -316,51 +308,44 @@ Rectangle {
 
                         spacing: 15
 
-                        Rectangle{
-                            width: 1
-                            height: date.height - 10
-                            color: "#00000000"
-                        }
-
-//                        Repeater{
-//                            id: repeaterChat
-//                            anchors.fill: parent
-
-//                            model: clientData.getCountMessages(currentDialogOpen)
-
-//                            Massage{
-//                                id: message
-
-//                                messageText: clientData.getTextMessage(currentDialogOpen, index)
-//                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
-//                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
-//                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
-//                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
-
-
-//                                Component.onCompleted: {
-//                                    console.log(repeaterChat.model)
-//                                    console.log(index)
-
-//                                    contactsss.setCountIndexMessage(countIndexVessage++)
-//                                }
-//                            }
-
-
-<<<<<<< HEAD
-                                    contactsss.setCountIndexMessage(countIndexVessage)
-                                }
-                            }
-                        }
-=======
+//                        Rectangle{
+//                            width: 1
+//                            height: date.height - 10
+//                            color: "#00000000"
 //                        }
->>>>>>> Mozaika/back
+
+                        //                        Repeater{
+                        //                            id: repeaterChat
+                        //                            anchors.fill: parent
+
+                        //                            model: clientData.getCountMessages(currentDialogOpen)
+
+                        //                            Massage{
+                        //                                id: message
+
+                        //                                messageText: clientData.getTextMessage(currentDialogOpen, index)
+                        //                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
+                        //                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
+                        //                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
+                        //                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
+
+
+                        //                                Component.onCompleted: {
+                        //                                    console.log(repeaterChat.model)
+                        //                                    console.log(index)
+
+                        //                                    contactsss.setCountIndexMessage(countIndexVessage++)
+                        //                                }
+                        //                            }
+
+
+                        //contactsss.setCountIndexMessage(countIndexVessage)
                     }
 
-                    onContentHeightChanged: {
-                        scrollToBottom();
-//                        repeaterChat.update()
-                    }
+//                    onContentHeightChanged: {
+//                        scrollToBottom();
+//                        //                        repeaterChat.update()
+//                    }
 
                     Component.onCompleted: {
                         scrollToBottom();
@@ -372,7 +357,7 @@ Rectangle {
 
             DownBar {
                 id: downBar
-//                anchors.top: scrollChat.bottom
+                //                anchors.top: scrollChat.bottom
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
@@ -404,18 +389,15 @@ Rectangle {
         console.log("UserChar open");
         newMassege = Qt.createComponent("Massage.qml");
 
-//        newMediaMessage = Qt.createComponent("ForTest.qml");
+        //        newMediaMessage = Qt.createComponent("ForTest.qml");
 
-<<<<<<< HEAD
-        newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
-=======
-//        client.onUpdateStatusMessage.connect(updateStatusMessage)
-//        client.onMessageReceived.connect(updateChat);
+//        newMediaMessage = Qt.createComponent("MediaTextMessage.qml")
+                //        client.onUpdateStatusMessage.connect(updateStatusMessage)
+                //        client.onMessageReceived.connect(updateChat);
 
-//        testMap.onCreateNewMassage.connect(creareNewMessage);
->>>>>>> Mozaika/back
+                //        testMap.onCreateNewMassage.connect(creareNewMessage);
 
-//        testMap.onMediaMessage.connect(createMediaMessage)
+        //        testMap.onMediaMessage.connect(createMediaMessage)
         client.onUpdateChat.connect(updateChat)
 
     }

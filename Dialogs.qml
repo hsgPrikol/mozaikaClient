@@ -16,11 +16,8 @@ Rectangle {
     property int indexInListDialogs: -1
     color: rootDialog.noColor
 
-    //<<<<<<< HEAD
-    //=======
     anchors.horizontalCenter: parent.horizontalCenter
 
-    //>>>>>>> origin/back
     property var nameFamilia
 
     property var avatarClients:"qrc:/resourses/avatar/cop.tif"
@@ -49,7 +46,6 @@ Rectangle {
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<<<<<<< HEAD
 //    Image {
 //        id: image
 //        anchors.fill: parent
@@ -58,14 +54,11 @@ Rectangle {
 //    }
 
     Rectangle{
-=======
-    function loadChat(){
+//    function loadChat(){
 
-    }
+//    }
 
 
-    Image {
->>>>>>> Mozaika/back
         id: image
         anchors.fill: parent
         color: "white"

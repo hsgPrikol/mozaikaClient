@@ -363,7 +363,6 @@ Window {
         }
     }
 
-<<<<<<< HEAD
 
     Component{
         id: profileMember
@@ -372,9 +371,6 @@ Window {
 
         }
     }
-=======
-//    property var currentDialogOpen: -1
->>>>>>> Mozaika/back
 
     Component {
         id: listDialog

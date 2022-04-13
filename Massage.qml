@@ -121,26 +121,21 @@ Rectangle {
 
     Text {
         id: timeMessage
-<<<<<<< HEAD
+//<<<<<<< HEAD
         x: 32
         y: 36
-=======
-        x: 100
->>>>>>> Mozaika/back
+//=======
+//        x: 100
+//>>>>>>> Mozaika/back
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         font.pixelSize: 9
         width: 69
         height: 14
         color: flagWhenMessage ? selfColorText : enemyColorText
-<<<<<<< HEAD
-        text: qsTr("5 минут назад")
-        horizontalAlignment: Text.AlignLeft
-=======
+
         text: messageTime
-        font.pixelSize: fontSize
         horizontalAlignment: Text.AlignRight
->>>>>>> Mozaika/back
         verticalAlignment: Text.AlignVCenter
     }
 

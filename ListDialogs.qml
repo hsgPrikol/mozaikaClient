@@ -48,7 +48,11 @@ Rectangle {
 
         let countD = clientData.getCountDialogs();
 
-        var tmp;
+
+
+
+//        tmpNewDialog = Qt.createComponent("Dialogs.qml");
+        var tmp
         for(var i=0;i<countD;i++){
             tmp = tmpNewDialog.createObject(columnDialogs,
                                             {
@@ -67,6 +71,7 @@ Rectangle {
         }
 
 
+        console.log(tmp.dfltHeight)
 
         scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
         //        columnDialogs.children = []
@@ -262,14 +267,8 @@ Rectangle {
 ////                                //                                client.onGetMessages.connect(showDialog);
 ////
 
-<<<<<<< HEAD
-                        nameFamilia: clientData.getNameDialog(index)
-//                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
-                         avatarClients: clientData.getPathAvatar(index) != "" ? "file:///" + currentDir + "/" + clientData.getPathAvatar(index) : "qrc:/resourses/avatar/cop.tif"
-=======
 ////                            }
 ////                        }
->>>>>>> Mozaika/back
 
 ////                        nameFamilia: clientData.getNameDialog(index)
 ////                        //                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
@@ -335,7 +334,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-//        console.log(" Component.onCompleted list dialogs");
+        console.log(" Component.onCompleted list dialogs");
         testMap.onCreateNewDialog.connect(addNewDialogs)
         tmpNewDialog = Qt.createComponent("Dialogs.qml");
         client.onUpdateAllChats.connect(redrawDialogs);
