@@ -4,11 +4,12 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
-Rectangle {
+Image {
     id: supporting
     width: 506
     height: 900
-    color: "#80000000"
+    source: "qrc:/picture/phone.tif"
+//    color: "#80000000"
 
     //    flags: Qt.FramelessWindowHint
 
@@ -17,6 +18,14 @@ Rectangle {
     property color biruzoviu: "#068d9d"
 
     signal clicked
+
+    MouseArea{
+        anchors.fill: parent
+
+        onClicked: {
+            loader.sourceComponent = listDialog
+        }
+    }
 
     Rectangle {
         id: maskError

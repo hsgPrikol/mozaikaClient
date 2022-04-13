@@ -84,9 +84,19 @@ QString ClientData::getNameContact(QString c, int index)
     return contacts[c.toUpper()][index].name;
 }
 
+QString ClientData::getLoginContact(QString c, int index)
+{
+    return contacts[c.toUpper()][index].login;
+}
+
 QString ClientData::getPathAvatarContact(QString c, int index)
 {
     return contacts[c.toUpper()][index].avatarFile;
+}
+
+QString ClientData::getBirthDateContact(QString c, int index)
+{
+    return contacts[c.toUpper()][index].birthdate;
 }
 
 QVector<UserDialog> ClientData::getDialogs()
@@ -292,6 +302,22 @@ int ClientData::setAllReadMessageInDialog(int indexDialog)
         dialogs[indexDialog].messages[i].setStatus(3);
     }
 }
+
+bool ClientData::isExistDialogWithUser(QString login)
+{
+    for(int i=0;i<dialogs.count();i++){
+        if(!dialogs[i].getIsGroup())
+        {
+            auto mem=dialogs[i].getMemberLogins();
+            if(mem[0] == login || mem[1]==login)
+                return true;
+        }
+    }
+
+    return false;
+}
+
+
 
 //QString ClientData::getMyLogin() const
 //{

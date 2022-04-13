@@ -6,18 +6,42 @@ import QtQuick.Layouts 1.12
 Rectangle{
     id: root
 
+
+    Component{
+        id: supportingComp
+
+        SupportingWidget{
+            id: supporting
+
+        }
+    }
+
+    Component{
+        id: authorsWidget
+
+        AuthorsWidget{
+            id: authors
+        }
+    }
+
+
     function unLoginAccount()
     {
+        close()
         console.log("unLoginAccount")
     }
 
     function helping()
     {
+        loader.sourceComponent = supportingComp
+
         console.log("helping")
     }
 
     function aboutDeveloper()
     {
+        loader.sourceComponent = authorsWidget
+
         console.log("aboutDeveloper")
     }
 
@@ -59,6 +83,7 @@ Rectangle{
         anchors.fill: parent
 
         onClicked: {
+            closeNavDrawer()
             functionHelpingArray[index]()
         }
     }

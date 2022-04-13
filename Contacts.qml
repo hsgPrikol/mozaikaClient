@@ -17,6 +17,13 @@ Rectangle {
 
     property int fontSize: 14
     property var tmpContactsChar
+    property string chat_title: "Контакты"
+
+
+
+    property int counter: 0
+    property var logins: []
+
 
     ConfidenceWidget{
         id: confidence
@@ -42,15 +49,31 @@ Rectangle {
 
         for(var i=0;i<countD;i++){
             tmp = tmpContactsChar.createObject(columnContact,
-                                            {
+                                               {
                                                    indexRepeaterChar: i,
                                                    textRepeaterChar: clientData.getCharMapContacts(i),
                                                    dfltHeight: clientData.getCountContactsInMap(clientData.getCharMapContacts(i)) * sizeHeightRectName
-//                                                   textRepeaterContactsName: contactsss.getName(i)
-                                            });
+                                                   //                                                   textRepeaterContactsName: contactsss.getName(i)
+                                               });
         }
 
-         scrollContacts.contentHeight= clientData.getc * sizeHeightRectName
+        if(createChatType == "just_chat")
+            chat_title = "Создать чат"
+        else if(createChatType == "group_chat")
+            chat_title = "Создать группу"
+        else if(createChatType == "private_chat")
+            chat_title = "Создать приватный чат"
+        else if(createChatType == "non_chat")
+            chat_title = "Контакты"
+
+        scrollContacts.contentHeight= clientData.getc * sizeHeightRectName
+    }
+
+
+    onCounterChanged: {
+        if(counter > 0)
+            chat_title = "Выбрано: " + counter
+        else chat_title = "Создать группу"
     }
 
     Rectangle{
@@ -115,7 +138,7 @@ Rectangle {
                     width: 117
                     height: 60
                     color: "#ffffff"
-                    text: qsTr("Контакты")
+                    text: chat_title
                     font.pixelSize: 20
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -173,31 +196,63 @@ Rectangle {
                     width: parent.width
                     height: parent.height
                     spacing: 10
-//                    Repeater{
-//                        id: repSymbol
-//                        anchors.fill: parent
-
-//                        model: contactsss.getMapSize()
-
-//                        Component.onCompleted: {
-//                            console.log("contactsss.getMapSize()", contactsss.getMapSize())
-//                        }
-
-//                        ContactsChar {
-//                            dfltHeight: contactsss.getVectorSize(index) * sizeHeightRectName
-//                            indexRepeaterChar: index
-//                            textRepeaterChar: contactsss.getSymbol(index)
-////                            textRepeaterContactsName: contactsss.getName(index)
-
-//                            Component.onCompleted: {
-//                                console.log("ContactsChar{}textRepeaterContactsName", textRepeaterContactsName)
-//                            }
-//                        }
-//                    }
                 }
             }
         }
     }
+
+    Rectangle {
+        id: addNewDialogMask
+        x: 434
+        y: 828
+        visible: createChatType == "group_chat" && counter > 0
+        width: 72
+        height: 72
+
+        anchors.right: addContact.right
+        anchors.rightMargin: 15
+
+        anchors.bottom: addContact.bottom
+        anchors.bottomMargin: 15
+
+        radius: addNewDialogMask.width / 7
+
+        opacity: customOpacity
+
+        color: addNewDialogMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
+
+        Image {
+            id: addNewDialog
+            x: 11
+            y: 11
+            width: 50
+            height: 50
+            source: "qrc:/resourses/create chat_2.tif"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        MouseArea{
+            id: addNewDialogMouse
+            anchors.fill: parent
+
+            onClicked: {
+                //                    loader.sourceComponent = contactsList
+                if(createChatType == "group_chat"){
+                    client.createChat(logins, "Групповой чат", "", true)
+                }
+
+                client.getMyDialogs()
+                loader.sourceComponent = listDialog
+                //var str = "123213"
+                //testMap.createNewDialog(str)
+
+
+                console.log("loader.source = contactsList")
+            }
+        }
+    }
+
+
     Component.onCompleted: {
         tmpContactsChar = Qt.createComponent("ContactsChar.qml");
         loadContacts()

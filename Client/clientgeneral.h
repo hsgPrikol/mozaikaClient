@@ -22,6 +22,7 @@ private slots:
 private:
 
     const QUrl URL_SERVER = QUrl(QStringLiteral("ws://localhost:1234"));
+//        const QUrl URL_SERVER = QUrl(QStringLiteral("ws://10.0.2.2:1234"));
 
 public:
     explicit ClientGeneral(QObject *parent = nullptr);
@@ -51,7 +52,7 @@ public slots:
     void createPrivateChat(QString receiver_login);
 
     /// Обработка разрешения на создание приватного чата
-    void getReqPrivateChat(QJsonObject* qObj);
+    void getReqPrivateChat(QString requester_login, bool isAccepted);
 
     /// Получение ответа на создание приватного чата
     void getAnswerCreatePrivateChat(QJsonObject* qObj);
@@ -80,7 +81,6 @@ public slots:
     /// Отправка запроса на создание чата
     void createChat(QVector<QString> logins, QString name, QByteArray avatar, bool isGroup);
 
-
     /// Изменить статус сообщения
     void markMessage(int d_id, int m_id, int status);
 
@@ -100,6 +100,9 @@ signals:
 
 
     void onGetDialogs();
+
+
+    void onGetInvitePrivat(QString login, QString name);
 //    void onGetMessages();
 
 //    void onUpdateStatusMessage(int, int, int);

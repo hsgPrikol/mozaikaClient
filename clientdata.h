@@ -18,6 +18,7 @@ public:
 
 //<<<<<<< HEAD
     User *user;
+
 //=======
 //    QString myLogin;
 //    QString getMyLogin() const;
@@ -29,6 +30,9 @@ public:
 
 public slots:
 
+    QString getCurrentLogin(){return user->getLogin();}
+
+
     void addContact(User* user);
     QString getNameContact(QString login);
     QString getAvatarPathContact(QString login);
@@ -39,7 +43,9 @@ public slots:
     int getCountContactsInMap(QString c);
     QString getCharMapContacts(int index);
     QString getNameContact(QString c, int index);
+     QString getLoginContact(QString c, int index);
     QString getPathAvatarContact(QString c, int index);
+    QString getBirthDateContact(QString c, int index);
 
     QVector<UserDialog> getDialogs();
     void setDialogs( QVector<UserDialog> value);
@@ -82,6 +88,10 @@ public slots:
     int getLength(QString text){return text.size();}
 
     int setAllReadMessageInDialog(int indexDialog);
+
+
+    bool isExistDialogWithUser(QString login);
+
 
     //    QString getNameDialog(int index){return dialogs[index].();}
 //>>>>>>> origin/back

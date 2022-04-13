@@ -9,6 +9,8 @@ Rectangle {
 
     property string nameContact
     property string pathAvatarContact
+    property int  indexContact
+    property string login
 
     x: 50
     y: 8
@@ -16,8 +18,8 @@ Rectangle {
     height: 84
     color: noColor
     //                opacity: 0.7
-    border.color: mouseContacts.containsPress ? "white" : noColor
-    border.width: 1
+//    border.color: mouseContacts.containsPress ? "white" : noColor
+//    border.width: 1
 
     Rectangle {
         id: contactPageAvatar
@@ -56,6 +58,7 @@ Rectangle {
             height: 84
             color: noColor
 
+
             Text {
                 property int fontSize: 20
                 id: textName
@@ -66,14 +69,91 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 leftPadding: 10
             }
+
+            CheckBox {
+                id: checkBox
+                visible: createChatType == "group_chat"
+                checked: false
+                width: 20
+                height: 20
+                x: 300
+                y: 25
+
+
+                onCheckedChanged: {
+
+
+
+
+                    if (checkState == Qt.Checked){
+                        counter = counter + 1
+                        logins.push(login)
+                    }
+                    else{
+                        counter = counter - 1
+                        var tmp_list = []
+                        for(var i = 0; i<logins.length; i++)
+                            if(logins[i]!=login)
+                                tmp_list.push(logins[i])
+                        logins = tmp_list
+                    }
+                }
+
+                background: Rectangle{
+                    //                                anchors.fill: parent
+                    width: 20
+                    height: 20
+                    color: noColor
+                    radius: parent.width/2
+                    border.width: 1
+                    border.color: "white"
+
+                }
+                indicator: Rectangle{
+                    anchors.centerIn: parent
+                    width: 14
+                    height: 14
+                    x: 6
+                    y: 6
+                    radius: 7
+                    color: "white"
+                    visible: checkBox.checked
+                }
+            }
         }
     }
 
     MouseArea {
         id: mouseContacts
-
+        enabled: createChatType != "group_chat"
         anchors.fill: parent
         hoverEnabled: true
 
+        onClicked: {
+            if (createChatType == "non_chat")
+            {
+                currentContactOpen = indexContact
+                currentCharContactOpen = textRepeaterChar
+                loader.sourceComponent = profileMember
+            }
+            if(createChatType == "just_chat")
+            {
+                if(clientData.isExistDialogWithUser(clientData.getLoginContact(textRepeaterChar, indexContact)))
+                {
+                    console.log("Dialog is exist")
+                }
+                else
+                {
+                    client.createChat([clientData.getLoginContact(textRepeaterChar, indexContact)],"","",false)
+                    client.getMyDialogs()
+                    loader.sourceComponent = listDialog
+                }
+            }
+            if(createChatType == "private_chat"){
+                client.createPrivateChat(clientData.getLoginContact(textRepeaterChar, indexContact))
+            }
+
+
+        }
     }
 }

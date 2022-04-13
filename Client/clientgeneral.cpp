@@ -192,8 +192,13 @@ void ClientGeneral::processingEventFromServer(QJsonObject *object)
         }
         else
         {
+            QString requester_login = ((*object)[ProtocolTrade::___LOGIN]).toString();
+            emit onGetInvitePrivat(requester_login, clientData->getNameContact(requester_login));
+
+
             // Обработка ответа на создание приватног чата
-            getReqPrivateChat(object);
+//            getReqPrivateChat(object);
+
         }
     }
     else if(commandFromClient == ProtocolTrade::___CMD_AUTHORIZATION)
@@ -501,11 +506,13 @@ void ClientGeneral::createPrivateChat(QString receiver_login)
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
 
-void ClientGeneral::getReqPrivateChat(QJsonObject *qObj)
+
+
+void ClientGeneral::getReqPrivateChat(QString requester_login, bool isAccepted/*QJsonObject *qObj*/)
 {
-    QString requester_login = ((*qObj)[ProtocolTrade::___LOGIN]).toString();
-    bool isAccepted;// НУЖНО СПРОСИТЬ У ПОЛЬЗОВАТЕЛЯ ХОЧЕТ ЛИ ОН СОЗДАТЬ ДИАЛОГ
-    isAccepted = requester_login == "1";
+//    QString requester_login = ((*qObj)[ProtocolTrade::___LOGIN]).toString();
+//    bool isAccepted;// НУЖНО СПРОСИТЬ У ПОЛЬЗОВАТЕЛЯ ХОЧЕТ ЛИ ОН СОЗДАТЬ ДИАЛОГ
+//    isAccepted = isAccepted;
 
 
     QString status = isAccepted ? ProtocolTrade::___STS_DONE : ProtocolTrade::___STS_NOPE;
@@ -514,7 +521,7 @@ void ClientGeneral::getReqPrivateChat(QJsonObject *qObj)
     if(isAccepted)
     {
         quint16 port = Fix::START_PORT_LISTENER + Fix::privateChatsDst.size() + Fix::privateChatsSrc.size();
-        DstPrivateChat* tmpDst = new DstPrivateChat(requester_login, Fix::loginUser, port);
+        DstPrivateChat* tmpDst = new DstPrivateChat(requester_login, Fix::loginUser, port); //requester_login с кем чат
         Fix::privateChatsDst.push_back(tmpDst);
         answer = new QJsonObject({
                                      {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_CREATE_PRIVATE_CHAT)},

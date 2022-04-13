@@ -9,6 +9,7 @@ Rectangle{
 
     function createChat()
     {
+        createChatType = "just_chat"
         loader.sourceComponent = contactsList
         navDrawer.closeNavDrawer()
         console.log("createChat")
@@ -16,6 +17,7 @@ Rectangle{
 
     function createGroup()
     {
+        createChatType = "group_chat"
         loader.sourceComponent = contactsList
         navDrawer.closeNavDrawer()
         console.log("createGroup")
@@ -23,6 +25,7 @@ Rectangle{
 
     function createPrivateChat()
     {
+        createChatType = "private_chat"
         loader.sourceComponent = contactsList
         navDrawer.closeNavDrawer()
         console.log("createPrivateGroup")
@@ -30,6 +33,7 @@ Rectangle{
 
     function listContacts()
     {
+        createChatType = "non_chat"
         loader.sourceComponent = contactsList
         navDrawer.closeNavDrawer()
         console.log("listContacts")

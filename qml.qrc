@@ -75,5 +75,7 @@
         <file>SupportingWidget.qml</file>
         <file>AuthorsWidget.qml</file>
         <file>picture/cyber_mandarin.png</file>
+        <file>RequestPrivatChat.qml</file>
+        <file>PrivateUserChat.qml</file>
     </qresource>
 </RCC>
