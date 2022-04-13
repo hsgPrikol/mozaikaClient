@@ -25,6 +25,7 @@ SOURCES += \
         Client/super_server/userdialog.cpp \
         clientdata.cpp \
         contactslist.cpp \
+        dateleft.cpp \
         main.cpp \
         massagetest.cpp \
         settingsdata.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     Client/super_server/userdialog.h \
     clientdata.h \
     contactslist.h \
+    dateleft.h \
     massagetest.h \
     settingsdata.h \
     test.h

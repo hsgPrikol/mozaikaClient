@@ -32,7 +32,22 @@ Window {
     }
 
 
+    Component{
+        id: supportingComp
 
+        SupportingWidget{
+            id: supporting
+
+        }
+    }
+
+    Component{
+        id: authorsWidget
+
+        AuthorsWidget{
+            id: authors
+        }
+    }
 
     function sendMessage()
     {
@@ -176,16 +191,16 @@ Window {
                 }
             }
 
-//            MouseArea{
-//                x: 0
-//                y: 0
-//                width:  parent.width / 2
-//                height: parent.height
+            //            MouseArea{
+            //                x: 0
+            //                y: 0
+            //                width:  parent.width / 2
+            //                height: parent.height
 
-//                onClicked: {
-//                    textField.selectAll()
-//                }
-//            }
+            //                onClicked: {
+            //                    textField.selectAll()
+            //                }
+            //            }
         }
 
         Rectangle {
@@ -247,16 +262,16 @@ Window {
 
             }
 
-//            MouseArea{
-//                x: 0
-//                y: 0
-//                width:  parent.width / 2
-//                height: parent.height
+            //            MouseArea{
+            //                x: 0
+            //                y: 0
+            //                width:  parent.width / 2
+            //                height: parent.height
 
-//                onClicked: {
-//                    password.selectAll()
-//                }
-//            }
+            //                onClicked: {
+            //                    password.selectAll()
+            //                }
+            //            }
         }
 
         Rectangle {
@@ -301,9 +316,9 @@ Window {
 
 
 
-
-
-                    root.sendMessage()
+                        loader.sourceComponent = authorsWidget
+//                    supporting.show()
+                    //                    root.sendMessage()
 
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //Dialogs.qml
@@ -383,12 +398,12 @@ Window {
     Component{
         id: userChat
 
-//        property var tmpDialogId: -1
+        //        property var tmpDialogId: -1
 
 
 
         UserChat{
-//            id: userChatObject
+            //            id: userChatObject
         }
     }
 
@@ -427,7 +442,7 @@ Window {
                 "Image files (*.png *.jpeg *.jpg)",
             ]
             onAccepted: {
-//                image2.source = fileOpenDialog.fileUrl
+                //                image2.source = fileOpenDialog.fileUrl
             }
         }
     }

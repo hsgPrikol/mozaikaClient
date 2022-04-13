@@ -60,20 +60,19 @@
         <file>resourses/resourses v4/private chat.tif</file>
         <file>resourses/resourses v4/ri_tochki.tif</file>
         <file>resourses/create chat_2.tif</file>
-
         <file>MediaWidget.qml</file>
         <file>MediaTextMessage.qml</file>
         <file>DialogPrivateChat.qml</file>
         <file>ProfileMember.qml</file>
         <file>ErrorDialog.qml</file>
         <file>ConfidenceWidget.qml</file>
-
-
         <file>resourses/kontacti/warning.tif</file>
         <file>resourses/chat/DontReadedMessage.png</file>
         <file>resourses/chat/OneGalochka.png</file>
         <file>resourses/chat/SendedMessage.tif</file>
         <file>resourses/chat/двеГалочки.png</file>
-
+        <file>SupportingWidget.qml</file>
+        <file>AuthorsWidget.qml</file>
+        <file>picture/cyber_mandarin.png</file>
     </qresource>
 </RCC>
