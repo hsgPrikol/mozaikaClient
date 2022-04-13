@@ -170,6 +170,43 @@ Rectangle {
                 Column{
                     id: columnContact
                     anchors.fill: parent
+<<<<<<< HEAD
+//                    width: parent.width
+//                    height: parent.height
+
+                    Repeater{
+                        id: repSymbol
+                        anchors.fill: parent
+
+                        model: contactsss.getMapSize()
+
+                        Component.onCompleted: {
+                            console.log("contactsss.getMapSize()", contactsss.getMapSize())
+                        }
+
+                        ContactsChar {
+                            dfltHeight: contactsss.getVectorSize(index) * sizeHeightRectName
+                            indexRepeaterChar: index
+                            textRepeaterChar: contactsss.getSymbol(index)
+//                            textRepeaterContactsName: contactsss.getName(index)
+
+//                            MouseArea{
+//                                anchors.fill: parent
+
+//                                hoverEnabled: true
+
+////                                onClicked: {
+////                                    confidence.show()
+////                                }
+//                            }
+
+
+                            Component.onCompleted: {
+                                console.log("ContactsChar{}textRepeaterContactsName", textRepeaterContactsName)
+                            }
+                        }
+                    }
+=======
                     width: parent.width
                     height: parent.height
                     spacing: 10
@@ -194,6 +231,7 @@ Rectangle {
 //                            }
 //                        }
 //                    }
+>>>>>>> refs/remotes/Mozaika/back
                 }
             }
         }

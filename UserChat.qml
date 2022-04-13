@@ -64,14 +64,18 @@ Rectangle {
         }
 
         for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
-        {
+        {            
+            var str="file:///" +currentDir+"/" +clientData.getAvatarPathContact(currentDialogOpen,i);
+            console.log(str)
             var tmp=newMassege.createObject(columnChat,
                                             {
                                                 sizeMessage: clientData.getLength(clientData.getTextMessage(currentDialogOpen,i)),
                                                 messageText: clientData.getTextMessage(currentDialogOpen,i),
                                                 flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen,i),
                                                 messageTime: clientData.getDateMessage(currentDialogOpen,i),
-                                                messageStatus: 3
+                                                messageStatus: 3,
+                                                avatarClient: str,
+                                                isGroupDialog: clientData.getDialogIsGroup(currentDialogOpen)
 
                                             });
         }

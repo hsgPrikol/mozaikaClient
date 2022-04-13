@@ -35,24 +35,15 @@ Rectangle {
     }
 
     function redrawDialogs(){
-
-//        if (loader.sourceComponent != listDialog)
-//        {
-//            return
-//        }
-
-        for(var i = 1; i < columnDialogs.data.length;i++)
+        for(var i = 0; i < columnDialogs.data.length;i++)
         {
             columnDialogs.data[i].destroy()
         }
 
         let countD = clientData.getCountDialogs();
 
+        var tmp;
 
-
-
-//        tmpNewDialog = Qt.createComponent("Dialogs.qml");
-        var tmp
         for(var i=0;i<countD;i++){
             tmp = tmpNewDialog.createObject(columnDialogs,
                                             {

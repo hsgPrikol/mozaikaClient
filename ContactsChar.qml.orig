@@ -75,8 +75,15 @@ Rectangle {
 
     Column {
         id: columnContactList
-        y:30
-    }
+<<<<<<< HEAD
+
+        Repeater{
+            id: repeaterPage
+            model: contactsss.getVectorSize(indexRepeaterChar)
+
+            Component.onCompleted: {
+                //console.log("contactsss.getVectorSize(indexRepeaterChar)", contactsss.getVectorSize(indexRepeaterChar))
+            }
 
             Rectangle {
                 id: contactPageMain
@@ -209,6 +216,9 @@ Rectangle {
             //                }
             //            }
         }
+=======
+        y:30
+>>>>>>> refs/remotes/Mozaika/back
     }
 
     Rectangle {
@@ -226,6 +236,7 @@ Rectangle {
 
 
 
+<<<<<<< HEAD
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -286,13 +297,76 @@ Rectangle {
     //    }
 
 
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=======
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//    Rectangle {
+//        id: contactPageMain
+//        x: 50
+//        y: 8
+//        width: 448
+//        height: 84
+//        color: noColor
+
+//        Rectangle {
+//            id: contactPageAvatar
+//            x: 0
+//            y: 0
+//            width: 84
+//            height: parent.height
+//            color: noColor
+
+//            Rectangle {
+//                id: contactPageAvatarMask
+//                x: 10
+//                y: 10
+//                width: 64
+//                height: 65
+//                color: noColor
+
+
+//                Image {
+//                    id: image1
+//                    anchors.fill: parent
+//                    fillMode: Image.PreserveAspectCrop
+//                    source: "qrc:/resourses/avatar/cop.tif"
+//                    layer.enabled: true
+//                    layer.effect: OpacityMask {
+//                        maskSource: parent
+//                    }
+//                }
+//            }
+
+//            Rectangle {
+//                x: 80
+//                y: 0
+//                width: 367
+//                height: 84
+//                color: noColor
+
+//                Text {
+//                    id: textName
+//                    anchors.fill: parent
+//                    text: contactsss.getName(textRepeaterChar,index)
+//                    font.pixelSize: 30
+//                    verticalAlignment: Text.AlignVCenter
+//                    leftPadding: 10
+//                }
+//            }
+//        }
+//    }
+
+
 Component.onCompleted: {
     tmpContactName= Qt.createComponent("ContactPageMain.qml");
     console.log("huyyy")
     loadContactsInChar();
 }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>>>>> refs/remotes/Mozaika/back
 }
 
 /*##^##

@@ -2,7 +2,91 @@
 
 ClientData::ClientData(QObject *parent) : QObject(parent)
 {
+}
 
+void ClientData::addContact(User *user)
+{
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==user->getLogin())
+                return;
+        }
+    }
+
+    contacts[user->getName()[0].toUpper()].append(UserData(user->getLogin(),user->getName(),user->getBirthDate(), user->getAvatarFile()));
+//    contacts.append(UserData(user->getLogin(),user->getName(),user->getBirthDate(), user->getAvatarFile()));
+}
+
+QString ClientData::getNameContact(QString login)
+{
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==login)
+                return contacts[contacts.keys()[j]][i].name;
+        }
+    }
+    return "No contacts";
+}
+
+QString ClientData::getAvatarPathContact(QString login)
+{
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==login)
+                return contacts[contacts.keys()[j]][i].avatarFile;
+        }
+    }
+    return "";
+}
+
+QString ClientData::getAvatarPathContact(int d_index, int m_index)
+{
+    return getAvatarPathContact(dialogs[d_index].messages[m_index].getSender_login());
+}
+
+QString ClientData::getBirthDateContact(QString login)
+{
+    for(int j=0;j<contacts.keys().count();j++){
+        for(int i=0;i< contacts.keys()[j].length();i++){
+            if(contacts[contacts.keys()[j]][i].login==login)
+                return contacts[contacts.keys()[j]][i].birthdate;
+        }
+    }
+    return "No contacts";
+}
+
+int ClientData::getCountMapContacts()
+{
+    return contacts.keys().count();
+}
+
+int ClientData::getCountContacts()
+{
+    int count=0;
+    foreach(auto c, contacts.keys())
+        count+=contacts[c].count();
+
+    return count;
+}
+
+int ClientData::getCountContactsInMap(QString c)
+{
+    return contacts[c.toUpper()].count();
+}
+
+QString ClientData::getCharMapContacts(int index)
+{
+    return contacts.keys()[index];
+}
+
+QString ClientData::getNameContact(QString c, int index)
+{
+    return contacts[c.toUpper()][index].name;
+}
+
+QString ClientData::getPathAvatarContact(QString c, int index)
+{
+    return contacts[c.toUpper()][index].avatarFile;
 }
 
 QVector<UserDialog> ClientData::getDialogs()
@@ -84,7 +168,15 @@ QString ClientData::getTextLastMessage(int index)
 {
     if(dialogs.count()<=index) return "";
     Message msg=dialogs[index].getLastMessage();
-    return msg.getMessage_data();
+    QString text;
+    bool isGroup = dialogs[index].getIsGroup();
+    if(msg.getSender_login() == user->getLogin())
+        text = "Вы: " + msg.getMessage_data();
+    else if (isGroup)
+        text = getNameContact(msg.getSender_login()) + ": " + msg.getMessage_data();
+    else
+        text = msg.getMessage_data();
+    return text;
 }
 
 QString ClientData::getDateLastMessage(int index)
@@ -155,7 +247,6 @@ QString ClientData::getLastActiveDateTime(QDateTime date)
 int ClientData::getCountMessages(int index)
 {
     if(dialogs.count()<=index) return false;
-
     return dialogs[index].getMessages().count();
 }
 
@@ -163,7 +254,14 @@ QString ClientData::getTextMessage(int d_index, int m_index)
 {
     if(dialogs.count()<=d_index) return "WARNING: not mesage";
 
-    return dialogs[d_index].getMessages()[m_index].getMessage_data();
+    Message msg=dialogs[d_index].getMessages()[m_index];
+    QString text;
+    bool isGroup = dialogs[d_index].getIsGroup();
+    if (isGroup && msg.getSender_login()!=user->getLogin())
+        text = getNameContact(msg.getSender_login()) + ": " + msg.getMessage_data();
+    else
+        text = msg.getMessage_data();
+    return text;
 }
 
 QString ClientData::getDateMessage(int d_index, int m_index)

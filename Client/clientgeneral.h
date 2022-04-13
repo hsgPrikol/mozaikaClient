@@ -90,6 +90,7 @@ public slots:
     QString generateTmpIdMsg();
     void addMessage(QString idDialog, QString tmpIdMessage, QString message = "", QVector<QString> paths = {});
 
+
 signals:
     void onAutorization(QString, QString, QString, bool);
 

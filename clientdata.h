@@ -5,6 +5,8 @@
 #include <Client/super_server/userdialog.h>
 #include <algorithm>
 #include "Client/protocoltrade.h"
+#include "userdata.h"
+
 
 class ClientData : public QObject
 {
@@ -22,9 +24,22 @@ public:
 //    void setMyLogin(const QString &value);
 //>>>>>>> origin/back
 
+    QMap<QString, QVector<UserData>> contacts;
+
+
 public slots:
 
-
+    void addContact(User* user);
+    QString getNameContact(QString login);
+    QString getAvatarPathContact(QString login);
+    QString getAvatarPathContact(int d_index, int m_index);
+    QString getBirthDateContact(QString login);
+    int getCountMapContacts();
+    int getCountContacts();
+    int getCountContactsInMap(QString c);
+    QString getCharMapContacts(int index);
+    QString getNameContact(QString c, int index);
+    QString getPathAvatarContact(QString c, int index);
 
     QVector<UserDialog> getDialogs();
     void setDialogs( QVector<UserDialog> value);
@@ -64,7 +79,7 @@ public slots:
     int getStatusMessage(int d_index, int m_index);
     bool getIsSenderMessage(int d_index, int m_index);
 
-    int getLength(QString text){return text.length();}
+    int getLength(QString text){return text.size();}
 
     int setAllReadMessageInDialog(int indexDialog);
 

@@ -163,10 +163,10 @@ Rectangle {
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectCrop
                     source: avatarClients
-                    anchors.rightMargin: 8
-                    anchors.bottomMargin: 7
-                    anchors.leftMargin: 8
-                    anchors.topMargin: 8
+//                    anchors.rightMargin: 8
+//                    anchors.bottomMargin: 7
+//                    anchors.leftMargin: 8
+//                    anchors.topMargin: 8
 
                     layer.enabled: true
                     layer.effect: OpacityMask {

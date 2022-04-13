@@ -402,11 +402,14 @@ void ClientGeneral::answerMyDialogs(QJsonObject *qObj)
         UserDialog dialog(id, isGroup, dialog_name,ProtocolTrade::StringToByteArray(dialog_avatar), avatarPath);
         foreach(QJsonValue m, members){
             QString login = m[ProtocolTrade::___LOGIN].toString();
-            QByteArray user_avatar = ProtocolTrade::StringToByteArray(m[ProtocolTrade::___AVATAR].toString());
+            QString user_avatar = m[ProtocolTrade::___AVATAR].toString();
             QString user_name = m[ProtocolTrade::___USER_NAME].toString();
             QString birthdate = m[ProtocolTrade::___BIRTH_DATE].toString();
-            User user(-1, login, user_name, user_avatar, birthdate);
+            User user(-1, login, user_name, ProtocolTrade::StringToByteArray(user_avatar), birthdate);
+            QString pathAvatarUser= ProtocolTrade::SaveBinaryFile(user_avatar, "avatarMemberUser_" + login,".png","","");
+            user.setAvatarFile(pathAvatarUser);
             dialog.addMember(&user);
+            clientData->addContact(&user);
         }
 
         QJsonValue jlastMsg= c[ProtocolTrade::___ARR_MESSAGES];
@@ -487,7 +490,6 @@ void ClientGeneral::addMessage(QString idDialog, QString tmpIdMessage, QString m
     clientData->AddMessage(idDialog, tmpIdMessage, clientData->user->getLogin(),QDateTime::currentDateTime(),ProtocolTrade::___STS_TAKEN, message, paths);
     clientData->sortDialogs();
 }
-
 
 void ClientGeneral::createPrivateChat(QString receiver_login)
 {
