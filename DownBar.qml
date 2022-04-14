@@ -43,10 +43,11 @@ Rectangle {
         console.log("Сообщение отправлено в диалог >>>", currentDialogOpen)
 
         var tmpIdMsg = client.generateTmpIdMsg();
-        var dialogID = clientData.getIdDialog(currentDialogOpen)
+//        var dialogID = clientData.getIdDialog(currentDialogOpen)
 
-        client.sendMessage(dialogID, tmpIdMsg, textMessage);
-        client.addMessage(dialogID, tmpIdMsg, textMessage)
+
+        client.sendMessage(currentDialogOpen, tmpIdMsg, textMessage);
+        client.addMessage(currentDialogOpen, tmpIdMsg, textMessage)
 
         chatDialog.scrollToBottom();
 

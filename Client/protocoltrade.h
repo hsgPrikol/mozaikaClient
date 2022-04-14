@@ -34,6 +34,9 @@ public:
     const static QString ___CMD_UPDATE_STATUS_MESSAGE;
     const static QString ___CMD_GET_USERS_FROM_DIALOG;
     const static QString ___CMD_SEND_PRIVATE_MESSAGE;
+    const static QString ___CMD_UPDATE_STATUS_USER;
+    const static QString ___CMD_READ_ALL_MESSAGE_BY_CHAT;
+    const static QString ___CMD_UDATE_CHAT;
     //~~~~~commands end~~~~~~~
 
     const static QString ___LOGIN;

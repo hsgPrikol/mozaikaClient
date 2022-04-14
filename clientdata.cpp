@@ -163,6 +163,17 @@ int ClientData::getCountMembers(int index)
     return dialogs[index].getMemberLogins().count();
 }
 
+int ClientData::getIndexDialog(int id)
+{
+    for(int i = 0; i < dialogs.size(); i++)
+    {
+        if(dialogs[i].getID() == id)
+        {
+            return i;
+        }
+    }
+}
+
 
 QString ClientData::getTextLastMessage(int index)
 {

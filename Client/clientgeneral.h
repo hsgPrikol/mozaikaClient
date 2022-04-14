@@ -36,6 +36,9 @@ public slots:
 
     //HandlerController
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    /// Обработчик обновления статуса контакта
+    void handlerUpdateStatusUser(QJsonObject* object);
+
     ///Обработчик ответа от сервера на авторизацию
     void handlerCmdAuthorization(QJsonObject* object);
 
@@ -44,6 +47,9 @@ public slots:
 
     ///Обработчик ответа после отправки сообщения
     void handlerCmdSendMessageAnswerServer(QJsonObject* object);
+
+    ///Обработчик получения запроса на обновление данных в чате
+    void handlerCmdUpdateChat(QJsonObject* object);
 
     void processingEventFromServer(QJsonObject* object);
 
@@ -59,6 +65,7 @@ public slots:
     void sendMessage(QString idChat, QString tmpIdMsg, QString textMsg = "", QVector<QString> paths = {});
     void authorization(QString login, QString password, ClientData* clientData);
     void sendPrivateMessage(QString tmpIdMsg, QString textMsg = "", QVector<QString> paths = {});
+    void sendReadAllMessageByChat(QString idChat);
     /// Запрос клиента на получение сообщений из конкретного диалога
     void getMessagesInDialog(QString idChat);
 

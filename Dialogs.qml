@@ -227,9 +227,13 @@ Rectangle {
 
 
             //            userChatObject.currentDialog = index
-
+            currentDialogOpen = clientData.getIdDialog(indexInListDialogs)
+            client.sendReadAllMessageByChat(currentDialogOpen)
             client.getMessagesInDialog(clientData.getIdDialog(indexInListDialogs))
-            currentDialogOpen = indexInListDialogs;
+
+
+
+
             loader.sourceComponent  = userChat;
             console.log("Открыть диалог с данным юзером" + indexInListDialogs)
         }
