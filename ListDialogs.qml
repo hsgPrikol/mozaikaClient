@@ -34,7 +34,8 @@ Rectangle {
 
     }
 
-    function redrawDialogs(){
+    function redrawDialogs()
+    {
         for(var i = 1; i < columnDialogs.data.length;i++)
         {
             columnDialogs.data[i].destroy()
@@ -251,51 +252,51 @@ Rectangle {
             }
         }
 
-//        Rectangle {
-//            id: addNewDialogMask
-//            x: 434
-//            y: 828
-//            width: 72
-//            height: 72
+        //        Rectangle {
+        //            id: addNewDialogMask
+        //            x: 434
+        //            y: 828
+        //            width: 72
+        //            height: 72
 
-//            anchors.right: root.right
-//            anchors.rightMargin: 15
+        //            anchors.right: root.right
+        //            anchors.rightMargin: 15
 
-//            anchors.bottom: root.bottom
-//            anchors.bottomMargin: 15
+        //            anchors.bottom: root.bottom
+        //            anchors.bottomMargin: 15
 
-//            radius: addNewDialogMask.width / 7
+        //            radius: addNewDialogMask.width / 7
 
-//            opacity: customOpacity
+        //            opacity: customOpacity
 
-//            color: addNewDialogMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
+        //            color: addNewDialogMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
 
-//            Image {
-//                id: addNewDialog
-//                x: 11
-//                y: 11
-//                width: 50
-//                height: 50
-//                source: "qrc:/resourses/create chat_2.tif"
-//                fillMode: Image.PreserveAspectFit
-//            }
+        //            Image {
+        //                id: addNewDialog
+        //                x: 11
+        //                y: 11
+        //                width: 50
+        //                height: 50
+        //                source: "qrc:/resourses/create chat_2.tif"
+        //                fillMode: Image.PreserveAspectFit
+        //            }
 
-//            MouseArea{
-//                id: addNewDialogMouse
-//                anchors.fill: parent
+        //            MouseArea{
+        //                id: addNewDialogMouse
+        //                anchors.fill: parent
 
-//                onClicked: {
-//                    //                    loader.sourceComponent = contactsList
-
-
-//                    var str = "123213"
-//                    testMap.createNewDialog(str)
+        //                onClicked: {
+        //                    //                    loader.sourceComponent = contactsList
 
 
-//                    console.log("loader.source = contactsList")
-//                }
-//            }
-//        }
+        //                    var str = "123213"
+        //                    testMap.createNewDialog(str)
+
+
+        //                    console.log("loader.source = contactsList")
+        //                }
+        //            }
+        //        }
     }
 
     Component.onCompleted: {
