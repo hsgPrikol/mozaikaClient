@@ -7,7 +7,12 @@ import QtGraphicalEffects 1.0
 Rectangle {
     id: mediaTextMessage
 
+    property var name
 
+    property var vectorImage
+    property var vectorMusic
+    property var vectorVideo
+    property var vectorObject
 
 
 
@@ -26,7 +31,7 @@ Rectangle {
 
     //    property int heightmulimedua: 230
 
-    property bool flagWhenMessage: true
+    property bool flagWhenMessage1: true
     property string messageText: "Ay"
 
     property string attachmentFileName: "filename.wmv"
@@ -61,27 +66,27 @@ Rectangle {
     anchors.rightMargin: 7
 
     anchors.right: {
-        if (flagWhenMessage)
+        if (flagWhenMessage1)
         {
             parent.right
         }
     }
 
     anchors.left: {
-        if (!flagWhenMessage)
+        if (!flagWhenMessage1)
         {
             parent.left
         }
     }
 
     width: dfltWidth
-    height: dfltHeightMul + 24 + textMessage.height + 80
+    height: dfltHeightMul  + textMessage.height + 24
 
     color: "transparent"/*flagWhenMessage ? selfColor : enemyColor*/
     radius: 15
 
-//    border.color: isOneMessge ? "black" : "transparent"
-//    border.width: 1
+//        border.color:  "black"
+//        border.width: 1
 
     Column {
         id: columnMaskMedia
@@ -89,6 +94,7 @@ Rectangle {
         //            y: 35
 
         spacing: 10
+//        visible: messageText !=""
         Rectangle {
             id: maskTextMessage
             width: dfltWidth
@@ -104,13 +110,13 @@ Rectangle {
                     calcHeightText = calcHeight + 14
                 }
             }
-            color: selfColor
+            color: /*selfColor*/flagWhenMessage1 ? selfColor : enemyColor
             radius: 10
 
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    isOneMessge = !isOneMessge
+//                    isOneMessge = !isOneMessge
                 }
             }
 
@@ -135,7 +141,7 @@ Rectangle {
                 font.pixelSize: 12
                 verticalAlignment: Text.AlignVCenter
                 //                leftPadding: 10
-                color: flagWhenMessage ? selfColorText : enemyColorText
+                color: flagWhenMessage1 ? selfColorText : enemyColorText
 
                 wrapMode: Text.Wrap
             }
@@ -148,16 +154,28 @@ Rectangle {
             model: countImg
 
             PictureWidget{
-
+                sourcePicture: "file:///" +currentDir+"/" +vectorImage[index]
+                fontMsgColor: !flagWhenMessage1 ? selfColor : enemyColor
+                Component.onCompleted: {
+                    console.log("PictureWidget", sourcePicture)
+                    console.log("flagWhenMessage1", flagWhenMessage1)
+                    console.log("fontMsgColor", fontMsgColor)
+                }
             }
+
         }
 
         Repeater{
             id: repAudio
             model: countAud
-
             AudioWidget{
+                filePath: "file:///" +currentDir+"/" +vectorMusic[index]
+                fontMsgColor: !flagWhenMessage1 ? selfColor : enemyColor
 
+                Component.onCompleted: {
+                    console.log("flagWhenMessage", flagWhenMessage1)
+                    console.log("fontMsgColor", fontMsgColor)
+                }
             }
         }
 
@@ -166,16 +184,25 @@ Rectangle {
             model: countText
 
             TextWidget{
-                sourceText: "ну и хуня.txt"
+                sourceText: /*"file:///" +currentDir+"/" +*/clientData.getFileNameWithoutPath(vectorObject[index])
+                fontMsgColor: !flagWhenMessage1 ? selfColor : enemyColor
+                Component.onCompleted: {
+                    console.log("flagWhenMessage", flagWhenMessage1)
+                    console.log("fontMsgColor", fontMsgColor)
+                }
             }
         }
 
         Repeater{
             id: repVideo
             model: countVid
-
             MediaWidget{
-
+                fileNameText: "file:///" +currentDir+"/" +vectorVideo[index]
+                fontMsgColor: flagWhenMessage1 ? selfColor : enemyColor
+                Component.onCompleted: {
+                    console.log("flagWhenMessage", flagWhenMessage1)
+                    console.log("fontMsgColor", fontMsgColor)
+                }
             }
         }
         Rectangle {

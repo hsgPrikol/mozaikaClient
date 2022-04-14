@@ -16,8 +16,9 @@ Rectangle {
     property color noColor: "#00000000"
     property real customOpacity: 0.7
     property int fontSize: 12
+    property var filesSelected:[]
 
-//    property var currentDialogDownBar: -1
+    //    property var currentDialogDownBar: -1
 
     function sendMesage()
     {
@@ -25,29 +26,32 @@ Rectangle {
 
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", textMessage)
 
-//        testMap.createNewMessage(writeMessage.text, true);
+        //        testMap.createNewMessage(writeMessage.text, true);
 
-        var tmpMessage = newMassege.createObject(columnChat,
-                                                 {
-                                                     sizeMessage:  clientData.getLength(textMessage),
-                                                     messageText: textMessage,
-                                                     flagWhenMessage: true,
-                                                     messageTime: "15:13",
-                                                     messageStatus: 2
-                                                 });
+        //        var tmpMessage = newMassege.createObject(columnChat,
+        //                                                 {
+        //                                                     sizeMessage:  clientData.getLength(textMessage),
+        //                                                     messageText: textMessage,
+        //                                                     flagWhenMessage: true,
+        //                                                     messageTime: "15:13",
+        //                                                     messageStatus: 2,
+        //                                                     file: filesSelected
+        //                                                 });
 
-        contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
+        //        contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
         writeMessage.clear();
-//                    testMap.createNewMessage("My answer", false);
-//                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
+        //                    testMap.createNewMessage("My answer", false);
+        //                    contactsss.setCountIndexMessage(contactsss.getCountIndexMessage());
         console.log("Сообщение отправлено в диалог >>>", currentDialogOpen)
 
         var tmpIdMsg = client.generateTmpIdMsg();
-//        var dialogID = clientData.getIdDialog(currentDialogOpen)
+        //        var dialogID = clientData.getIdDialog(currentDialogOpen)
 
+        if(textMessage=="")
+            textMessage="файлы"
 
-        client.sendMessage(currentDialogOpen, tmpIdMsg, textMessage);
-        client.addMessage(currentDialogOpen, tmpIdMsg, textMessage)
+        client.addMessage(currentDialogOpen, tmpIdMsg, textMessage, filesSelected);
+        client.sendMessage(currentDialogOpen, tmpIdMsg, textMessage, filesSelected);
 
         chatDialog.scrollToBottom();
 
@@ -55,16 +59,30 @@ Rectangle {
 
 
     FileDialog {
-            id: fileOpenDialog
-            title: "Select an image file"
-            folder: shortcuts.documents
-            nameFilters: [
-                "Image files (*.png *.jpeg *.jpg)",
-            ]
-            onAccepted: {
-                image.source = fileOpenDialog.fileUrl
+        id: fileOpenDialog
+        //            fileMode
+        title: "Select an image file"
+        folder: shortcuts.documents
+        selectMultiple: true
+        //            nameFilters: [
+        //                "Image files (*.png *.jpeg *.jpg)",
+        //            ]
+        onAccepted: {
+            //                image.source = fileOpenDialog.fileUrl
+
+
+            //                var tmpList=[]
+            //                filesSelected = fileOpenDialog.fileUrls;
+
+            for(var i=0;i<fileOpenDialog.fileUrls.length;i++){
+                filesSelected.push(fileOpenDialog.fileUrls[i])
             }
+
+            sendMesage()
+
+            console.log(filesSelected)
         }
+    }
 
 
     width: dfltWidth
@@ -157,29 +175,6 @@ Rectangle {
         }
     }
 
-//    Massage{
-//        id: ert
-//        anchors.leftMargin: 7
-//        anchors.rightMargin: 7
-//        sizeMessage: 40
-//        messageText: "sadsdasdsadddddddd sssssssss ssssssss ssssss "
-//        flagWhenMessage: true//testBoolArray[index]
-//        anchors.right: {
-//            if (flagWhenMessage)
-//            {
-//                parent.right
-//            }
-//        }
-
-//        anchors.left: {
-//            if (!flagWhenMessage)
-//            {
-//                parent.left
-//            }
-//        }
-//        visible: false
-//    }
-
     Rectangle {
         id: sendFileOrMessage
         x: 449
@@ -205,9 +200,9 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-//                    downBar.sendMesage()
-                      testMap.emitMultiWidget()
-//                    testMap.getMediaMessage()
+                    downBar.sendMesage()
+                    //                      testMap.emitMultiWidget()
+                    //                    testMap.getMediaMessage()
                 }
             }
         }

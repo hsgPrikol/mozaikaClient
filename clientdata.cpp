@@ -285,6 +285,68 @@ QString ClientData::getTextMessage(int d_index, int m_index)
     return text;
 }
 
+bool ClientData::checkAttachInMsg(int d_index, int m_index)
+{
+    return dialogs[d_index].getMessages()[m_index].getFiles().count() != 0;
+}
+
+QVector<QString> ClientData::getImageInMsg(int d_index, int m_index)
+{
+    QVector<MyFile> files = dialogs[d_index].getMessages()[m_index].getFiles();
+
+    QVector<QString> path;
+    QVector<QString> ext={"png","jpg","svg"};
+    for(int i=0;i<files.count();i++)
+        if(ext.contains(files[i].getType()))
+            path.append(files[i].getPath());
+
+    return path;
+}
+
+QVector<QString> ClientData::getVideoInMsg(int d_index, int m_index)
+{
+    QVector<MyFile> files = dialogs[d_index].getMessages()[m_index].getFiles();
+
+    QVector<QString> path;
+    QVector<QString> ext={"wmv","mp4","mkv","mov", "avi"};
+    for(int i=0;i<files.count();i++)
+        if(ext.contains(files[i].getType()))
+            path.append(files[i].getPath());
+
+    return path;
+}
+
+QVector<QString> ClientData::getMusicInMsg(int d_index, int m_index)
+{
+    QVector<MyFile> files = dialogs[d_index].getMessages()[m_index].getFiles();
+
+    QVector<QString> path;
+    QVector<QString> ext={"mp3"};
+    for(int i=0;i<files.count();i++)
+        if(ext.contains(files[i].getType()))
+            path.append(files[i].getPath());
+
+    return path;
+}
+
+QVector<QString> ClientData::getAnyFilesInMsg(int d_index, int m_index)
+{
+    QVector<MyFile> files = dialogs[d_index].getMessages()[m_index].getFiles();
+
+    QVector<QString> path;
+    QVector<QString> ext={"png","jpg","svg","wmv","mp4","mkv","mov", "avi","mp3"};
+    for(int i=0;i<files.count();i++)
+        if(!ext.contains(files[i].getType()))
+            path.append(files[i].getPath());
+
+    return path;
+}
+
+QString ClientData::getFileNameWithoutPath(QString path)
+{
+    return path.split("/").last();
+}
+
 QString ClientData::getDateMessage(int d_index, int m_index)
 {
     if(dialogs.count()<=d_index) return "WARNING: not date";
@@ -303,7 +365,7 @@ bool ClientData::getIsSenderMessage(int d_index, int m_index)
 {
     if(dialogs.count()<=d_index) return false;
 
-    return dialogs[d_index].getMessages()[m_index].getSender_login()== user->getLogin();
+    return dialogs[d_index].getMessages()[m_index].getSender_login()== getCurrentLogin();
 }
 
 int ClientData::setAllReadMessageInDialog(int indexDialog)
@@ -359,7 +421,15 @@ void ClientData::AddMessage(QString idDialog, QString idMessage, QString loginSe
 
             for(int j = 0; j < paths.size(); j++)
             {
-                MyFile* tmpFile = new MyFile(tmp_id_message, paths[j], ProtocolTrade::GetNameFromPathFile(paths[j]), ProtocolTrade::GetTypeFromPathFile(paths[j]));
+                QString dd=paths[j].remove("file:///");
+                QFile ff(dd);
+                ff.open(QIODevice::ReadOnly);
+                QByteArray b=ff.readAll();
+
+                QString newPath=ProtocolTrade::SaveBinaryFile(ProtocolTrade::ByteArrayToString(b),"fileMess_"+idDialog+"_"+idMessage+ProtocolTrade::GetNameFromPathFile(dd),ProtocolTrade::GetTypeFromPathFile(dd),idMessage,QString(id_dialog));
+
+
+                MyFile* tmpFile = new MyFile(tmp_id_message, newPath, ProtocolTrade::GetNameFromPathFile(dd), ProtocolTrade::GetTypeFromPathFile(dd));
                 tmpMessage->addFile(*tmpFile);
             }
 
@@ -368,6 +438,8 @@ void ClientData::AddMessage(QString idDialog, QString idMessage, QString loginSe
             break;
         }
     }
+
+//    emit up
 
 }
 

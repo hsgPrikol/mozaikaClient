@@ -81,6 +81,13 @@ public slots:
 //=======
     int getCountMessages(int index);
     QString getTextMessage(int d_index, int m_index);
+    bool checkAttachInMsg(int d_index, int m_index);
+    QVector<QString> getImageInMsg(int d_index, int m_index);
+    QVector<QString> getVideoInMsg(int d_index, int m_index);
+    QVector<QString> getMusicInMsg(int d_index, int m_index);
+    QVector<QString> getAnyFilesInMsg(int d_index, int m_index);
+    QString getFileNameWithoutPath(QString path);
+
     int getSizeTextMessage(int d_index, int m_index){return getTextMessage(d_index,m_index).length();}
     QString getDateMessage(int d_index, int m_index);
     int getStatusMessage(int d_index, int m_index);

@@ -122,20 +122,21 @@ Rectangle {
 
         Rectangle {
             id: rectangle3
-            x: 379
+            x: 360
             y: 78
-            width: 67
+            width: 87
             height: 22
             color: rootDialog.noColor
 
             Text {
                 id: text3
-                anchors.fill: parent
+                x: -8
                 text: timeMessage
+                anchors.fill: parent
                 font.pixelSize: 12
-                horizontalAlignment: Text.AlignLeft
+                horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
-                anchors.leftMargin: -89
+                anchors.rightMargin: 20
             }
         }
         Rectangle{
@@ -248,6 +249,6 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:2}
+    D{i:0;formeditorZoom:2}D{i:8}
 }
 ##^##*/

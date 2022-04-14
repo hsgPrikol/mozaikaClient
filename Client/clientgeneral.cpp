@@ -154,6 +154,7 @@ void ClientGeneral::handlerCmdSendMessage(QJsonObject *object)
                             idMessage,
                             idChat));
         }
+//        qDebug() << idChat + "_"+idMessage+"_"+ paths[0];
     }
 
     clientData->AddMessage(idChat, idMessage,loginSender, date,status, messageText, paths);
@@ -282,16 +283,20 @@ void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMs
 
         for(int i = 0; i < paths.size(); i++)
         {
-            array = ProtocolTrade::LoadBinaryFile(paths[i]);
+            QString pp=paths[i];
+            QString dd=pp.remove("file:///");
+            array = ProtocolTrade::LoadBinaryFile(dd);
             tmpJsonObject.insert(ProtocolTrade::___BINARY_FILE, QJsonValue(ProtocolTrade::ByteArrayToString(array)));
-            tmpJsonObject.insert(ProtocolTrade::___NAME_FILE, QJsonValue(ProtocolTrade::GetNameFromPathFile(paths[i])));
-            tmpJsonObject.insert(ProtocolTrade::___TYPE_FILE, QJsonValue(ProtocolTrade::GetTypeFromPathFile(paths[i])));
+            tmpJsonObject.insert(ProtocolTrade::___NAME_FILE, QJsonValue(ProtocolTrade::GetNameFromPathFile(dd)));
+            tmpJsonObject.insert(ProtocolTrade::___TYPE_FILE, QJsonValue(ProtocolTrade::GetTypeFromPathFile(dd)));
 
             arrAttachment.push_back(tmpJsonObject);
         }
 
         jObj->insert(ProtocolTrade::___ARR_ATTACHMENT, arrAttachment);
     }
+
+    emit onUpdateChat(idChat.toInt());
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }
@@ -380,20 +385,46 @@ void ClientGeneral::getAnswerMessagesInDialog(QJsonObject *object)
         QString loginSender = ((objMsg)[ProtocolTrade::___LOGIN]).toString();
         QDateTime date= QDateTime::fromString(((objMsg)[ProtocolTrade::___BIRTH_DATE]).toString());
 
+
+
+        QJsonArray arrAttachment = ((objMsg)[ProtocolTrade::___ARR_ATTACHMENT]).toArray();
+//        foreach(QJsonValue objFiles, files)
+//        {
+//            QString nameFile = ((objFiles)[ProtocolTrade::___NAME_FILE]).toString();
+//            QString typeFile = ((objFiles)[ProtocolTrade::___TYPE_FILE]).toString();
+//            QByteArray bytes = ProtocolTrade::StringToByteArray(((objFiles)[ProtocolTrade::___BINARY_FILE]).toString());
+
+
+
+
+//            MyFile file(-1,"",nameFile, typeFile);
+//            file.SetByteArray(bytes);
+
+//            msg.addFile(file);
+//        }
         Message msg(idMessage,idChat.toInt(),loginSender,textMessage,date,statusMessage);
-
-        QJsonArray files = ((objMsg)[ProtocolTrade::___ARR_ATTACHMENT]).toArray();
-        foreach(QJsonValue objFiles, files)
+        QVector<QString> paths;
+        if(arrAttachment.size() > 0)
         {
-            QString nameFile = ((objFiles)[ProtocolTrade::___NAME_FILE]).toString();
-            QString typeFile = ((objFiles)[ProtocolTrade::___TYPE_FILE]).toString();
-            QByteArray bytes = ProtocolTrade::StringToByteArray(((objFiles)[ProtocolTrade::___BINARY_FILE]).toString());
+            QJsonObject jObj;
 
-            MyFile file(-1,"",nameFile, typeFile);
-            file.SetByteArray(bytes);
+            for(int i = 0; i < arrAttachment.size(); i++)
+            {
+                jObj = arrAttachment[i].toObject();
+                QString pathh=ProtocolTrade::SaveBinaryFile(
+                            jObj[ProtocolTrade::___BINARY_FILE].toString(),
+                        jObj[ProtocolTrade::___NAME_FILE].toString(),
+                        jObj[ProtocolTrade::___TYPE_FILE].toString(),
+                        QString::number(idMessage),
+                        idChat);
 
-            msg.addFile(file);
+
+                msg.addFile(MyFile(-1,pathh,jObj[ProtocolTrade::___NAME_FILE].toString(), jObj[ProtocolTrade::___TYPE_FILE].toString()));
+            }
+            //qDebug() << idChat + "_"+idMessage+"_"+ paths[0];
         }
+
+
 
         dialog.addMessage(msg);
     }

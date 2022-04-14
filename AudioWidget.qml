@@ -8,11 +8,15 @@ import QtMultimedia 5.12
 Rectangle {
     width: 300
     height: 50
-    color: "#068d9d"
+     property var fontMsgColor
+    color: fontMsgColor
     radius: 10
 
     //    border.width: 1
     //    border.color: "white"
+
+    property var filePath
+
 
     property bool flagMusic: false
 
@@ -28,7 +32,7 @@ Rectangle {
 
     Audio{
         id: playMusic
-        source: "file:///C:/Users/rota/Desktop/Minelli - Rampampam.mp3"
+        source: filePath
     }
 
     Timer{

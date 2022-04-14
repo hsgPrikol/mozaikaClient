@@ -46,33 +46,36 @@ Rectangle {
     property var universalMedia
 
 
-    function createEveryThingMessage(/*vectorImage, vectorMusic, sizeImag, sizeMusic*/)
+    function createEveryThingMessage(vectorImage, vectorMusic, vectorVideo, vectorObject, textMsg, isSender)
     {
+        console.log("createEveryThingMessage", vectorImage, vectorMusic, vectorVideo, vectorObject, textMsg, isSender, vectorImage.length)
         var heighttextWidget = 50
         var heightvideoWidget = 200
         var heightaudioWidget = 50
         var heightpictureWidget = 170
-
-        var countHeighttextWidget = 2
-        var countHeightvideoWidget = 2
-        var countHeightaudioWidget = 2
-        var countHeightpictureWidget = 2
-
-        var heightMessage = (heighttextWidget * countHeighttextWidget) + (heightvideoWidget * countHeightvideoWidget) + (heightaudioWidget * countHeightaudioWidget) + (heightpictureWidget * countHeightpictureWidget)
-
+        var he = heighttextWidget*vectorObject.length +
+                heightvideoWidget *vectorVideo.length+
+                heightaudioWidget*vectorMusic.length+
+                heightpictureWidget*vectorImage.length
+        console.log(he)
         var tmp = newMediaMessage.createObject(columnChat,
                                                {
-                                                   flagWhenMessage: true,
-                                                   countImg: 2,
-                                                   countAud: 2,
-                                                   countVid: 2,
-                                                   countText: 2,
-                                                   sizeMessage: 111,
-                                                   messageText: str,
-                                                   dfltHeightMul: heightMessage
+                                                   flagWhenMessage1: isSender,
+                                                   countImg: vectorImage.length,
+                                                   countAud: vectorMusic.length,
+                                                   countVid: vectorVideo.length,
+                                                   countText: vectorObject.length,
+                                                   sizeMessage: clientData.getLength(textMsg),
+                                                   messageText: textMsg,
+                                                   dfltHeightMul: he,
+                                                   vectorImage:   vectorImage,
+                                                   vectorMusic:   vectorMusic,
+                                                   vectorVideo:   vectorVideo,
+                                                   vectorObject:   vectorObject,
 
 
                                                });
+        console.log(he)
     }
 
 
@@ -108,21 +111,21 @@ Rectangle {
 
     function ebaka(){
         //        repeaterChat.model = 0
-//        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EBAKA")
-//        console.log(currentDialogOpen)
-//        console.log(clientData.getDialogIsGroup(currentDialogOpen))
-//        console.log(clientData.getCountMembers(currentDialogOpen))
-//        console.log(clientData.getDialogIsOnline(currentDialogOpen))
-//        console.log(currentDialogOpen)
-//        console.log(currentDialogOpen)
+        //        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EBAKA")
+        //        console.log(currentDialogOpen)
+        //        console.log(clientData.getDialogIsGroup(currentDialogOpen))
+        //        console.log(clientData.getCountMembers(currentDialogOpen))
+        //        console.log(clientData.getDialogIsOnline(currentDialogOpen))
+        //        console.log(currentDialogOpen)
+        //        console.log(currentDialogOpen)
 
 
         var indexDialog = clientData.getIndexDialog(currentDialogOpen);
         text1.text = clientData.getDialogIsGroup(indexDialog) ? clientData.getCountMembers(indexDialog) + " участника" : (clientData.getDialogIsOnline(indexDialog)? "в сети" : "не в сети")
-//        client.sendReadAllMessageByChat(clientData.getIdDialog(indexDialog))
+        //        client.sendReadAllMessageByChat(clientData.getIdDialog(indexDialog))
 
         // ОЧЕНЬ ВАЖНО МБ ПРИГОДИТЬСЯ
-//        clientData.setAllReadMessageInDialog(currentDialogOpen);
+        //        clientData.setAllReadMessageInDialog(currentDialogOpen);
 
         for(var i = 0; i < columnChat.data.length;i++)
         {
@@ -130,20 +133,32 @@ Rectangle {
         }
 
         for(var i=0;i < clientData.getCountMessages(indexDialog);i++)
-        {            
+        {
             var str="file:///" +currentDir+"/" +clientData.getAvatarPathContact(indexDialog,i);
             console.log(str)
-            var tmp=newMassege.createObject(columnChat,
-                                            {
-                                                sizeMessage: clientData.getLength(clientData.getTextMessage(indexDialog,i)),
-                                                messageText: clientData.getTextMessage(indexDialog,i),
-                                                flagWhenMessage: clientData.getIsSenderMessage(indexDialog,i),
-                                                messageTime: clientData.getDateMessage(indexDialog,i),
-                                                messageStatus: 3,
-                                                avatarClient: str,
-                                                isGroupDialog: clientData.getDialogIsGroup(indexDialog)
 
-                                            });
+            if(clientData.checkAttachInMsg(indexDialog,i)){
+                createEveryThingMessage(
+                            clientData.getImageInMsg(indexDialog,i),
+                            clientData.getMusicInMsg(indexDialog,i),
+                            clientData.getVideoInMsg(indexDialog,i),
+                            clientData.getAnyFilesInMsg(indexDialog,i),
+                            clientData.getTextMessage(indexDialog,i),
+                            clientData.getIsSenderMessage(indexDialog,i)
+                            );
+            }
+            else
+                var tmp=newMassege.createObject(columnChat,
+                                                {
+                                                    sizeMessage: clientData.getLength(clientData.getTextMessage(indexDialog,i)),
+                                                    messageText: clientData.getTextMessage(indexDialog,i),
+                                                    flagWhenMessage: clientData.getIsSenderMessage(indexDialog,i),
+                                                    messageTime: clientData.getDateMessage(indexDialog,i),
+                                                    messageStatus: 3,
+                                                    avatarClient: str,
+                                                    isGroupDialog: clientData.getDialogIsGroup(indexDialog)
+
+                                                });
         }
 
         scrollToBottom();

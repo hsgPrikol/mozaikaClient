@@ -9,11 +9,11 @@ Rectangle {
     id: textWidget
 
     property var sourceText
-
+    property var fontMsgColor
 
     FileDialog{
         id: fileDialog
-
+//        fileMode: FileDialog.sa
         onAccepted: {
             console.log("filedialog")
         }
@@ -22,7 +22,7 @@ Rectangle {
     width: 300
     height: 50
 
-    color: "#068d9d"
+    color: fontMsgColor
     //    opacity: 0.7
     radius: 10
     //    border.color: "white"

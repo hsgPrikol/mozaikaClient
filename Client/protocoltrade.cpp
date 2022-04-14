@@ -83,9 +83,11 @@ QString ProtocolTrade::SaveBinaryFile(QString binary, QString name, QString type
 {
     if(binary.length()==0) return "";
 
+    if(type=="")type="png";
+
     QDir dir = QDir::currentPath();
     QString path = "client_garbarge/";
-    QFile file("client_garbarge/" + name + "." + "png");
+    QFile file("client_garbarge/" + name + "." + type);
 
     file.open(QIODevice::WriteOnly);
 
@@ -159,6 +161,7 @@ QString ProtocolTrade::GetTypeFromPathFile(QString path)
 QString ProtocolTrade::GetNameFromPathFile(QString path)
 {
     int indexDot = path.lastIndexOf('.');
+    path.replace("/","\\");
     int indexStartName = path.lastIndexOf('\\') + 1;
 
     int lenType = indexDot - indexStartName;

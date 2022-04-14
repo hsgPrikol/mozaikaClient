@@ -7,17 +7,18 @@ import QtMultimedia 5.12
 
 Rectangle{
     id: messageMultimedia
+    property var fontMsgColor
 
     width: 300
     height: 200
-    color: "#068d9d"
+    color: fontMsgColor
 //    border.color: "white"
 //    border.width: 1
     radius: 10
 
 
 
-    property bool flagWhenMessage: false
+//    property bool flagWhenMessage: false
 
     property string fileNameText: "video.mp4"
 
@@ -26,12 +27,12 @@ Rectangle{
 
 
     anchors.right: {
-        if (flagWhenMessage)
+        if (flagWhenMessage1)
             parent.right
 
     }
     anchors.left: {
-        if (!flagWhenMessage)
+        if (!flagWhenMessage1)
             parent.left
     }
 
@@ -52,7 +53,7 @@ Rectangle{
             height: parent.height - 20
             anchors.horizontalCenter: parent.horizontalCenter
 
-            source: "file:///C:/Users/rota/Pictures/Camera Roll/WIN_20220124_10_16_51_Pro.mp4"
+            source: fileNameText
 
             MouseArea{
                 anchors.fill: parent

@@ -8,6 +8,7 @@ Rectangle {
     id: image
 
     property var sourcePicture: "qrc:/resourses/avatar/kloun.tif"
+    property color fontMsgColor
 
     width: 300
     height: 170
@@ -16,7 +17,7 @@ Rectangle {
 //    border.color: "white"
     radius: 10
 
-    color: "#068d9d"
+    color: fontMsgColor
 
     Image {
         anchors.fill: parent
