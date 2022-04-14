@@ -6,10 +6,28 @@ import QtQuick.Layouts 1.12
 Rectangle{
     id: root
 
+
+    Component{
+        id: supportingComp
+
+        SupportingWidget{
+            id: supporting
+
+        }
+    }
+
+    Component{
+        id: authorsWidget
+
+        AuthorsWidget{
+            id: authors
+        }
+    }
+
+
     function unLoginAccount()
     {
-
-
+        close()
         console.log("unLoginAccount")
     }
 
@@ -68,6 +86,7 @@ Rectangle{
         hoverEnabled: true
 
         onClicked: {
+            closeNavDrawer()
             functionHelpingArray[index]()
         }
     }

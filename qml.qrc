@@ -75,6 +75,8 @@
         <file>SupportingWidget.qml</file>
         <file>AuthorsWidget.qml</file>
         <file>picture/cyber_mandarin.png</file>
+        <file>RequestPrivatChat.qml</file>
+        <file>PrivateUserChat.qml</file>
         <file>UniversalMediafileWidget.qml</file>
         <file>AudioWidget.qml</file>
         <file>PictureWidget.qml</file>

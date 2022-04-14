@@ -21,7 +21,7 @@ Rectangle {
     property int countIndexVessage: 0
 
     width: dfltWidth
-    height: dfltHeight
+    height: 900
 
     Rectangle {
         id: hatAccountMask
@@ -98,7 +98,11 @@ Rectangle {
             }
 
             MouseArea {
+                id: mouseArea
                 anchors.fill: parent
+                onClicked: {
+                    loader.sourceComponent = contactsList
+                }
             }
         }
 
@@ -134,7 +138,9 @@ Rectangle {
             y: 0
             width: 506
             height: 220
-            source: lientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/lobkov.tif"
+            source: clientData.getPathAvatarContact(currentCharContactOpen, currentContactOpen) != ""
+                    ?"file:///" +currentDir+"/" + clientData.getPathAvatarContact(currentCharContactOpen, currentContactOpen)
+                    :"qrc:/resourses/avatar/lobkov.tif"
             fillMode: Image.PreserveAspectFit
 
             Rectangle {
@@ -177,7 +183,7 @@ Rectangle {
             width: 415
             height: 40
             color: "#ffffff"
-            text: currentUser.getName()
+            text: clientData.getNameContact(currentCharContactOpen, currentContactOpen)
             font.pixelSize: 16
             verticalAlignment: Text.AlignVCenter
             minimumPixelSize: 16
@@ -255,7 +261,7 @@ Rectangle {
                 Text {
                     id: loginAnswerText
                     color: "#ffffff"
-                    text: qsTr("5NR_Operator_27")
+                    text: clientData.getLoginContact(currentCharContactOpen, currentContactOpen)
                     anchors.fill: parent
                     font.pixelSize: 15
                     verticalAlignment: Text.AlignVCenter
@@ -271,7 +277,7 @@ Rectangle {
                 Text {
                     id: accountAnswerPhoneText
                     color: "#ffffff"
-                    text: qsTr("**********")
+                    text: qsTr("8-915-169-04-52")
                     anchors.fill: parent
                     font.pixelSize: 15
                     verticalAlignment: Text.AlignVCenter
@@ -287,7 +293,7 @@ Rectangle {
                 Text {
                     id: accountAnswerBirthDayText
                     color: "#ffffff"
-                    text: qsTr("Дата рождения")
+                    text: clientData.getBirthDateContact(currentCharContactOpen, currentContactOpen)
                     anchors.fill: parent
                     font.pixelSize: 15
                     verticalAlignment: Text.AlignVCenter

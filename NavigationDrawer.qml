@@ -39,6 +39,10 @@ Rectangle {
     property var pictureArray: ["qrc:/resourses/create chat_2.tif", "qrc:/resourses/shtorka/plusplus.tif", "qrc:/resourses/shtorka/zakochek.tif", "qrc:/resourses/shtorka/contakti.tif"]
 
 
+    MouseArea{
+        anchors.fill: parent
+    }
+
     NumberAnimation {
         id: openNavDrawer
         target: navigationDrawer
@@ -81,6 +85,7 @@ Rectangle {
                 color: noColor
                 //            radius: 30
 
+
                 Rectangle {
                     id: rectangle5
                     x: 8
@@ -117,7 +122,7 @@ Rectangle {
                 width: 60
                 height: 60
                 color: noColor
-
+                z: 10
                 Image {
                     x: 17
                     y: 18
@@ -155,6 +160,7 @@ Rectangle {
                     font.pixelSize: fontSize
                     verticalAlignment: Text.AlignVCenter
                 }
+
             }
 
             Rectangle {
@@ -174,6 +180,7 @@ Rectangle {
                     font.pixelSize: 12
                     verticalAlignment: Text.AlignVCenter
                 }
+
             }
         }
 
@@ -195,6 +202,7 @@ Rectangle {
             width: parent.width
             height: 4 * (columnMenu.spacing * repMenu.height)
             spacing: 5
+
 
             Repeater{
                 id: repMenu

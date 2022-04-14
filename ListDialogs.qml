@@ -64,7 +64,7 @@ Rectangle {
 
         console.log(tmp.dfltHeight)
 
-//        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
+        //        scrollView.contentHeight = countD * (columnDialogs.spacing + tmp.dfltHeight)
         //        columnDialogs.children = []
         //        scrollView.contentHeight=150;
         //        scrollView.height=150;
@@ -77,6 +77,7 @@ Rectangle {
     {
         loader.sourceComponent  = userChat
     }
+
 
 
     Rectangle{
@@ -136,6 +137,7 @@ Rectangle {
                 ScrollIndicator.vertical: ScrollIndicator { }
             }
         }
+
 
         Rectangle {
             id: rectangle
@@ -222,13 +224,13 @@ Rectangle {
             id: scrollView
             anchors.topMargin: 0
             anchors.bottomMargin: 0
-//            anchors.fill: parent
+            //            anchors.fill: parent
             anchors.top: rectangle.bottom
             anchors.right: rectangle.right
             anchors.left: rectangle.left
             anchors.bottom: parent.bottom
-//            background: Rectangle{color: "red"}
-//            contentHeight: 10000
+            //            background: Rectangle{color: "red"}
+            //            contentHeight: 10000
             contentWidth: parent.width
             clip: true
 
@@ -246,94 +248,59 @@ Rectangle {
                     height: 1
                     color: noColor
                 }
+            }
+        }
 
-//                Repeater {
-//                    id: repDialogs
-//                    anchors.fill: parent
-////                    model: clientData.getCountDialogs()
+//        Rectangle {
+//            id: addNewDialogMask
+//            x: 434
+//            y: 828
+//            width: 72
+//            height: 72
 
-//                    Dialogs {
-////                        id: dialogs
-////                        //                        anchors.horizontalCenter: parent.horizontalCenter
+//            anchors.right: root.right
+//            anchors.rightMargin: 15
 
-////                        MouseArea{
-////                            anchors.fill: parent
+//            anchors.bottom: root.bottom
+//            anchors.bottomMargin: 15
 
-////                            onClicked: {
-////                                currentDialogOpen = index
-////                                //                                client.getMessagesInDialog(clientData.getIdDialog(index))
-////                                //                                client.onGetMessages.connect(showDialog);
-////
+//            radius: addNewDialogMask.width / 7
 
-////                            }
-////                        }
+//            opacity: customOpacity
 
-////                        nameFamilia: clientData.getNameDialog(index)
-////                        //                        avatarClients: "file:///C:/Users/rota/Documents/build-SuperDesign-MinGW64-Debug/" + clientData.getPathAvatar(index)
-////                        avatarClients: clientData.getPathAvatar(index) != ""?"file:///" +currentDir+"/" + clientData.getPathAvatar(index):"qrc:/resourses/avatar/cop.tif"
+//            color: addNewDialogMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
 
-////                        lastMessageUser: clientData.getTextLastMessage(index)
-////                        timeMessage: clientData.getDateLastMessage(index)
-////                        isChecked: clientData.getIsCheckedLastMessage(index)
-////                        isGroup: clientData.getDialogIsGroup(index)
-////                        isOnline: clientData.getDialogIsOnline(index)
-////                        countUnChecked: clientData.getDialogCountUnChecked(index)
+//            Image {
+//                id: addNewDialog
+//                x: 11
+//                y: 11
+//                width: 50
+//                height: 50
+//                source: "qrc:/resourses/create chat_2.tif"
+//                fillMode: Image.PreserveAspectFit
+//            }
 
-//                   }
+//            MouseArea{
+//                id: addNewDialogMouse
+//                anchors.fill: parent
+
+//                onClicked: {
+//                    //                    loader.sourceComponent = contactsList
+
+
+//                    var str = "123213"
+//                    testMap.createNewDialog(str)
+
+
+//                    console.log("loader.source = contactsList")
 //                }
-            }
-        }
-
-        Rectangle {
-            id: addNewDialogMask
-            x: 434
-            y: 828
-            width: 72
-            height: 72
-
-            anchors.right: root.right
-            anchors.rightMargin: 15
-
-            anchors.bottom: root.bottom
-            anchors.bottomMargin: 15
-
-            radius: addNewDialogMask.width / 7
-
-            opacity: customOpacity
-
-            color: addNewDialogMouse.containsPress ? Qt.lighter(biruzoviu) : biruzoviu
-
-            Image {
-                id: addNewDialog
-                x: 11
-                y: 11
-                width: 50
-                height: 50
-                source: "qrc:/resourses/create chat_2.tif"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            MouseArea{
-                id: addNewDialogMouse
-                anchors.fill: parent
-
-                onClicked: {
-                    //                    loader.sourceComponent = contactsList
-
-
-                    var str = "123213"
-                    testMap.createNewDialog(str)
-
-
-                    console.log("loader.source = contactsList")
-                }
-            }
-        }
+//            }
+//        }
     }
 
     Component.onCompleted: {
         console.log(" Component.onCompleted list dialogs");
-        testMap.onCreateNewDialog.connect(addNewDialogs)
+        //testMap.onCreateNewDialog.connect(addNewDialogs)
         tmpNewDialog = Qt.createComponent("Dialogs.qml");
         client.onUpdateAllChats.connect(redrawDialogs);
         redrawDialogs();

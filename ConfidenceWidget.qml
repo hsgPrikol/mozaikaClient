@@ -4,17 +4,19 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
-Window {
+Rectangle {
     id: confidenceWidget
     width: 300
     height: 200
     color: "#00000000"
 
-    flags: Qt.FramelessWindowHint
+//    flags: Qt.FramelessWindowHint
 
     property color noColor: "#00000000"
     property real customOpacity: 0.7
     property color biruzoviu: "#068d9d"
+
+
 
     signal clicked
 
@@ -64,7 +66,7 @@ Window {
                 y: 8
                 width: 210
                 height: 76
-                text: qsTr("Вы уверены, что хотите создать чат с Максимом Горбуновым ")
+                text: qsTr("Вы уверены, что хотите создать чат с " + name + " (" + login + ") ")
                 font.pixelSize: 12
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -95,7 +97,8 @@ Window {
                     anchors.fill: parent
 
                     onClicked: {
-                        console.log("Не хочу с ним разговаривать")
+//                        console.log("Не хочу с ним разговаривать")
+                        client.
                         confidenceWidget.close()
                     }
                 }

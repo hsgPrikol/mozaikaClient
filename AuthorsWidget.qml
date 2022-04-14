@@ -3,12 +3,12 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
-
-Rectangle {
+ Image{
     id: supporting
     width: 506
     height: 900
-    color: "#80000000"
+//    color: "#80000000"
+    source: "qrc:/picture/phone.tif"
 
     //    flags: Qt.FramelessWindowHint
 

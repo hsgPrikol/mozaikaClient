@@ -71,12 +71,26 @@
         <file>resourses/chat/OneGalochka.png</file>
         <file>resourses/chat/SendedMessage.tif</file>
         <file>resourses/chat/двеГалочки.png</file>
-<<<<<<< HEAD
+        <file>ContactPageMain.qml</file>
         <file>SupportingWidget.qml</file>
         <file>AuthorsWidget.qml</file>
         <file>picture/cyber_mandarin.png</file>
+<<<<<<< HEAD
+        <file>UniversalMediafileWidget.qml</file>
+        <file>AudioWidget.qml</file>
+        <file>PictureWidget.qml</file>
+        <file>TextWidget.qml</file>
+        <file>picture/PauseAudio.tif</file>
+        <file>picture/StartAudio.tif</file>
+        <file>ToolTipVideo.qml</file>
+        <file>picture/button/pause.png</file>
+        <file>picture/button/play.png</file>
+        <file>picture/button/scale.png</file>
+        <file>Separator.qml</file>
+        <file>picture/download.png</file>
 =======
-        <file>ContactPageMain.qml</file>
->>>>>>> refs/remotes/Mozaika/back
+        <file>RequestPrivatChat.qml</file>
+        <file>PrivateUserChat.qml</file>
+>>>>>>> refs/remotes/Mozaika/prikol
     </qresource>
 </RCC>

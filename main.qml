@@ -23,7 +23,14 @@ Window {
     property int dfltHeight: 900
 
     property int currentDialogOpen: -1
+    property int currentContactOpen: -1
+    property string currentCharContactOpen
 
+    property string createChatType: "none"
+
+
+    property string privateCharReqLogin
+    property string privateCharReqName
 
     ErrorDialog{
         id: errorDialog
@@ -33,22 +40,7 @@ Window {
     }
 
 
-    Component{
-        id: supportingComp
 
-        SupportingWidget{
-            id: supporting
-
-        }
-    }
-
-    Component{
-        id: authorsWidget
-
-        AuthorsWidget{
-            id: authors
-        }
-    }
 
     function sendMessage()
     {
@@ -59,6 +51,8 @@ Window {
 
         client.authorization(login, passwor, clientData);
     }
+
+
 
     function autorization(name, avatar, birthDay, status)
     {
@@ -88,6 +82,31 @@ Window {
         console.log("------------------------------------");
         loader.sourceComponent = listDialog
         //        loader.setSource("ListDialogs.qml");
+    }
+
+    function getInviteInPrivat(login, name){
+//        loader.sourceComponent = confidenceWidget
+        privateCharReqLogin = login
+        privateCharReqName = name
+        dialogPrivateChat.visible=true
+//        loader.sourceComponent = inviteSecretChat
+
+
+//        client.getReqPrivateChat(login, name)
+    }
+
+
+//    Component{
+//        id: inviteSecretChat
+
+
+//    }
+
+    Component{
+        id: confidenceWidget
+        ConfidenceWidget{
+
+        }
     }
 
     //autorization
@@ -445,11 +464,16 @@ Window {
     }
 
 
+
+
     Component.onCompleted: {
         console.log("Авторизация загружена");
 
         client.onAutorization.connect(autorization);
         client.onGetDialogs.connect(getdialogs);
+
+
+        client.onGetInvitePrivat.connect(getInviteInPrivat);
     }
 
     Component{
@@ -480,17 +504,6 @@ Window {
         }
     }
 
-    Component{
-        id: inviteSecretChat
-
-        DialogPrivateChat{
-            x: 100
-            y: 300
-        }
-    }
-
-
-    //componentDialog
     Loader{
         id: loader
 
@@ -505,12 +518,24 @@ Window {
 
 
 
+
+    //componentDialog
+
+
+
+
     NavigationDrawer{
         id: navDrawer
         x: -506
     }
 
 
+    DialogPrivateChat{
+        id: dialogPrivateChat
+        visible: false
+        x: 100
+        y: 300
+    }
 
 
 }
