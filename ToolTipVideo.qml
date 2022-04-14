@@ -10,13 +10,15 @@ Rectangle{
     width: 300
     height: 200
     //    opacity: 0.3
-
     property int sizeVideo: videoMessage.duration / 10 / 60
-    property real procentVideo: videoMessage.duration / 100 / 1000
+    property real procentVideo: videoMessage.duration / 100
     property int secondVideo: videoMessage.duration / 1000 / 60 / 100
     property int minuteVideo: 0
     property int minuteSizeVideo: sizeVideo / 100
     property int secondSizeVideo: sizeVideo % 100
+
+    property int countTimer: 1
+    property int secondsVideoDurationINT: testMap.getSizeSeconds(videoMessage.duration) % 60
 
     Rectangle {
         id: mask
@@ -87,9 +89,17 @@ Rectangle{
             running: false;
             repeat: true
             onTriggered: {
-                progressBar.value += procentVideo
+                progressBar.value += videoMessage.duration / secondsVideoDurationINT
                 secondVideo +=1
 //                console.log(progressBar.value)
+
+                if (countTimer == secondsVideoDurationINT)
+                {
+                    timerVideo.stop()
+
+                }
+                countTimer++
+//                console.log(videoMessage.duration /1000 /60, videoMessage.duration /1000 %60,)
 
                 if (secondVideo == 60)
                 {
@@ -108,12 +118,25 @@ Rectangle{
             height: 8
             value: 0
             from: 0
-            to: sizeVideo
+            to: videoMessage.duration
+
+            background: Rectangle {
+                     color: "white"
+                     radius: 3
+                 }
+
+            contentItem: Rectangle{
+                width: progressBar.visualPosition * parent.width
+                height: parent.width
+                color: Qt.darker("gray")
+                radius: 2
+            }
+
         }
 
         Text {
             id: text1
-            x: 8
+            x: 0
             y: 168
             width: 42
             height: 17
@@ -130,6 +153,8 @@ Rectangle{
             }
 
             font.pixelSize: 12
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
         }
 
         Text {
@@ -138,14 +163,22 @@ Rectangle{
             y: 168
             width: 42
             height: 17
-            text: minuteSizeVideo + ":" + secondSizeVideo
+            text: testMap.getSizeMinuts(videoMessage.duration) + ":" + testMap.getSizeSeconds(videoMessage.duration)
             font.pixelSize: 12
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            anchors.right: parent.right
         }
+    }
+
+    Component.onCompleted: {
+
+
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.66}D{i:6}
+    D{i:0;formeditorZoom:1.66}D{i:8}
 }
 ##^##*/

@@ -24,24 +24,11 @@ public slots:
 
     int getSizePicture() { return picture.size();}
 
-
     void emitMultiWidget();
 
+    int getSizeMinuts(int size);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    int getSizeSeconds(int size);
 
 
 

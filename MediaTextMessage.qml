@@ -7,6 +7,12 @@ import QtGraphicalEffects 1.0
 Rectangle {
     id: mediaTextMessage
 
+
+
+
+
+    property bool isOneMessge: false
+
     property int dfltHeight: 230
     property int dfltWidth: 300
     property color noColor: "#00000000"
@@ -46,10 +52,10 @@ Rectangle {
     property int dfltHeightMul: 200
     property var contentImg
 
-    property int countImg: 1
-    property int countVid: 1
-    property int countAud: 1
-    property int countText: 1
+    property int countImg: 0
+    property int countVid: 0
+    property int countAud: 0
+    property int countText: 0
 
     anchors.leftMargin: 7
     anchors.rightMargin: 7
@@ -69,16 +75,20 @@ Rectangle {
     }
 
     width: dfltWidth
-    height: dfltHeightMul + 24 + textMessage.height
+    height: dfltHeightMul + 24 + textMessage.height + 80
 
-    color: flagWhenMessage ? selfColor : enemyColor
+    color: "transparent"/*flagWhenMessage ? selfColor : enemyColor*/
     radius: 15
+
+//    border.color: isOneMessge ? "black" : "transparent"
+//    border.width: 1
+
     Column {
         id: columnMaskMedia
         //            x: 0
         //            y: 35
 
-        spacing: 2
+        spacing: 10
         Rectangle {
             id: maskTextMessage
             width: dfltWidth
@@ -94,7 +104,15 @@ Rectangle {
                     calcHeightText = calcHeight + 14
                 }
             }
-            color: noColor
+            color: selfColor
+            radius: 10
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    isOneMessge = !isOneMessge
+                }
+            }
 
             Text {
                 id: textMessage
@@ -146,8 +164,9 @@ Rectangle {
         Repeater{
             id: repText
             model: countText
+
             TextWidget{
-                sourceText: "Ghbdtn!"
+                sourceText: "ну и хуня.txt"
             }
         }
 

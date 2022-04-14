@@ -8,24 +8,28 @@ import QtMultimedia 5.12
 Rectangle {
     width: 300
     height: 50
-    color: "#00000000"
+    color: "#068d9d"
     radius: 10
+
+    //    border.width: 1
+    //    border.color: "white"
 
     property bool flagMusic: false
 
-
+    property int countAudio: 1
+    property int secondsAudioDurationINT: testMap.getSizeSeconds(playMusic.duration) % 60
 
     property int sizeSong: playMusic.duration / 10 / 60
-    property real procentSong: playMusic.duration / 100 / 1000
+    property real procentSong: playMusic.duration / 100
     property int secondSong: playMusic.duration / 1000 / 60 / 100
     property int minuteSong: 0
-     property int minuteSizeSong: sizeSong / 100
+    property int minuteSizeSong: sizeSong / 100
     property int secondSizeSong: sizeSong % 100
 
-        Audio{
-            id: playMusic
-            source: "file:///C:/Users/rota/Desktop/Minelli - Rampampam.mp3"
-        }
+    Audio{
+        id: playMusic
+        source: "file:///C:/Users/rota/Desktop/Minelli - Rampampam.mp3"
+    }
 
     Timer{
         id: timer
@@ -33,14 +37,22 @@ Rectangle {
         running: false;
         repeat: true
         onTriggered: {
-            progressBar.value += procentSong
+            progressBar.value += 1/( playMusic.duration /1000)/// secondsAudioDurationINT
+            console.log(playMusic.duration," ",secondsAudioDurationINT, playMusic.duration / secondsAudioDurationINT, progressBar.value)
             secondSong +=1
-//            console.log(progressBar.value)
+            //            console.log(progressBar.value)
 
-            if (secondSong == 60)
+
+            if (secondSong == playMusic.duration /1000)
+            {
+                timer.stop()
+            }
+            countAudio++
+
+            if (secondSong%60 == 0)
             {
                 minuteSong++;
-                secondSong = 0;
+                //secondSong = 0;
             }
 
         }
@@ -52,8 +64,9 @@ Rectangle {
         y: 33
         width: 56
         height: 17
-        text: minuteSizeSong + ":" + secondSizeSong
+        text: testMap.getSizeMinuts(playMusic.duration) + ":" + testMap.getSizeSeconds(playMusic.duration)
         font.pixelSize: 12
+        anchors.right: parent.right
     }
 
     ProgressBar {
@@ -63,11 +76,26 @@ Rectangle {
         width: 232
         height: 8
         from: 0
-        to: sizeSong
+        to: 1
+        value: 0//playMusic.duration
+
+        background: Rectangle {
+                 color: "white"
+                 radius: 3
+             }
+
+        contentItem: Rectangle{
+            width: progressBar.visualPosition * parent.width
+            height: parent.width
+            color: Qt.darker("gray")
+            radius: 2
+        }
 
     }
 
     Text {
+
+
         id: text2
         x: 48
         y: 33
@@ -75,54 +103,67 @@ Rectangle {
         height: 17
         text:
         {
-            if (secondSong < 10)
+            if (secondSong%60 < 10)
             {
-               minuteSong + ":0" + secondSong
+                minuteSong + ":0" + secondSong%60
             }
             else
             {
-                minuteSong + ":" + secondSong
+                minuteSong + ":" + secondSong%60
             }
         }
+
+
         font.pixelSize: 12
     }
 
-    Image {
-        id: playerAudio
-        x: 15
+    Rectangle{
+        x: 12
         y: 8
         width: 34
-        height: 35
-        source: "qrc:/picture/button/play.png"
-        fillMode: Image.PreserveAspectFit
-        scale: mousePlayerAudio.containsPress ? 1.1 : 1
+        height: 34
+        radius: width/2
+        color: "white"
+        Image {
+            id: playerAudio
+            x: 0
+            y: 0
+            width: 34
+            height: 34
+            source: "qrc:/picture/button/play.png"
+            fillMode: Image.PreserveAspectFit
+            scale: mousePlayerAudio.containsPress ? 1.1 : 1
 
-        MouseArea{
-            id: mousePlayerAudio
-            anchors.fill: parent
+            MouseArea{
+                id: mousePlayerAudio
+                anchors.fill: parent
 
-            hoverEnabled: true
+                hoverEnabled: true
 
-            onClicked: {
-                if (!flagMusic)
-                {
-                    playerAudio.source = "qrc:/picture/button/pause.png"
-                    timer.start()
-                    playMusic.play()
+                onClicked: {
+                    if (!flagMusic)
+                    {
+                        playerAudio.source = "qrc:/picture/button/pause.png"
+                        timer.start()
+                        playMusic.play()
+                    }
+                    else
+                    {
+                        playMusic.pause()
+                        timer.stop()
+                        playerAudio.source = "qrc:/picture/button/play.png"
+                    }
+                    flagMusic = !flagMusic
                 }
-                else
-                {
-                    playMusic.pause()
-                    timer.stop()
-                   playerAudio.source = "qrc:/picture/button/play.png"
-                }
-                flagMusic = !flagMusic
+
+
             }
-
-
         }
     }
 
+    //    Separator{
+    //        anchors.top: parent.bottom
+    //    }
 }
 
 /*##^##

@@ -85,5 +85,7 @@
         <file>picture/button/pause.png</file>
         <file>picture/button/play.png</file>
         <file>picture/button/scale.png</file>
+        <file>Separator.qml</file>
+        <file>picture/download.png</file>
     </qresource>
 </RCC>

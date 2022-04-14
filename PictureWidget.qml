@@ -12,7 +12,11 @@ Rectangle {
     width: 300
     height: 170
 
-    color: "#00000000"
+//    border.width: 1
+//    border.color: "white"
+    radius: 10
+
+    color: "#068d9d"
 
     Image {
         anchors.fill: parent
@@ -22,4 +26,8 @@ Rectangle {
         anchors.leftMargin: 54
         anchors.topMargin: 23
     }
+
+//    Separator{
+//        anchors.top: parent.bottom
+//    }
 }

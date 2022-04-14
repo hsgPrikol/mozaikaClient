@@ -22,18 +22,50 @@ Rectangle {
     width: 300
     height: 50
 
-    color: "white"
-    opacity: 0.7
-    radius: 25
+    color: "#068d9d"
+    //    opacity: 0.7
+    radius: 10
+    //    border.color: "white"
+    //    border.width: 1
 
     Text {
+        color: "#ffffff"
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        anchors.rightMargin: 8
+        anchors.bottomMargin: 8
+        anchors.leftMargin: 52
+        anchors.topMargin: 8
         font.underline: true
         font.bold: true
         font.pointSize: 16
         text: sourceText
+        elide: Text.ElideRight
+    }
+
+    //    Separator{
+    //        anchors.top: parent.bottom
+    //    }
+
+    Rectangle {
+        id: rectangle
+        x: 12
+        y: 8
+        width: 34
+        height: 34
+        color: "#ffffff"
+        radius: 17
+
+        Image {
+            id: download
+            x: 0
+            y: 0
+            width: 34
+            height: 34
+            source: "picture/download.png"
+            fillMode: Image.PreserveAspectFit
+        }
     }
 
     MouseArea{
@@ -43,10 +75,12 @@ Rectangle {
             fileDialog.open()
         }
     }
+
+
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}
+    D{i:0;formeditorZoom:2}
 }
 ##^##*/

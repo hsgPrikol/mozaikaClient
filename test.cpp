@@ -41,6 +41,16 @@ void Test::emitMultiWidget()
     emit onEverythingMessage();
 }
 
+int Test::getSizeMinuts(int size)
+{
+    return size/1000/60;
+}
+
+int Test::getSizeSeconds(int size)
+{
+    return size/1000%60;
+}
+
 QString Test::getMassage(int index)
 {
     //        qDebug() <<"getMassage"<< index;
