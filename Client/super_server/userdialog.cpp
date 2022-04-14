@@ -5,7 +5,10 @@ int UserDialog::getCountUnChecked()
     int count=0;
     foreach(auto m,messages)
         if(m.getStatus()!=3)
+        {
             count++;
+        }
+
 
     return count;
 }

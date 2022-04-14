@@ -51,6 +51,32 @@ ClientGeneral::ClientGeneral(QObject *parent) : QObject(parent)
     socketServer.open(URL_SERVER);
 }
 
+void ClientGeneral::handlerUpdateStatusUser(QJsonObject *object)
+{
+    QString login = (*object)[ProtocolTrade::___LOGIN].toString();
+    QString newStatus = (*object)[ProtocolTrade::___STATUS_USER].toString();
+
+    bool status = newStatus == ProtocolTrade::___STS_ONLINE;
+
+    for(int i = 0; i < clientData->dialogs.size(); i++)
+    {
+        if(!clientData->dialogs[i].getIsGroup())
+        {
+            for(int j = 0; j < clientData->dialogs[i].members.size(); j++)
+            {
+                if(clientData->dialogs[i].members[j] == login)
+                {
+                    clientData->dialogs[i].isOnline = status;
+                    emit onUpdateChat(clientData->dialogs[i].getID());
+                    break;
+                }
+            }
+        }
+    }
+
+    emit onUpdateAllChats();
+}
+
 //void ClientGeneral::authorization(QString login, QString password)
 //{
 //    ClientGeneral::authorization(login, password, &socketServer);
@@ -163,7 +189,14 @@ void ClientGeneral::handlerCmdSendMessageAnswerServer(QJsonObject *object)
     clientData->UpdateMessageId(idChat, tmpIdMessage, idMessage, statusMessage);
 
     emit onUpdateMessage(idChat.toInt(), idMessage.toInt());
-//    emit onMessageReceived(3,"","",4);
+    //    emit onMessageReceived(3,"","",4);
+}
+
+void ClientGeneral::handlerCmdUpdateChat(QJsonObject *object)
+{
+    QString idChat = ((*object)[ProtocolTrade::___ID_CHAT]).toString();
+    getMessagesInDialog(idChat);
+    emit onUpdateChat(idChat.toInt());
 }
 
 void ClientGeneral::processingEventFromServer(QJsonObject *object)
@@ -218,7 +251,14 @@ void ClientGeneral::processingEventFromServer(QJsonObject *object)
         // Обработка ответа от сервера на запрос всех диалогов
         answerMyDialogs(object);
     }
-
+    else if (commandFromClient == ProtocolTrade::___CMD_UPDATE_STATUS_USER)
+    {
+        handlerUpdateStatusUser(object);
+    }
+    else if (commandFromClient == ProtocolTrade::___CMD_UDATE_CHAT)
+    {
+        handlerCmdUpdateChat(object);
+    }
 }
 
 void ClientGeneral::sendMessage(QString idChat, QString tmpIdMsg, QString textMsg, QVector<QString> paths)
@@ -300,6 +340,16 @@ void ClientGeneral::sendPrivateMessage(QString tmpIdMsg, QString textMsg, QVecto
 
         jObj->insert(ProtocolTrade::___ARR_ATTACHMENT, arrAttachment);
     }
+
+    ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
+}
+
+void ClientGeneral::sendReadAllMessageByChat(QString idChat)
+{
+    QJsonObject* jObj = new QJsonObject({
+                                            {ProtocolTrade::___COMMAND, QJsonValue(ProtocolTrade::___CMD_READ_ALL_MESSAGE_BY_CHAT)},
+                                            {ProtocolTrade::___ID_CHAT, QJsonValue(idChat)}
+                                        });
 
     ProtocolTrade::SendTextMessage(ProtocolTrade::JsonObjectToString(jObj), &socketServer);
 }

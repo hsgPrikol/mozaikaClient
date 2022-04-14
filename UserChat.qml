@@ -108,27 +108,40 @@ Rectangle {
 
     function ebaka(){
         //        repeaterChat.model = 0
+//        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EBAKA")
+//        console.log(currentDialogOpen)
+//        console.log(clientData.getDialogIsGroup(currentDialogOpen))
+//        console.log(clientData.getCountMembers(currentDialogOpen))
+//        console.log(clientData.getDialogIsOnline(currentDialogOpen))
+//        console.log(currentDialogOpen)
+//        console.log(currentDialogOpen)
 
-        clientData.setAllReadMessageInDialog(currentDialogOpen);
+
+        var indexDialog = clientData.getIndexDialog(currentDialogOpen);
+        text1.text = clientData.getDialogIsGroup(indexDialog) ? clientData.getCountMembers(indexDialog) + " участника" : (clientData.getDialogIsOnline(indexDialog)? "в сети" : "не в сети")
+//        client.sendReadAllMessageByChat(clientData.getIdDialog(indexDialog))
+
+        // ОЧЕНЬ ВАЖНО МБ ПРИГОДИТЬСЯ
+//        clientData.setAllReadMessageInDialog(currentDialogOpen);
 
         for(var i = 0; i < columnChat.data.length;i++)
         {
             columnChat.data[i].destroy()
         }
 
-        for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
-        {
-            var str="file:///" +currentDir+"/" +clientData.getAvatarPathContact(currentDialogOpen,i);
+        for(var i=0;i < clientData.getCountMessages(indexDialog);i++)
+        {            
+            var str="file:///" +currentDir+"/" +clientData.getAvatarPathContact(indexDialog,i);
             console.log(str)
             var tmp=newMassege.createObject(columnChat,
                                             {
-                                                sizeMessage: clientData.getLength(clientData.getTextMessage(currentDialogOpen,i)),
-                                                messageText: clientData.getTextMessage(currentDialogOpen,i),
-                                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen,i),
-                                                messageTime: clientData.getDateMessage(currentDialogOpen,i),
+                                                sizeMessage: clientData.getLength(clientData.getTextMessage(indexDialog,i)),
+                                                messageText: clientData.getTextMessage(indexDialog,i),
+                                                flagWhenMessage: clientData.getIsSenderMessage(indexDialog,i),
+                                                messageTime: clientData.getDateMessage(indexDialog,i),
                                                 messageStatus: 3,
                                                 avatarClient: str,
-                                                isGroupDialog: clientData.getDialogIsGroup(currentDialogOpen)
+                                                isGroupDialog: clientData.getDialogIsGroup(indexDialog)
 
                                             });
         }
@@ -137,7 +150,7 @@ Rectangle {
     }
 
     function updateStatusMessage(d_id, m_id, status){
-        if(clientData.getIdDialog(currentDialogOpen)==d_id)
+        if(currentDialogOpen==d_id)
         {
             ebaka()
         }
@@ -147,7 +160,7 @@ Rectangle {
 
         //        if(loader.sourceComponent == userChat)
         //        {
-        if(clientData.getIdDialog(currentDialogOpen) == id_chat)
+        if(currentDialogOpen == id_chat)
         {
 
             ebaka()
@@ -212,7 +225,7 @@ Rectangle {
                             x: 8
                             y: 8
                             anchors.fill: parent
-                            source: clientData.getPathAvatar(currentDialogOpen) ==""?"qrc:/resourses/avatar/efreitor.tif":"file:///" +currentDir+"/" + clientData.getPathAvatar(currentDialogOpen)
+                            source: clientData.getPathAvatar(clientData.getIndexDialog(currentDialogOpen)) ==""?"qrc:/resourses/avatar/efreitor.tif":"file:///" +currentDir+"/" + clientData.getPathAvatar(clientData.getIndexDialog(currentDialogOpen))
                             layer.enabled: true
                             anchors.rightMargin: 0
                             layer.effect: OpacityMask {
@@ -236,7 +249,7 @@ Rectangle {
                     Text {
                         id: text2
                         color: "#ffffff"
-                        text: clientData.getNameDialog(currentDialogOpen)
+                        text: clientData.getNameDialog(clientData.getIndexDialog(currentDialogOpen))
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -254,7 +267,7 @@ Rectangle {
                     Text {
                         id: text1
                         color: "#ffffff"
-                        text: clientData.getDialogIsGroup(currentDialogOpen) ? clientData.getCountMembers(currentDialogOpen) + " участника" : (clientData.getDialogIsOnline(currentDialogOpen)? "в сети" : "не в сети")
+                        text: clientData.getDialogIsGroup(clientData.getIndexDialog(currentDialogOpen)) ? clientData.getCountMembers(clientData.getIndexDialog(currentDialogOpen)) + " участника" : (clientData.getDialogIsOnline(clientData.getIndexDialog(currentDialogOpen))? "в сети" : "не в сети")
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter

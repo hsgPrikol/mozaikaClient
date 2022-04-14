@@ -57,6 +57,7 @@ public slots:
     int getCountMembers(int index);
     QString getNameDialog(int index){return dialogs[index].getName();}
     int getIdDialog(int index){return dialogs[index].getID();}
+    int getIndexDialog(int id);
     QString getPathAvatar(int index){return dialogs[index].getAvatarPath();}
 
     QString getTextLastMessage(int index);
