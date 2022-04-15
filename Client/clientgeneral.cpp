@@ -610,6 +610,8 @@ void ClientGeneral::getReqPrivateChat(QString requester_login, bool isAccepted/*
                                      {ProtocolTrade::___PORT_USER, QJsonValue(QString::number(port))},
                                      {ProtocolTrade::___LOGIN, QJsonValue(requester_login)}
                                  });
+
+        emit onOpenPrivateChat(requester_login);
     }
 
     else
@@ -632,6 +634,7 @@ void ClientGeneral::getAnswerCreatePrivateChat(QJsonObject *qObj)
         QString port = ((*qObj)[ProtocolTrade::___PORT_USER]).toString();
         QString login = ((*qObj)[ProtocolTrade::___LOGIN]).toString();
 
+        emit onOpenPrivateChat(login);
         //чувак согласился на првиатный чат надо с этим что-то делать
 
         SrcPrivateChat* tmpSrc = new SrcPrivateChat(login, Fix::loginUser, port.toUInt(), ip);

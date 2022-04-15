@@ -131,6 +131,7 @@ Rectangle
                 anchors.fill: parent
 
                 onClicked: {
+                    client.getReqPrivateChat(privateCharReqLogin,true)
                     console.log("Да")
                 }
             }
@@ -162,6 +163,7 @@ Rectangle
                 hoverEnabled: true
 
                 onClicked: {
+                    client.getReqPrivateChat(privateCharReqLogin,false)
                     console.log("Нет")
                 }
             }

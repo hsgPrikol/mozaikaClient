@@ -32,6 +32,7 @@ public slots:
 
     QString getCurrentLogin(){return user->getLogin();}
 
+    void saveFile(QString nameFile, QString path);
 
     void addContact(User* user);
     QString getNameContact(QString login);

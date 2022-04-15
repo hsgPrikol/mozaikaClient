@@ -89,5 +89,6 @@
         <file>picture/button/scale.png</file>
         <file>Separator.qml</file>
         <file>picture/download.png</file>
+        <file>picture/phonePrivate.png</file>
     </qresource>
 </RCC>

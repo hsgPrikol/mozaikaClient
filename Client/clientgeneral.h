@@ -110,6 +110,7 @@ signals:
 
 
     void onGetInvitePrivat(QString login, QString name);
+    void onOpenPrivateChat(QString login);
 //    void onGetMessages();
 
 //    void onUpdateStatusMessage(int, int, int);

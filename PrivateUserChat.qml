@@ -11,7 +11,7 @@ Rectangle {
     property int dfltHeight: 900
     property color noColor: "#00000000"
     property real customOpacity: 0.7
-    property color biruzoviu: "#068d9d"
+    property color biruzoviu: "#034d55"
 
     property int heightToolBar: 60
     property int countIndexVessage: 0
@@ -64,7 +64,7 @@ Rectangle {
         }
 
         for(var i=0;i < clientData.getCountMessages(currentDialogOpen);i++)
-        {            
+        {
             var str="file:///" +currentDir+"/" +clientData.getAvatarPathContact(currentDialogOpen,i);
             console.log(str)
             var tmp=newMassege.createObject(columnChat,
@@ -120,7 +120,7 @@ Rectangle {
         Image {
             id: mainPhone
             anchors.fill: parent
-            source: "qrc:/picture/phone.tif"
+            source: "qrc:/picture/phonePrivate.png"
             opacity: 0.7
         }
 
@@ -159,7 +159,7 @@ Rectangle {
                             x: 8
                             y: 8
                             anchors.fill: parent
-                            source: clientData.getPathAvatar(currentDialogOpen) ==""?"qrc:/resourses/avatar/efreitor.tif":"file:///" +currentDir+"/" + clientData.getPathAvatar(currentDialogOpen)
+                            source: clientData.getAvatarPathContact(privateCharReqLogin) ==""?"qrc:/resourses/avatar/efreitor.tif":"file:///" +currentDir+"/" + clientData.getAvatarPathContact(privateCharReqLogin)
                             layer.enabled: true
                             anchors.rightMargin: 0
                             layer.effect: OpacityMask {
@@ -183,7 +183,8 @@ Rectangle {
                     Text {
                         id: text2
                         color: "#ffffff"
-                        text: clientData.getNameDialog(currentDialogOpen)
+                        textFormat: Text.RichText
+                        text: privateCharReqName
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -201,7 +202,7 @@ Rectangle {
                     Text {
                         id: text1
                         color: "#ffffff"
-                        text: clientData.getDialogIsGroup(currentDialogOpen) ? clientData.getCountMembers(currentDialogOpen) + " участника" : (clientData.getDialogIsOnline(currentDialogOpen)? "в сети" : "не в сети")
+                        text: "приватный диалог"
                         anchors.fill: parent
                         font.pixelSize: fontSize
                         verticalAlignment: Text.AlignVCenter
@@ -300,50 +301,12 @@ Rectangle {
 //                    contentHeight: clientData.getCountDialogs() * (columnChat.spacing + message.height)
 
                     clip: true
-                    //                    LayoutMirroring.enabled: true
-
-                    //                    property var t: repeaterChat.model * (columnChat.spacing + message.height)
-                    //                    ScrollBar.vertical.position: t
-
 
                     Column{
                         id: columnChat
                         anchors.fill: parent
 
                         spacing: 15
-
-//                        Rectangle{
-//                            width: 1
-//                            height: date.height - 10
-//                            color: "#00000000"
-//                        }
-
-                        //                        Repeater{
-                        //                            id: repeaterChat
-                        //                            anchors.fill: parent
-
-                        //                            model: clientData.getCountMessages(currentDialogOpen)
-
-                        //                            Massage{
-                        //                                id: message
-
-                        //                                messageText: clientData.getTextMessage(currentDialogOpen, index)
-                        //                                flagWhenMessage: clientData.getIsSenderMessage(currentDialogOpen, index)//testBoolArray[index]
-                        //                                messageTime: clientData.getDateMessage(currentDialogOpen, index)
-                        //                                sizeMessage: clientData.getSizeTextMessage(currentDialogOpen, index)
-                        //                                messageStatus: clientData.getStatusMessage(currentDialogOpen, index)
-
-
-                        //                                Component.onCompleted: {
-                        //                                    console.log(repeaterChat.model)
-                        //                                    console.log(index)
-
-                        //                                    contactsss.setCountIndexMessage(countIndexVessage++)
-                        //                                }
-                        //                            }
-
-
-                        //contactsss.setCountIndexMessage(countIndexVessage)
                     }
 
                     onContentHeightChanged: {
@@ -365,6 +328,7 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
+                biruzoviu: "#034d55"
                 //                currentDialogDownBar: currentDialog
             }
         }
@@ -402,13 +366,13 @@ Rectangle {
                 //        testMap.onCreateNewMassage.connect(creareNewMessage);
 
         //        testMap.onMediaMessage.connect(createMediaMessage)
-        client.onUpdateChat.connect(updateChat)
+//        client.onUpdateChat.connect(updateChat)
 
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.5}
+    D{i:0;formeditorZoom:0.33}
 }
 ##^##*/

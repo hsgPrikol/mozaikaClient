@@ -73,6 +73,13 @@ Window {
         }
     }
 
+    function openPrivateChat(login){
+        privateCharReqLogin = login
+        privateCharReqName = clientData.getNameContact(login)
+        dialogPrivateChat.visible=false
+        loader.sourceComponent = privateChat;
+    }
+
     function getdialogs(){
         //        currentDialogs.setDialogs(nenuzhno)
         //        spisok_dialogov = currentDialogs.getMyDialogs()
@@ -474,6 +481,7 @@ Window {
 
 
         client.onGetInvitePrivat.connect(getInviteInPrivat);
+        client.onOpenPrivateChat.connect(openPrivateChat);
     }
 
     Component{
@@ -527,6 +535,14 @@ Window {
     NavigationDrawer{
         id: navDrawer
         x: -506
+    }
+
+    Component{
+        id: privateChat
+
+        PrivateUserChat{
+
+        }
     }
 
 

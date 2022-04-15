@@ -36,6 +36,7 @@ Rectangle {
 
     function redrawDialogs()
     {
+        if(columnDialogs.data!=null)
         for(var i = 1; i < columnDialogs.data.length;i++)
         {
             columnDialogs.data[i].destroy()

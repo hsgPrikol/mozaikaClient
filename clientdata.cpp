@@ -4,6 +4,31 @@ ClientData::ClientData(QObject *parent) : QObject(parent)
 {
 }
 
+void ClientData::saveFile(QString nameFile, QString path)
+{
+    path.remove("file:///");
+    QString pathExit=path+"/"+getFileNameWithoutPath(nameFile);
+    QString f=QDir::currentPath()+"/"+nameFile;
+    QFile file(f);
+    file.open(QIODevice::ReadOnly);
+
+    qDebug()<<f;
+    qDebug()<<pathExit;
+    QByteArray bytes=file.readAll();
+    file.close();
+
+    QFile file2(f+"333");
+
+    file2.open(QIODevice::NewOnly);
+if(!file2.isOpen())
+    qDebug() << file2.errorString();
+    file2.write(bytes);
+    file2.close();
+
+//   file.copy(pathExit);
+//   file.close();
+}
+
 void ClientData::addContact(User *user)
 {
     for(int j=0;j<contacts.keys().count();j++){

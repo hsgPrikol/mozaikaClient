@@ -73,11 +73,11 @@ Rectangle {
 
             //                var tmpList=[]
             //                filesSelected = fileOpenDialog.fileUrls;
-
+            var tmp=[]
             for(var i=0;i<fileOpenDialog.fileUrls.length;i++){
-                filesSelected.push(fileOpenDialog.fileUrls[i])
+                tmp.push(fileOpenDialog.fileUrls[i])
             }
-
+            filesSelected=tmp;
             sendMesage()
 
             console.log(filesSelected)

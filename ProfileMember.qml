@@ -169,7 +169,7 @@ Rectangle {
                 width: 92
                 height: 41
                 color: "#ffffff"
-                text: qsTr("online")
+                text: qsTr("не в сети")
                 font.pixelSize: 12
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

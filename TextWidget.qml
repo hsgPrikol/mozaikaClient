@@ -13,10 +13,14 @@ Rectangle {
 
     FileDialog{
         id: fileDialog
-//        fileMode: FileDialog.sa
+        selectFolder: true
         onAccepted: {
             console.log("filedialog")
+
+            var path = fileDialog.folder;
+            clientData.saveFile(sourceText, path);
         }
+
     }
 
     width: 300
@@ -40,7 +44,7 @@ Rectangle {
         font.underline: true
         font.bold: true
         font.pointSize: 16
-        text: sourceText
+        text: clientData.getFileNameWithoutPath(sourceText)
         elide: Text.ElideRight
     }
 

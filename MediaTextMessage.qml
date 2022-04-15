@@ -155,7 +155,7 @@ Rectangle {
 
             PictureWidget{
                 sourcePicture: "file:///" +currentDir+"/" +vectorImage[index]
-                fontMsgColor: !flagWhenMessage1 ? selfColor : enemyColor
+                fontMsgColor: flagWhenMessage1 ? selfColor : enemyColor
                 Component.onCompleted: {
                     console.log("PictureWidget", sourcePicture)
                     console.log("flagWhenMessage1", flagWhenMessage1)
@@ -170,7 +170,7 @@ Rectangle {
             model: countAud
             AudioWidget{
                 filePath: "file:///" +currentDir+"/" +vectorMusic[index]
-                fontMsgColor: !flagWhenMessage1 ? selfColor : enemyColor
+                fontMsgColor: flagWhenMessage1 ? selfColor : enemyColor
 
                 Component.onCompleted: {
                     console.log("flagWhenMessage", flagWhenMessage1)
@@ -184,8 +184,8 @@ Rectangle {
             model: countText
 
             TextWidget{
-                sourceText: /*"file:///" +currentDir+"/" +*/clientData.getFileNameWithoutPath(vectorObject[index])
-                fontMsgColor: !flagWhenMessage1 ? selfColor : enemyColor
+                sourceText: /*"file:///" +currentDir+"/" +*/vectorObject[index]
+                fontMsgColor: flagWhenMessage1 ? selfColor : enemyColor
                 Component.onCompleted: {
                     console.log("flagWhenMessage", flagWhenMessage1)
                     console.log("fontMsgColor", fontMsgColor)
